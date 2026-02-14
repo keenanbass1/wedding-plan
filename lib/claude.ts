@@ -30,7 +30,7 @@ export async function* streamChatResponse(
   } = options;
 
   const stream = await anthropic.messages.stream({
-    model: 'claude-3-5-sonnet-20241022',
+    model: process.env.CLAUDE_MODEL || 'claude-3-5-haiku-20241022', // Haiku for dev, can switch to Sonnet
     max_tokens: maxTokens,
     temperature,
     system: systemPrompt,
@@ -64,7 +64,7 @@ export async function getChatResponse(
   } = options;
 
   const response = await anthropic.messages.create({
-    model: 'claude-3-5-sonnet-20241022',
+    model: process.env.CLAUDE_MODEL || 'claude-3-5-haiku-20241022', // Haiku for dev, can switch to Sonnet
     max_tokens: maxTokens,
     temperature,
     system: systemPrompt,
