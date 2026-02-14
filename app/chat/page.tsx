@@ -7,7 +7,7 @@ export default function ChatPage() {
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-2">
             <span className="bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
-              Let's Plan Your Wedding
+              Let&apos;s Plan Your Wedding
             </span>
           </h1>
           <p className="text-gray-600 dark:text-gray-300">

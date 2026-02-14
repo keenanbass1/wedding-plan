@@ -11,7 +11,7 @@ export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi! Congratulations on your engagement! 🎉 I'm so excited to help you plan your dream wedding. Let's start with the basics - do you have a wedding date in mind, or are you still deciding?",
+      content: "Hi! Congratulations on your engagement! 🎉 I&apos;m so excited to help you plan your dream wedding. Let&apos;s start with the basics - do you have a wedding date in mind, or are you still deciding?",
     },
   ]);
   const [input, setInput] = useState('');
@@ -69,7 +69,7 @@ export default function ChatInterface() {
         ...updatedMessages,
         {
           role: 'assistant',
-          content: "I'm sorry, I'm having trouble connecting right now. Please try again.",
+          content: "I&apos;m sorry, I&apos;m having trouble connecting right now. Please try again.",
         },
       ]);
     } finally {
@@ -89,7 +89,7 @@ export default function ChatInterface() {
       {/* Chat Header */}
       <div className="p-4 border-b bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-t-lg">
         <h2 className="text-xl font-semibold">Wedding Planning Assistant</h2>
-        <p className="text-sm opacity-90">Let's plan your perfect day together!</p>
+        <p className="text-sm opacity-90">Let&apos;s plan your perfect day together!</p>
       </div>
 
       {/* Messages */}
