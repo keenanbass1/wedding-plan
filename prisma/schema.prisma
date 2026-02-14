@@ -1,0 +1,192 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String?
+  name         String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  weddings Wedding[]
+  sessions Session[]
+}
+
+model Wedding {
+  id                String        @id @default(cuid())
+  userId            String
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Wedding Details
+  weddingDate       DateTime?
+  dateFlexible      Boolean       @default(false)
+  location          String?       // "Sydney, NSW" or specific suburb
+  guestCount        Int?
+  budgetTotal       Int?          // In cents (AUD)
+  budgetVenue       Int?
+  budgetCatering    Int?
+  budgetPhotography Int?
+
+  // Preferences
+  style             String?       // "modern", "rustic", "formal", "casual"
+  mustHaves         String[]      // Array of requirements
+  dealBreakers      String[]
+  dietaryNeeds      String[]
+  accessibilityReqs String?
+
+  // Status
+  status            WeddingStatus @default(INTAKE)
+  chatCompleted     Boolean       @default(false)
+
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  conversations  Conversation[]
+  vendorOutreach VendorOutreach[]
+  savedVendors   SavedVendor[]
+}
+
+enum WeddingStatus {
+  INTAKE    // Gathering information via AI chat
+  MATCHING  // Finding vendors
+  OUTREACH  // Emails sent
+  REVIEWING // User reviewing responses
+  COMPLETED // User made decisions
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  weddingId String
+  wedding   Wedding  @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+
+  messages Json // Array of {role: 'user'|'assistant', content: string, timestamp: DateTime}
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Vendor {
+  id String @id @default(cuid())
+
+  // Basic Info
+  businessName String
+  category     VendorCategory
+  email        String // Primary contact
+  phone        String?
+  website      String?
+
+  // Location
+  suburb    String
+  state     String  @default("NSW")
+  address   String?
+  latitude  Float?
+  longitude Float?
+
+  // Services
+  priceRange      PriceRange?
+  capacity        Int? // Max guests (for venues)
+  servicesOffered String[] // ["full-service catering", "bar service", etc.]
+
+  // Metadata
+  verified      Boolean   @default(false)
+  responseRate  Float? // 0.0 - 1.0 (calculated from outreach history)
+  lastContacted DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  outreach VendorOutreach[]
+  savedBy  SavedVendor[]
+
+  @@index([category, suburb])
+}
+
+enum VendorCategory {
+  VENUE
+  PHOTOGRAPHER
+  CATERING
+  FLORIST
+  ENTERTAINMENT
+  MARQUEE
+  OTHER
+}
+
+enum PriceRange {
+  BUDGET   // $
+  MODERATE // $$
+  PREMIUM  // $$$
+  LUXURY   // $$$$
+}
+
+model VendorOutreach {
+  id        String  @id @default(cuid())
+  weddingId String
+  wedding   Wedding @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+  vendorId  String
+  vendor    Vendor  @relation(fields: [vendorId], references: [id])
+
+  // Email Details
+  emailSubject String
+  emailBody    String
+  sentAt       DateTime?
+
+  // Tracking
+  delivered Boolean @default(false)
+  opened    Boolean @default(false)
+  replied   Boolean @default(false)
+  bounced   Boolean @default(false)
+
+  // Response
+  responseEmail String? // Raw email response (if replied)
+  availability  VendorAvailability?
+  quote         Int? // In cents
+  notes         String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([weddingId, vendorId])
+}
+
+enum VendorAvailability {
+  AVAILABLE
+  UNAVAILABLE
+  TENTATIVE
+  UNKNOWN
+}
+
+model SavedVendor {
+  id         String  @id @default(cuid())
+  weddingId  String
+  wedding    Wedding @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+  vendorId   String
+  vendor     Vendor  @relation(fields: [vendorId], references: [id])
+
+  notes      String?
+  isFavorite Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@unique([weddingId, vendorId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionToken String   @unique
+  expires      DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
