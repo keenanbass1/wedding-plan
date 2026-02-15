@@ -11,15 +11,14 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(cuid())
-  email        String    @unique
-  passwordHash String?
-  name         String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id        String    @id @default(cuid())
+  authId    String    @unique  // Supabase auth.users.id
+  email     String    @unique
+  name      String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   weddings Wedding[]
-  sessions Session[]
 }
 
 model Wedding {
@@ -79,25 +78,39 @@ model Vendor {
   id String @id @default(cuid())
 
   // Basic Info
-  businessName String
+  name        String // Display name
+  businessName String? // Legal business name (optional)
   category     VendorCategory
   email        String // Primary contact
   phone        String?
   website      String?
 
   // Location
-  suburb    String
+  location  String // Main city/area (e.g., "Newcastle")
+  region    String? // Broader region (e.g., "Hunter Valley")
+  suburb    String? // Specific suburb
   state     String  @default("NSW")
   address   String?
   latitude  Float?
   longitude Float?
 
-  // Services
-  priceRange      PriceRange?
-  capacity        Int? // Max guests (for venues)
-  servicesOffered String[] // ["full-service catering", "bar service", etc.]
+  // Pricing
+  priceMin         Int? // Minimum price
+  priceMax         Int? // Maximum price
+  priceDescription String? // Text description of pricing
+  priceRange       PriceRange?
 
-  // Metadata
+  // Capacity & Services
+  capacity        VendorCapacity? // Size category
+  maxGuests       Int? // Max guests (for venues)
+  servicesOffered String[] // ["Ceremony venue", "Reception venue", etc.]
+
+  // Style & Attributes
+  styles      String[] // ["Rustic", "Modern", "Luxury", etc.]
+  description String   @db.Text
+
+  // Quality Metrics
+  rating        Float? // Average rating (0-5)
   verified      Boolean   @default(false)
   responseRate  Float? // 0.0 - 1.0 (calculated from outreach history)
   lastContacted DateTime?
@@ -108,7 +121,14 @@ model Vendor {
   outreach VendorOutreach[]
   savedBy  SavedVendor[]
 
+  @@index([category, location])
   @@index([category, suburb])
+}
+
+enum VendorCapacity {
+  SMALL  // < 50 guests
+  MEDIUM // 50-150 guests
+  LARGE  // 150+ guests
 }
 
 enum VendorCategory {
@@ -137,20 +157,24 @@ model VendorOutreach {
 
   // Email Details
   emailSubject String
-  emailBody    String
+  emailBody    String        @db.Text
+  emailId      String?       // Resend email ID for tracking
   sentAt       DateTime?
 
   // Tracking
-  delivered Boolean @default(false)
-  opened    Boolean @default(false)
-  replied   Boolean @default(false)
-  bounced   Boolean @default(false)
+  delivered   Boolean   @default(false)
+  deliveredAt DateTime?
+  opened      Boolean   @default(false)
+  openedAt    DateTime?
+  replied     Boolean   @default(false)
+  repliedAt   DateTime?
+  bounced     Boolean   @default(false)
 
   // Response
-  responseEmail String? // Raw email response (if replied)
+  responseEmail String?            @db.Text // Raw email response (if replied)
   availability  VendorAvailability?
   quote         Int? // In cents
-  notes         String?
+  notes         String?            @db.Text
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -180,13 +204,3 @@ model SavedVendor {
   @@unique([weddingId, vendorId])
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  sessionToken String   @unique
-  expires      DateTime
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
