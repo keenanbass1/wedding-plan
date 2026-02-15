@@ -1,8 +1,9 @@
-import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
 import { PrismaClient } from '@prisma/client'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
+
 import { VendorResponseForm } from '@/components/VendorResponseForm'
+import { createClient } from '@/lib/supabase/server'
 
 const prisma = new PrismaClient()
 
@@ -11,7 +12,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
 
   // Check authentication
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
   if (!user) {
     redirect('/auth/login?redirect=/dashboard/vendor/' + id)
@@ -85,8 +88,18 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
               href="/dashboard/outreach"
               className="flex items-center gap-2 text-gray-600 hover:text-rose-500 transition-colors duration-300 group mb-6"
             >
-              <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              <svg
+                className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                />
               </svg>
               <span className="text-sm font-light tracking-wide">Back to Outreach</span>
             </Link>
@@ -103,9 +116,24 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                     {vendor.category}
                   </span>
                   <div className="flex items-center gap-1.5">
-                    <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <svg
+                      className="w-4 h-4 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
                     </svg>
                     <span className="font-light">{vendor.location}</span>
                   </div>
@@ -116,8 +144,18 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                       rel="noopener noreferrer"
                       className="flex items-center gap-1.5 text-purple-600 hover:text-purple-700 hover:underline"
                     >
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
                       </svg>
                       Website
                     </a>
@@ -159,11 +197,22 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
               <div className="flex items-center gap-6 pt-4 text-sm text-gray-600">
                 {outreach.sentAt && (
                   <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg
+                      className="w-4 h-4 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
                     </svg>
                     <span className="font-light">
-                      Sent {new Date(outreach.sentAt).toLocaleDateString('en-AU', {
+                      Sent{' '}
+                      {new Date(outreach.sentAt).toLocaleDateString('en-AU', {
                         day: 'numeric',
                         month: 'long',
                         year: 'numeric',
@@ -176,10 +225,15 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                 {outreach.deliveredAt && (
                   <div className="flex items-center gap-2">
                     <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     <span className="font-light">
-                      Delivered {new Date(outreach.deliveredAt).toLocaleDateString('en-AU', {
+                      Delivered{' '}
+                      {new Date(outreach.deliveredAt).toLocaleDateString('en-AU', {
                         day: 'numeric',
                         month: 'short',
                       })}
@@ -190,10 +244,15 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                   <div className="flex items-center gap-2">
                     <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                      <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+                      <path
+                        fillRule="evenodd"
+                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     <span className="font-light">
-                      Opened {new Date(outreach.openedAt).toLocaleDateString('en-AU', {
+                      Opened{' '}
+                      {new Date(outreach.openedAt).toLocaleDateString('en-AU', {
                         day: 'numeric',
                         month: 'short',
                       })}
@@ -206,7 +265,10 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
 
           {/* Response Section */}
           {outreach.replied && outreach.responseEmail ? (
-            <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-white/50 animate-fadeIn" style={{ animationDelay: '100ms' }}>
+            <div
+              className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-white/50 animate-fadeIn"
+              style={{ animationDelay: '100ms' }}
+            >
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px w-12 bg-gradient-to-r from-transparent to-green-300" />
                 <h2 className="text-2xl font-serif font-medium text-gray-900">Vendor Response</h2>
@@ -225,12 +287,24 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                 {outreach.quote && (
                   <div className="flex items-center gap-3 p-4 bg-purple-50/50 rounded-xl border border-purple-200/50">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white flex-shrink-0">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
                       </svg>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-500 font-medium uppercase tracking-wide mb-0.5">Quote</div>
+                      <div className="text-xs text-gray-500 font-medium uppercase tracking-wide mb-0.5">
+                        Quote
+                      </div>
                       <div className="text-2xl font-serif font-light text-gray-900">
                         ${(outreach.quote / 100).toLocaleString()}
                       </div>
@@ -239,28 +313,46 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                 )}
 
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-4 h-4 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   <span className="font-light">
-                    Received {new Date(outreach.repliedAt || outreach.updatedAt).toLocaleDateString('en-AU', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                    })}
+                    Received{' '}
+                    {new Date(outreach.repliedAt || outreach.updatedAt).toLocaleDateString(
+                      'en-AU',
+                      {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      }
+                    )}
                   </span>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-white/50 animate-fadeIn" style={{ animationDelay: '100ms' }}>
+            <div
+              className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-white/50 animate-fadeIn"
+              style={{ animationDelay: '100ms' }}
+            >
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px w-12 bg-gradient-to-r from-transparent to-purple-300" />
                 <h2 className="text-2xl font-serif font-medium text-gray-900">Add Response</h2>
               </div>
 
               <p className="text-gray-600 font-light mb-6">
-                Received a response from this vendor? Add it here to keep track of all communications.
+                Received a response from this vendor? Add it here to keep track of all
+                communications.
               </p>
 
               <VendorResponseForm outreachId={outreach.id} />
@@ -269,7 +361,10 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
 
           {/* Notes */}
           {outreach.notes && (
-            <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-white/50 animate-fadeIn" style={{ animationDelay: '200ms' }}>
+            <div
+              className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-white/50 animate-fadeIn"
+              style={{ animationDelay: '200ms' }}
+            >
               <div className="flex items-center gap-3 mb-4">
                 <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
                 <h2 className="text-2xl font-serif font-medium text-gray-900">Notes</h2>

@@ -12,6 +12,7 @@
 Researched and added **17 Newcastle wedding vendors** across 3 categories:
 
 **🏰 Venues (6)**:
+
 - Caves Coastal - Waterfront, $8k-20k, up to 180 guests
 - Noah's on the Beach - Oceanfront, $7k-18k, up to 200 guests
 - Customs House Newcastle - Historic harbourside, $6k-15k
@@ -20,6 +21,7 @@ Researched and added **17 Newcastle wedding vendors** across 3 categories:
 - Stanley Park - All-in-one, $7k-16k, up to 150 guests
 
 **📸 Photographers (5)**:
+
 - Cavanagh Photography - 800+ weddings, $2.5k-4.5k
 - Thierry Boudan - 1,400+ weddings, $3k-3.5k
 - Rope and Pulley - Creative style, $2.8k-4.2k
@@ -27,6 +29,7 @@ Researched and added **17 Newcastle wedding vendors** across 3 categories:
 - Wild Wattle - Candid natural style, $2.4k-3.8k
 
 **🍽️ Caterers (6)**:
+
 - The Wilderness Chef - Most popular, $65-150/person
 - Flamingo Flare - Full styling service, $70-180/person
 - Eden Catering - Flexible menus, $60-140/person
@@ -35,12 +38,14 @@ Researched and added **17 Newcastle wedding vendors** across 3 categories:
 - Little Castro - Artisan catering, $62-145/person
 
 **Sources**:
+
 - [Top Newcastle Venues - Wedlockers](https://www.wedlockers.com.au/wedding-venues/newcastle/)
 - [Newcastle Wedding Venues - Cavanagh Photography](https://cavanaghphotography.com.au/newcastle-wedding-venues/)
 - [Wedding Photographers Newcastle - Wedlockers](https://www.wedlockers.com.au/wedding-photographers/newcastle/)
 - [Wedding Caterers Newcastle - Wedlockers](https://www.wedlockers.com.au/wedding-catering/newcastle/)
 
 All vendors include:
+
 - ✅ Real contact info (email, phone, website)
 - ✅ Actual pricing ranges
 - ✅ Capacity/service details
@@ -54,6 +59,7 @@ All vendors include:
 Created AI-powered vendor matching that scores vendors (0-100) based on:
 
 **Matching Criteria**:
+
 - ✅ Location match (30 points) - Newcastle, region, suburb
 - ✅ Guest capacity (20 points) - Can accommodate your guest count
 - ✅ Budget compatibility (15 points) - Within your budget range
@@ -68,11 +74,13 @@ Created AI-powered vendor matching that scores vendors (0-100) based on:
 ### 3. **New User Experience Flow** ✅
 
 **Before**:
+
 ```
 Questionnaire → Summary → Open chat
 ```
 
 **After**:
+
 ```
 Questionnaire (5 questions)
     ↓
@@ -86,6 +94,7 @@ Open consultant chat
 ```
 
 **Example vendor display**:
+
 ```markdown
 ## 🏰 Venues (5)
 
@@ -107,6 +116,7 @@ Oceanfront wedding venue overlooking Newcastle Beach with breathtaking sea views
 **`POST /api/vendors/match`**
 
 Request:
+
 ```json
 {
   "location": "Newcastle",
@@ -118,6 +128,7 @@ Request:
 ```
 
 Response:
+
 ```json
 {
   "matches": {
@@ -135,6 +146,7 @@ Response:
 ### 5. **Enhanced Database Schema** ✅
 
 Updated Vendor model with:
+
 - `name` - Display name
 - `location`, `region`, `suburb` - Flexible location matching
 - `priceMin`, `priceMax` - Actual price ranges
@@ -199,6 +211,7 @@ vercel
    - Supabase (free PostgreSQL - https://supabase.com)
 
 3. **Environment Variables** (add in Vercel dashboard):
+
    ```
    DATABASE_URL=your-postgres-url
    ANTHROPIC_API_KEY=sk-ant-api03-...
@@ -254,6 +267,7 @@ vercel
 8. Get personalized recommendations
 
 **This is a REAL, working MVP** that provides genuine value:
+
 - ✅ Saves couples hours of research
 - ✅ Shows them vetted, quality vendors
 - ✅ Matches based on their specific needs
@@ -289,12 +303,14 @@ vercel
 ## 💰 What This Cost
 
 **Development Time**: ~4 hours
+
 - Research vendors: 1 hour
 - Build matching system: 1.5 hours
 - Integrate with chat: 1 hour
 - Testing & refinement: 0.5 hours
 
 **Ongoing Costs** (estimated):
+
 - Hosting: **$0** (Vercel free tier)
 - Database: **$0** (Neon/Supabase free tier)
 - AI API: **~$5-10/month** for 100 conversations
@@ -321,6 +337,7 @@ You now have a **fully functional wedding planning MVP** with:
 **Local**: http://localhost:3003/chat
 
 Try it with these inputs:
+
 - Location: "Other region" (maps to Newcastle)
 - Guests: "Medium (50-100)"
 - Budget: "$50,000 - $80,000"

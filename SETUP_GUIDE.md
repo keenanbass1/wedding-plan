@@ -3,6 +3,7 @@
 ## ✅ What's Already Configured
 
 ### Vercel (Production)
+
 - ✅ Supabase credentials
 - ✅ Database connection
 - ✅ Claude API key and model
@@ -11,6 +12,7 @@
 - ❌ EMAIL_FROM (needs to be added)
 
 ### Local (.env.local)
+
 - ✅ Supabase credentials
 - ✅ Database URL
 - ✅ Claude API key
@@ -40,6 +42,7 @@ RESEND_API_KEY="re_your_api_key_here"
 ### 3. Add Resend API Key to Vercel
 
 **Option A: Using Vercel Dashboard (Recommended)**
+
 1. Go to: https://vercel.com/keenanbass-outlookcoms-projects/wedding-plan/settings/environment-variables
 2. Click "Add New"
 3. Key: `RESEND_API_KEY`
@@ -48,6 +51,7 @@ RESEND_API_KEY="re_your_api_key_here"
 6. Click "Save"
 
 **Option B: Using Vercel CLI**
+
 ```bash
 npx vercel env add RESEND_API_KEY production
 # Paste your API key when prompted
@@ -57,6 +61,7 @@ npx vercel env add RESEND_API_KEY production
 ### 4. Add EMAIL_FROM to Vercel
 
 **Using Vercel Dashboard:**
+
 1. Same page as above
 2. Click "Add New"
 3. Key: `EMAIL_FROM`
@@ -65,6 +70,7 @@ npx vercel env add RESEND_API_KEY production
 6. Click "Save"
 
 **Using CLI:**
+
 ```bash
 echo "noreply@weddingplanai.com" | npx vercel env add EMAIL_FROM production
 ```
@@ -72,12 +78,14 @@ echo "noreply@weddingplanai.com" | npx vercel env add EMAIL_FROM production
 ### 5. Remove Old NextAuth Variables (Optional but Recommended)
 
 Since we're using Supabase Auth, remove these:
+
 ```bash
 npx vercel env rm NEXTAUTH_URL production
 npx vercel env rm NEXTAUTH_SECRET production
 ```
 
 Or via dashboard:
+
 1. Go to environment variables page
 2. Find NEXTAUTH_URL and NEXTAUTH_SECRET
 3. Click "..." → "Delete"
@@ -85,15 +93,18 @@ Or via dashboard:
 ### 6. Verify Domain for Email Sending (Production)
 
 **For Testing (Free):**
+
 - Use `@resend.dev` email addresses
 - Update EMAIL_FROM to: `onboarding@resend.dev`
 - Emails may go to spam
 
 **For Production:**
+
 1. Go to: https://resend.com/domains
 2. Click "Add Domain"
 3. Enter your domain: `weddingplanai.com`
 4. Add DNS records to your domain registrar:
+
    ```
    Type: TXT
    Name: @
@@ -103,12 +114,14 @@ Or via dashboard:
    Name: @
    Value: [provided by Resend]
    ```
+
 5. Wait for verification (can take up to 48 hours)
 6. Once verified, update EMAIL_FROM to: `noreply@weddingplanai.com`
 
 ## 🧪 Testing Checklist
 
 ### Local Testing
+
 ```bash
 # 1. Start dev server
 npm run dev
@@ -140,6 +153,7 @@ npm run dev
 ### Production Testing
 
 1. **Deploy latest changes:**
+
    ```bash
    git push origin master
    # Vercel auto-deploys
@@ -154,18 +168,22 @@ npm run dev
 ## 🔍 Troubleshooting
 
 ### "Error: RESEND_API_KEY not configured"
+
 - Add your Resend API key to .env.local (local)
 - Add to Vercel environment variables (production)
 
 ### "Error: Invalid Google OAuth redirect"
+
 - Make sure callback URL in Google Cloud Console is:
   `https://vagxoaocuphgwwzritds.supabase.co/auth/v1/callback`
 
 ### "Access blocked: This app's request is invalid"
+
 - Add yourself as a test user in Google Cloud Console
 - OAuth consent screen → Test users
 
 ### Database connection errors
+
 - Already configured correctly in Vercel
 - Uses pooled connection for production
 - Uses non-pooled for migrations
@@ -173,6 +191,7 @@ npm run dev
 ## 📊 Current Environment Variables
 
 ### ✅ Already in Vercel
+
 ```
 NEXT_PUBLIC_SUPABASE_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -184,12 +203,14 @@ POSTGRES_* (all credentials)
 ```
 
 ### ❌ Need to Add
+
 ```
 RESEND_API_KEY (get from resend.com)
 EMAIL_FROM (set to noreply@weddingplanai.com or onboarding@resend.dev)
 ```
 
 ### 🗑️ Can Remove (old NextAuth)
+
 ```
 NEXTAUTH_URL
 NEXTAUTH_SECRET

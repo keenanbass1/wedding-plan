@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
 import { PrismaClient } from '@prisma/client'
+import { NextRequest, NextResponse } from 'next/server'
+
 import { generateVendorEmail } from '@/lib/email/generate-vendor-email'
+import { createClient } from '@/lib/supabase/server'
 
 const prisma = new PrismaClient()
 
@@ -9,29 +10,22 @@ export async function POST(req: NextRequest) {
   try {
     // Check authentication
     const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
 
     if (!user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      )
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const { vendorIds, weddingId } = await req.json()
 
     if (!vendorIds || !Array.isArray(vendorIds) || vendorIds.length === 0) {
-      return NextResponse.json(
-        { error: 'vendorIds array is required' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'vendorIds array is required' }, { status: 400 })
     }
 
     if (!weddingId) {
-      return NextResponse.json(
-        { error: 'weddingId is required' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'weddingId is required' }, { status: 400 })
     }
 
     // Get wedding details
@@ -41,18 +35,12 @@ export async function POST(req: NextRequest) {
     })
 
     if (!wedding) {
-      return NextResponse.json(
-        { error: 'Wedding not found' },
-        { status: 404 }
-      )
+      return NextResponse.json({ error: 'Wedding not found' }, { status: 404 })
     }
 
     // Verify ownership
     if (wedding.user.authId !== user.id) {
-      return NextResponse.json(
-        { error: 'Forbidden' },
-        { status: 403 }
-      )
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
     // Get vendors
@@ -61,20 +49,13 @@ export async function POST(req: NextRequest) {
     })
 
     if (vendors.length === 0) {
-      return NextResponse.json(
-        { error: 'No vendors found' },
-        { status: 404 }
-      )
+      return NextResponse.json({ error: 'No vendors found' }, { status: 404 })
     }
 
     // Generate emails for each vendor
     const emails = await Promise.all(
-      vendors.map(async (vendor) => {
-        const { subject, body } = await generateVendorEmail(
-          vendor,
-          wedding,
-          wedding.user.email
-        )
+      vendors.map(async vendor => {
+        const { subject, body } = await generateVendorEmail(vendor, wedding, wedding.user.email)
 
         return {
           vendorId: vendor.id,
@@ -94,9 +75,6 @@ export async function POST(req: NextRequest) {
     })
   } catch (error) {
     console.error('Error generating emails:', error)
-    return NextResponse.json(
-      { error: 'Failed to generate emails' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Failed to generate emails' }, { status: 500 })
   }
 }

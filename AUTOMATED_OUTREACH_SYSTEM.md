@@ -12,6 +12,7 @@
 > "I want to contact 30 photographers in one click, have you send personalized emails to all of them, track who responds, extract their quotes, and show me everything organized in one dashboard."
 
 **The Pain Point We Solve**:
+
 - ❌ Manually emailing 30 vendors individually (10+ hours)
 - ❌ Tracking responses across scattered email threads
 - ❌ Comparing quotes from different email formats
@@ -19,6 +20,7 @@
 - ❌ Missing vendor replies in cluttered inbox
 
 **What We Do Instead**:
+
 - ✅ **One click** → 30 personalized emails sent
 - ✅ **Automatic tracking** → See who opened, who replied
 - ✅ **Smart parsing** → Extract prices & availability automatically
@@ -154,6 +156,7 @@ After all sent:
 ```
 
 **Behind the scenes**:
+
 - Emails sent via Resend API
 - Each email has unique tracking ID
 - Reply-to set to user's email
@@ -239,6 +242,7 @@ Actions available:
 **When vendor responds**:
 
 **Email Notification**:
+
 ```
 Subject: 🎉 Noah's on the Beach responded to your inquiry!
 
@@ -258,12 +262,14 @@ You've now heard back from 8 out of 15 vendors!
 ```
 
 **SMS Notification** (optional):
+
 ```
 🎊 Wedding update! Noah's on the Beach replied with a $15.5k quote.
 Available for your date! View: wedding-plan.app/r/xyz123
 ```
 
 **In-App Notification**:
+
 ```
 🔔 Bell icon shows "3 new"
 
@@ -280,6 +286,7 @@ Recent activity:
 ### **Email Sending System**
 
 **Flow**:
+
 ```
 User clicks "Send Emails"
    ↓
@@ -298,6 +305,7 @@ Return: { sent: 15, failed: 0 }
 ```
 
 **Database Schema** (already have this!):
+
 ```prisma
 model VendorOutreach {
   id        String   @id @default(cuid())
@@ -341,6 +349,7 @@ enum OutreachStatus {
 **Option A: Email Forwarding** (Recommended)
 
 **How it works**:
+
 1. User's vendor emails have BCC: `track-{token}@weddingplan.app`
 2. When vendor replies, Resend forwards to our webhook
 3. Webhook receives email, parses it, extracts:
@@ -351,22 +360,23 @@ enum OutreachStatus {
 5. Sends notification to user
 
 **Resend Webhook**:
+
 ```typescript
 // app/api/webhooks/email-response/route.ts
 export async function POST(req: Request) {
-  const data = await req.json();
+  const data = await req.json()
 
   // Extract tracking token from recipient
-  const token = extractToken(data.to); // track-abc123@...
+  const token = extractToken(data.to) // track-abc123@...
 
   // Find the outreach record
   const outreach = await prisma.vendorOutreach.findUnique({
     where: { trackingToken: token },
-    include: { vendor: true, wedding: { include: { user: true } } }
-  });
+    include: { vendor: true, wedding: { include: { user: true } } },
+  })
 
   // Parse email with Claude AI
-  const parsed = await parseVendorResponse(data.text);
+  const parsed = await parseVendorResponse(data.text)
 
   // Update database
   await prisma.vendorOutreach.update({
@@ -377,8 +387,8 @@ export async function POST(req: Request) {
       respondedAt: new Date(),
       quoteAmount: parsed.quoteAmount,
       availabilityNote: parsed.availability,
-    }
-  });
+    },
+  })
 
   // Send notification to user
   await sendNotification({
@@ -386,13 +396,14 @@ export async function POST(req: Request) {
     type: 'vendor_response',
     vendor: outreach.vendor.name,
     quote: parsed.quoteAmount,
-  });
+  })
 
-  return Response.json({ success: true });
+  return Response.json({ success: true })
 }
 ```
 
 **AI Email Parser**:
+
 ```typescript
 async function parseVendorResponse(emailText: string) {
   const prompt = `
@@ -408,14 +419,14 @@ async function parseVendorResponse(emailText: string) {
       "nextSteps": "<what they want customer to do>",
       "sentiment": "<positive/neutral/negative>"
     }
-  `;
+  `
 
   const response = await claude.messages.create({
     model: 'claude-sonnet-4-5-20250929',
     messages: [{ role: 'user', content: prompt }],
-  });
+  })
 
-  return JSON.parse(response.content);
+  return JSON.parse(response.content)
 }
 ```
 
@@ -424,6 +435,7 @@ async function parseVendorResponse(emailText: string) {
 **Option B: Email Monitoring** (Alternative)
 
 Use IMAP to monitor user's inbox:
+
 - User connects their Gmail/Outlook
 - We monitor for vendor replies
 - Extract and categorize automatically
@@ -436,6 +448,7 @@ Use IMAP to monitor user's inbox:
 ### **Notification System**
 
 **Push Notifications**:
+
 ```typescript
 // lib/notifications.ts
 
@@ -445,15 +458,15 @@ export async function sendNotification({
   vendor,
   quote,
 }: {
-  userId: string;
-  type: 'vendor_response' | 'quote_received';
-  vendor: string;
-  quote?: number;
+  userId: string
+  type: 'vendor_response' | 'quote_received'
+  vendor: string
+  quote?: number
 }) {
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    include: { notificationSettings: true }
-  });
+    include: { notificationSettings: true },
+  })
 
   // Email notification
   if (user.notificationSettings.emailEnabled) {
@@ -464,9 +477,9 @@ export async function sendNotification({
       html: renderEmailTemplate({
         vendor,
         quote,
-        dashboardLink: `https://weddingplan.app/dashboard`
-      })
-    });
+        dashboardLink: `https://weddingplan.app/dashboard`,
+      }),
+    })
   }
 
   // SMS notification (via Twilio)
@@ -474,8 +487,8 @@ export async function sendNotification({
     await twilioClient.messages.create({
       to: user.phone,
       from: '+61412345678',
-      body: `🎊 ${vendor} replied! Quote: $${quote?.toLocaleString()}. View: weddingplan.app/r/${userId}`
-    });
+      body: `🎊 ${vendor} replied! Quote: $${quote?.toLocaleString()}. View: weddingplan.app/r/${userId}`,
+    })
   }
 
   // In-app notification
@@ -487,8 +500,8 @@ export async function sendNotification({
       message: quote ? `Quote: $${quote.toLocaleString()}` : 'View their response',
       read: false,
       link: `/dashboard?vendor=${vendor}`,
-    }
-  });
+    },
+  })
 }
 ```
 
@@ -499,6 +512,7 @@ export async function sendNotification({
 ### **Manual Intervention Points**
 
 **1. Before Sending**:
+
 ```
 ☑ Review all emails before sending
 ☑ Edit individual emails
@@ -508,6 +522,7 @@ export async function sendNotification({
 ```
 
 **2. During Process**:
+
 ```
 ☑ View email tracking (sent, opened, bounced)
 ☑ Send manual follow-ups
@@ -517,6 +532,7 @@ export async function sendNotification({
 ```
 
 **3. After Responses**:
+
 ```
 ☑ View raw vendor emails
 ☑ Download all correspondence
@@ -530,6 +546,7 @@ export async function sendNotification({
 ### **Transparency Features**
 
 **Show Everything**:
+
 ```
 Dashboard shows:
 - Exact email sent to each vendor
@@ -541,6 +558,7 @@ Dashboard shows:
 ```
 
 **User Control Panel**:
+
 ```
 Settings → Email Outreach
 
@@ -627,6 +645,7 @@ Vendor Blacklist:
 ### **1. Personalization at Scale**
 
 Each email is unique:
+
 ```
 To: Caves Coastal
 "We fell in love with your stunning beachside ceremony deck..."
@@ -647,6 +666,7 @@ To: Ravella
 AI extracts structured data from messy emails:
 
 **Vendor email**:
+
 ```
 "Hi! Thanks for reaching out! We have availability
 for October 2027 and our wedding package starts at
@@ -655,6 +675,7 @@ venue, catering, and drinks..."
 ```
 
 **AI extraction**:
+
 ```json
 {
   "available": true,
@@ -670,6 +691,7 @@ venue, catering, and drinks..."
 ### **3. Smart Follow-ups**
 
 Auto-suggest follow-ups:
+
 ```
 Vendor opened email but didn't reply (3 days ago)
 → [Send Follow-up: "Just checking if you received our inquiry..."]
@@ -686,6 +708,7 @@ Vendor said "call us"
 ### **4. Response Quality Insights**
 
 Show patterns:
+
 ```
 ⚡ Quick responders (replied within 24h):
 • Cavanagh Photography
@@ -706,6 +729,7 @@ Show patterns:
 ## 🎯 The Pitch
 
 **Before our app**:
+
 ```
 User manually:
 1. Googles 30 photographers
@@ -722,6 +746,7 @@ Success rate: 40% (12 responses from 30)
 ```
 
 **With our app**:
+
 ```
 User:
 1. Answers 5 questions (30 seconds)

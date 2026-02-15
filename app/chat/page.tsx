@@ -1,5 +1,6 @@
-import ChatInterface from '@/components/ChatInterface';
-import Link from 'next/link';
+import Link from 'next/link'
+
+import ChatInterface from '@/components/ChatInterface'
 
 export default function ChatPage() {
   return (
@@ -25,9 +26,22 @@ export default function ChatPage() {
       <div className="relative p-8">
         {/* Elegant Header */}
         <div className="max-w-6xl mx-auto mb-8 animate-fadeIn">
-          <Link href="/" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-white/50 text-gray-600 hover:text-gray-900 hover:bg-white/80 hover:shadow-md transition-all duration-300 group">
-            <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-white/50 text-gray-600 hover:text-gray-900 hover:bg-white/80 hover:shadow-md transition-all duration-300 group"
+          >
+            <svg
+              className="w-4 h-4 group-hover:-translate-x-1 transition-transform"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
             </svg>
             <span className="font-light text-sm">Back to Home</span>
           </Link>
@@ -37,7 +51,10 @@ export default function ChatPage() {
           {/* Enhanced Title Section */}
           <div className="text-center mb-12 space-y-6">
             {/* Decorative element */}
-            <div className="flex items-center justify-center gap-3 animate-fadeIn" style={{ animationDelay: '100ms' }}>
+            <div
+              className="flex items-center justify-center gap-3 animate-fadeIn"
+              style={{ animationDelay: '100ms' }}
+            >
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
               <svg className="w-4 h-4 text-rose-400" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
@@ -51,16 +68,22 @@ export default function ChatPage() {
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-light tracking-tight leading-tight animate-fadeIn" style={{ animationDelay: '300ms' }}>
+            <h1
+              className="text-5xl md:text-6xl lg:text-7xl font-serif font-light tracking-tight leading-tight animate-fadeIn"
+              style={{ animationDelay: '300ms' }}
+            >
               <span className="block text-gray-900 mb-2">Let&apos;s Create</span>
               <span className="block bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
                 Your Perfect Day
               </span>
             </h1>
 
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-light leading-relaxed animate-fadeIn" style={{ animationDelay: '400ms' }}>
-              Share your vision with our AI concierge. Together, we&apos;ll discover the perfect venues,
-              vendors, and details that bring your wedding dreams to life.
+            <p
+              className="text-lg text-gray-600 max-w-2xl mx-auto font-light leading-relaxed animate-fadeIn"
+              style={{ animationDelay: '400ms' }}
+            >
+              Share your vision with our AI concierge. Together, we&apos;ll discover the perfect
+              venues, vendors, and details that bring your wedding dreams to life.
             </p>
           </div>
 
@@ -68,7 +91,10 @@ export default function ChatPage() {
           <ChatInterface />
 
           {/* Enhanced Footer */}
-          <div className="mt-12 text-center space-y-6 animate-fadeIn" style={{ animationDelay: '600ms' }}>
+          <div
+            className="mt-12 text-center space-y-6 animate-fadeIn"
+            style={{ animationDelay: '600ms' }}
+          >
             {/* Decorative divider */}
             <div className="flex items-center justify-center gap-4">
               <div className="h-px w-12 bg-gradient-to-r from-transparent via-rose-200 to-transparent" />
@@ -81,7 +107,11 @@ export default function ChatPage() {
             <div className="flex items-center justify-center gap-6 text-sm text-gray-500">
               <div className="flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-white/50 hover:bg-white/80 transition-all duration-300">
                 <svg className="w-4 h-4 text-rose-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path
+                    fillRule="evenodd"
+                    d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
                 <span className="font-light">Secure & Private</span>
               </div>
@@ -101,7 +131,6 @@ export default function ChatPage() {
           </div>
         </div>
       </div>
-
     </div>
-  );
+  )
 }

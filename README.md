@@ -5,6 +5,7 @@ AI-powered wedding planning assistant that automates vendor discovery and outrea
 ## 🎯 What We're Building
 
 An intelligent wedding planning platform that:
+
 - **Conversational AI Intake**: Natural chat interface to gather wedding requirements
 - **Smart Vendor Matching**: Automatically finds venues, photographers, caterers based on your preferences
 - **Automated Outreach**: Sends personalized emails to vendors on your behalf
@@ -36,11 +37,13 @@ See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for detailed roadmap.
 ### Installation
 
 1. **Clone and install dependencies**
+
    ```bash
    npm install
    ```
 
 2. **Set up environment variables**
+
    ```bash
    cp .env.example .env.local
    ```
@@ -51,11 +54,13 @@ See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for detailed roadmap.
    - `NEXTAUTH_SECRET`: Generate with `openssl rand -base64 32`
 
 3. **Set up database**
+
    ```bash
    npm run db:push
    ```
 
 4. **Run development server**
+
    ```bash
    npm run dev
    ```
@@ -90,6 +95,7 @@ wedding-plan/
 ## 🎨 Features (MVP)
 
 ### ✅ Implemented
+
 - [x] Next.js project setup
 - [x] Claude API integration
 - [x] Chat interface
@@ -97,12 +103,14 @@ wedding-plan/
 - [x] Landing page
 
 ### 🚧 In Progress
+
 - [ ] User authentication (NextAuth)
 - [ ] Conversation persistence
 - [ ] Vendor database
 - [ ] Email automation
 
 ### 📅 Planned
+
 - [ ] Vendor matching algorithm
 - [ ] Response dashboard
 - [ ] Admin panel for vendor management
@@ -111,6 +119,7 @@ wedding-plan/
 ## 🧪 Testing the Chat
 
 1. Add your Claude API key to `.env.local`:
+
    ```bash
    ANTHROPIC_API_KEY="sk-ant-your-key-here"
    ```

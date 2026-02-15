@@ -34,6 +34,7 @@
 ```
 
 **What Free Users Get**:
+
 - ✅ AI questionnaire & consultation
 - ✅ View all vendor matches
 - ✅ See pricing, ratings, photos
@@ -82,6 +83,7 @@
 ```
 
 **What Pro Users Get**:
+
 - ✅ Everything in Free
 - ✅ Unlimited vendor contacts
 - ✅ AI-generated personalized emails
@@ -118,6 +120,7 @@ Everything in Pro, PLUS:
 ```
 
 **What Premium Users Get**:
+
 - ✅ Everything in Pro
 - ✅ 1-on-1 planner consultation
 - ✅ Custom vendor sourcing
@@ -135,34 +138,36 @@ Everything in Pro, PLUS:
 
 ### **Tier Comparison**
 
-| Feature | Free | Pro ($29/mo) | Premium ($149/mo) |
-|---------|------|--------------|-------------------|
-| AI Questionnaire | ✅ | ✅ | ✅ |
-| View Vendors | ✅ | ✅ | ✅ |
-| See Pricing/Photos | ✅ | ✅ | ✅ |
-| AI Chat Advice | ✅ | ✅ | ✅ |
-| Contact Vendors | ❌ | ✅ Unlimited | ✅ Unlimited |
-| Automated Emails | ❌ | ✅ | ✅ |
-| Response Tracking | ❌ | ✅ | ✅ |
-| Save Favorites | ❌ | ✅ | ✅ |
-| Quote Comparison | ❌ | ✅ | ✅ |
-| Budget Tracker | ❌ | ✅ | ✅ |
-| Vendor Contacts/mo | 0 | Unlimited | Unlimited |
-| Human Support | ❌ | Email | Email + Phone |
-| Planner Consultation | ❌ | ❌ | ✅ 30min video |
-| Custom Sourcing | ❌ | ❌ | ✅ |
-| Negotiation Help | ❌ | ❌ | ✅ |
-| Exclusive Discounts | ❌ | ❌ | ✅ 10-15% off |
-| Contract Review | ❌ | ❌ | ✅ |
+| Feature              | Free | Pro ($29/mo) | Premium ($149/mo) |
+| -------------------- | ---- | ------------ | ----------------- |
+| AI Questionnaire     | ✅   | ✅           | ✅                |
+| View Vendors         | ✅   | ✅           | ✅                |
+| See Pricing/Photos   | ✅   | ✅           | ✅                |
+| AI Chat Advice       | ✅   | ✅           | ✅                |
+| Contact Vendors      | ❌   | ✅ Unlimited | ✅ Unlimited      |
+| Automated Emails     | ❌   | ✅           | ✅                |
+| Response Tracking    | ❌   | ✅           | ✅                |
+| Save Favorites       | ❌   | ✅           | ✅                |
+| Quote Comparison     | ❌   | ✅           | ✅                |
+| Budget Tracker       | ❌   | ✅           | ✅                |
+| Vendor Contacts/mo   | 0    | Unlimited    | Unlimited         |
+| Human Support        | ❌   | Email        | Email + Phone     |
+| Planner Consultation | ❌   | ❌           | ✅ 30min video    |
+| Custom Sourcing      | ❌   | ❌           | ✅                |
+| Negotiation Help     | ❌   | ❌           | ✅                |
+| Exclusive Discounts  | ❌   | ❌           | ✅ 10-15% off     |
+| Contract Review      | ❌   | ❌           | ✅                |
 
 ---
 
 ## 🎯 Types of Usage & User Personas
 
 ### **Persona 1: "The Browser"** (Free Tier)
+
 **Who**: Couple just starting to plan, overwhelmed by options
 **Goal**: Get a sense of what's available and rough costs
 **Behavior**:
+
 - Goes through questionnaire
 - Browses vendors
 - Doesn't contact anyone yet
@@ -177,9 +182,11 @@ Everything in Pro, PLUS:
 ---
 
 ### **Persona 2: "The Planner"** (Pro Tier)
+
 **Who**: Engaged couple ready to book vendors, DIY planning
 **Goal**: Quickly contact multiple vendors and compare quotes
 **Behavior**:
+
 - Signs up immediately after seeing matches
 - Contacts 15-30 vendors in first session
 - Checks dashboard daily for responses
@@ -193,9 +200,11 @@ Everything in Pro, PLUS:
 ---
 
 ### **Persona 3: "The Delegator"** (Premium Tier)
+
 **Who**: Busy professionals, high budget, want expert help
 **Goal**: Minimize time spent planning, maximize quality
 **Behavior**:
+
 - Signs up for Premium immediately
 - Books consultation call first week
 - Planner helps refine requirements
@@ -206,21 +215,25 @@ Everything in Pro, PLUS:
 ---
 
 ### **Persona 4: "The Region-Specific User"**
+
 **Who**: Couple getting married in specific NSW region
 **Usage Patterns**:
 
 **Newcastle Couple**:
+
 - Currently: ✅ 17 vendors available
 - Sees full matches
 - High conversion
 
 **Hunter Valley Couple**:
+
 - Currently: ⚠️ Limited vendors
 - Sees some matches
 - Lower conversion
 - **Opportunity**: Add Hunter Valley vendors
 
 **Blue Mountains Couple**:
+
 - Currently: ⚠️ No vendors yet
 - Sees "no matches" message
 - **Critical**: Add ASAP
@@ -238,6 +251,7 @@ Everything in Pro, PLUS:
 **Quality**: High (vetted)
 
 **Process**:
+
 1. Google search: "wedding [category] [region] NSW"
 2. Visit vendor website
 3. Extract:
@@ -249,11 +263,13 @@ Everything in Pro, PLUS:
 5. Run seed script
 
 **Pros**:
+
 - ✅ High quality data
 - ✅ Vetted vendors
 - ✅ Accurate pricing
 
 **Cons**:
+
 - ❌ Time-consuming
 - ❌ Hard to scale
 - ❌ Manual updates needed
@@ -267,6 +283,7 @@ Everything in Pro, PLUS:
 **Quality**: High (with human review)
 
 **Process**:
+
 ```bash
 # Run AI vendor research script
 npm run research-vendors "wedding photographers Hunter Valley NSW"
@@ -286,11 +303,13 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 ```
 
 **Pros**:
+
 - ✅ Much faster (3x)
 - ✅ Scalable
 - ✅ Still human-reviewed
 
 **Cons**:
+
 - ⚠️ Needs review
 - ⚠️ Occasional errors
 
@@ -303,6 +322,7 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 **Quality**: Variable (needs moderation)
 
 **Process**:
+
 1. Create vendor portal: `/vendors/signup`
 2. Vendors create profiles:
    - Upload photos
@@ -313,17 +333,20 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 4. Vendor appears in search
 
 **Monetization**:
+
 - Free basic listing
 - $49/mo for premium listing (top placement)
 - OR take 5% commission on bookings
 
 **Pros**:
+
 - ✅ Fully scalable
 - ✅ Always up-to-date
 - ✅ Vendors maintain own data
 - ✅ Revenue stream
 
 **Cons**:
+
 - ⚠️ Needs moderation
 - ⚠️ Quality varies
 - ⚠️ Time to build
@@ -335,27 +358,29 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 ### **Week 1: Expand Coverage**
 
 **Vendor Research Priority**:
+
 1. **Hunter Valley** (high demand):
    - 10 venues
    - 15 photographers
    - 10 caterers
-   = 35 vendors
+     = 35 vendors
 
 2. **Blue Mountains** (high demand):
    - 10 venues
    - 15 photographers
    - 10 caterers
-   = 35 vendors
+     = 35 vendors
 
 3. **Sydney & Surrounds** (huge market):
    - 20 venues
    - 30 photographers
    - 20 caterers
-   = 70 vendors
+     = 70 vendors
 
 **Target**: 150 total vendors across 4 regions
 
 **Time Investment**:
+
 - Manual: ~12 hours (150 vendors × 5 min)
 - AI-assisted: ~5 hours (150 vendors × 2 min)
 
@@ -393,6 +418,7 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 ## 📊 Success Metrics
 
 ### **Month 1 Goals**:
+
 - 100 free users
 - 10 Pro conversions (10% conversion rate)
 - $290 MRR (Monthly Recurring Revenue)
@@ -400,6 +426,7 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 - 4 regions covered
 
 ### **Month 3 Goals**:
+
 - 500 free users
 - 75 Pro users (15% conversion)
 - $2,175 MRR
@@ -407,6 +434,7 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 - 8 regions covered
 
 ### **Month 6 Goals**:
+
 - 2,000 free users
 - 400 Pro users (20% conversion)
 - $11,600 MRR
@@ -422,6 +450,7 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 **Purpose**: Get couples in the door, show value immediately
 
 **What Makes Them Upgrade**:
+
 1. See perfect vendor matches
 2. Want to contact them
 3. Hit paywall: "💎 Unlock contacts for $29/mo"
@@ -429,6 +458,7 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 5. Social proof: "487 couples booked vendors this month"
 
 **Conversion Triggers**:
+
 - "Contact 8 selected vendors" button → Paywall
 - "Save to favorites" button → Paywall
 - "Compare quotes" feature → Paywall
@@ -441,6 +471,7 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 **Purpose**: Solve the pain point completely
 
 **Why It's Worth $29/mo**:
+
 - Saves 20+ hours of vendor research
 - Automated email outreach (no copy-pasting)
 - Organized responses (vs messy email inbox)
@@ -448,6 +479,7 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 - Budget tracking (stay on budget)
 
 **Competitive Pricing**:
+
 - Traditional planner: $2,000-5,000
 - Our Pro tier: $29/mo × 6 months planning = $174
 - **Savings**: $1,826-4,826 (94-97% cheaper)
@@ -462,6 +494,7 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 **Purpose**: Serve high-budget, low-time customers
 
 **Why It's Worth $149/mo**:
+
 - Human expert consultation
 - Negotiates better vendor rates (saves $2,000-5,000)
 - Contract review (prevents costly mistakes)
@@ -469,6 +502,7 @@ npm run research-vendors "wedding photographers Hunter Valley NSW"
 - Phone support (immediate help)
 
 **Target Customer**:
+
 - Household income: $150k+
 - Wedding budget: $50k+
 - Both work full-time
@@ -484,6 +518,7 @@ Premium cost for 6 months = $894
 ## 🔮 Future Features (Post-Launch)
 
 ### **Phase 2** (Months 3-6)
+
 - Vendor self-service portal
 - Mobile app (iOS/Android)
 - Instagram integration (save inspiration photos)
@@ -492,6 +527,7 @@ Premium cost for 6 months = $894
 - Seating chart tool
 
 ### **Phase 3** (Months 6-12)
+
 - Payment processing (book & pay through platform)
 - Vendor reviews & ratings
 - Real vendor availability calendar
@@ -500,6 +536,7 @@ Premium cost for 6 months = $894
 - Day-of timeline tool
 
 ### **Phase 4** (Year 2)
+
 - Expand to VIC, QLD, other states
 - International expansion
 - White-label for venues/planners
@@ -512,6 +549,7 @@ Premium cost for 6 months = $894
 ## 🎨 User Experience Principles
 
 ### **For Free Users**:
+
 1. **Instant Value** - Show matches in 30 seconds
 2. **No Friction** - No signup to see results
 3. **Build Trust** - Real vendors, real prices
@@ -519,6 +557,7 @@ Premium cost for 6 months = $894
 5. **Stay Helpful** - Free AI chat keeps them engaged
 
 ### **For Pro Users**:
+
 1. **Save Time** - Automate everything possible
 2. **Stay Organized** - Dashboard shows everything
 3. **Make Decisions Easy** - Compare quotes visually
@@ -526,6 +565,7 @@ Premium cost for 6 months = $894
 5. **Feel Supported** - Quick email responses
 
 ### **For Premium Users**:
+
 1. **VIP Treatment** - Immediate phone support
 2. **Expert Guidance** - Human planners available
 3. **Exclusive Access** - Special vendor deals
@@ -537,18 +577,21 @@ Premium cost for 6 months = $894
 ## 📈 Growth Strategy
 
 ### **Month 1: Soft Launch**
+
 - Friends & family testing
 - Local wedding Facebook groups
 - Wedding forums (Reddit, Whirlpool)
 - Collect feedback, iterate
 
 ### **Month 2: Public Launch**
+
 - Press release to wedding publications
 - Instagram wedding influencers
 - Google Ads (wedding planning keywords)
 - SEO optimization
 
 ### **Month 3: Scale**
+
 - Referral program (Give $10, Get $10)
 - Vendor partnerships
 - Wedding expo booth
@@ -576,16 +619,19 @@ More users → More data on vendor responses → Better AI → Better matches �
 ## ✅ Next Steps - Your Decision
 
 **Option 1: Build AI Vendor Research Tool First**
+
 - Faster vendor database growth
 - Can add 100+ vendors in a weekend
 - Focuses on coverage before monetization
 
 **Option 2: Build Paywall & Pro Features First**
+
 - Start generating revenue immediately
 - Validate willingness to pay
 - Can expand regions slower
 
 **Option 3: Hybrid - Do Both**
+
 - Build simple AI research tool (4 hours)
 - Add 150 vendors to 4 regions (6 hours)
 - Build basic paywall + Stripe (8 hours)

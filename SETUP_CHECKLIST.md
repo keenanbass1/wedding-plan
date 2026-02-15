@@ -15,6 +15,7 @@ Follow these steps to get WeddingPlan AI running on your machine.
 **Option A: Local PostgreSQL (Recommended for development)**
 
 Install PostgreSQL if not already installed:
+
 ```bash
 # Ubuntu/Debian
 sudo apt update
@@ -41,6 +42,7 @@ docker run --name wedding-postgres \
 ```
 
 **Option C: Cloud Database (Vercel Postgres, Supabase, Neon)**
+
 - Sign up for free tier
 - Copy connection string
 
@@ -121,16 +123,19 @@ npm run db:generate
 ## 🔍 Troubleshooting
 
 ### "Cannot connect to database"
+
 - Check PostgreSQL is running: `sudo service postgresql status`
 - Verify DATABASE_URL in `.env.local`
 - Test connection: `psql postgresql://weddinguser:your_password@localhost:5432/weddingplan`
 
 ### "Claude API error"
+
 - Verify ANTHROPIC_API_KEY is correct
 - Check you have API credits: https://console.anthropic.com/
 - Look at browser console and terminal for error messages
 
 ### "Port 3000 already in use"
+
 ```bash
 # Kill process on port 3000
 lsof -ti:3000 | xargs kill -9

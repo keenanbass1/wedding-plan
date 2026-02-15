@@ -31,6 +31,7 @@
 ## Tech Stack
 
 ### Frontend
+
 - **Framework:** Next.js 14 (App Router with React Server Components)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
@@ -39,6 +40,7 @@
 - **State Management:** Zustand (global) + React hooks (local)
 
 ### Backend
+
 - **Runtime:** Node.js (via Next.js API routes)
 - **API:** REST (Next.js API routes)
 - **Database:** PostgreSQL
@@ -47,17 +49,20 @@
 - **Email Service:** Resend (primary) or SendGrid (fallback)
 
 ### AI & ML
+
 - **Primary:** Claude 3.5 Sonnet API (Anthropic)
 - **Fallback:** Local LLM (Llama 3.1 via Ollama on RTX 4080)
 - **Prompt Management:** Custom prompt templates with variable injection
 
 ### Hosting & Infrastructure
+
 - **App Hosting:** Vercel (Next.js native, edge functions)
 - **Database:** Vercel Postgres (or Supabase if more storage needed)
 - **CDN:** Vercel Edge Network (automatic)
 - **Domain:** TBD (.com.au for Australian market)
 
 ### Development Tools
+
 - **Version Control:** Git + GitHub
 - **Package Manager:** pnpm or bun (faster than npm)
 - **Code Quality:** ESLint + Prettier
@@ -260,6 +265,7 @@ model Session {
 ## API Routes
 
 ### Authentication
+
 ```
 POST   /api/auth/signup          - Create new user account
 POST   /api/auth/login           - Email/password login
@@ -268,6 +274,7 @@ GET    /api/auth/session         - Get current user session
 ```
 
 ### Wedding Planning
+
 ```
 POST   /api/wedding/create       - Start new wedding planning
 GET    /api/wedding/:id          - Get wedding details
@@ -276,12 +283,14 @@ DELETE /api/wedding/:id          - Delete wedding
 ```
 
 ### AI Chat
+
 ```
 POST   /api/chat                 - Send message to AI (streaming response)
 GET    /api/chat/:weddingId      - Get conversation history
 ```
 
 ### Vendor Discovery
+
 ```
 POST   /api/vendors/search       - Find vendors based on criteria
 GET    /api/vendors/:id          - Get vendor details
@@ -289,6 +298,7 @@ POST   /api/vendors/create       - Add new vendor (admin)
 ```
 
 ### Outreach
+
 ```
 POST   /api/outreach/send        - Trigger vendor outreach
 GET    /api/outreach/:weddingId  - Get outreach status & responses
@@ -296,6 +306,7 @@ POST   /api/outreach/webhook     - Email webhook (delivery, opens, replies)
 ```
 
 ### Dashboard
+
 ```
 GET    /api/dashboard/:weddingId - Get aggregated vendor responses
 POST   /api/vendors/save         - Save/favorite a vendor
@@ -346,6 +357,7 @@ Information collected so far: {collectedData}
 ```
 
 ### Sample Conversation
+
 ```
 AI: Congratulations on your engagement! 🎉 I'm so excited to help you plan your wedding.
     Let's start with the basics - do you have a date in mind, or are you still flexible?
@@ -404,10 +416,14 @@ Here are the details of what we're looking for:
 🎨 Style: ${wedding.style}
 💰 Budget: ${formatBudget(wedding.budgetVenue)}
 
-${wedding.mustHaves.length > 0 ? `
+${
+  wedding.mustHaves.length > 0
+    ? `
 Must-haves:
 ${wedding.mustHaves.map(item => `• ${item}`).join('\n')}
-` : ''}
+`
+    : ''
+}
 
 Would you have availability for our wedding? If so, I'd love to learn more about your packages and pricing.
 
@@ -440,9 +456,7 @@ async function sendVendorOutreach(weddingId: string) {
   for (let i = 0; i < vendors.length; i += BATCH_SIZE) {
     const batch = vendors.slice(i, i + BATCH_SIZE)
 
-    await Promise.all(
-      batch.map(vendor => sendEmail(wedding, vendor))
-    )
+    await Promise.all(batch.map(vendor => sendEmail(wedding, vendor)))
 
     if (i + BATCH_SIZE < vendors.length) {
       await sleep(BATCH_DELAY)
@@ -457,11 +471,11 @@ async function sendVendorOutreach(weddingId: string) {
 
 ```typescript
 type MatchCriteria = {
-  location: string      // Suburb/region
+  location: string // Suburb/region
   category: VendorCategory
-  budget?: number       // Max budget in cents
-  capacity?: number     // Min capacity needed
-  dateAvailable?: Date  // Check past outreach for this date
+  budget?: number // Max budget in cents
+  capacity?: number // Min capacity needed
+  dateAvailable?: Date // Check past outreach for this date
 }
 
 async function matchVendors(wedding: Wedding): Promise<Vendor[]> {
@@ -483,16 +497,16 @@ async function matchVendors(wedding: Wedding): Promise<Vendor[]> {
       // Exclude vendors we've already contacted for this wedding
       NOT: {
         outreach: {
-          some: { weddingId: wedding.id }
-        }
-      }
+          some: { weddingId: wedding.id },
+        },
+      },
     },
     orderBy: [
       { responseRate: 'desc' }, // Prioritize responsive vendors
       { verified: 'desc' },
-      { updatedAt: 'desc' }
+      { updatedAt: 'desc' },
     ],
-    take: 10 // Top 10 matches
+    take: 10, // Top 10 matches
   })
 
   return vendors
@@ -521,6 +535,7 @@ async function matchVendors(wedding: Wedding): Promise<Vendor[]> {
    - Full email sending (monitored)
 
 ### Monitoring
+
 - **Error Tracking:** Sentry (free tier)
 - **Analytics:** Vercel Analytics or Plausible (privacy-friendly)
 - **Email Metrics:** Resend dashboard (delivery, opens, bounces)
@@ -531,18 +546,21 @@ async function matchVendors(wedding: Wedding): Promise<Vendor[]> {
 ## Security Considerations
 
 ### Data Protection
+
 - Hash passwords with bcrypt (cost factor 12)
 - HTTPS only (enforced by Vercel)
 - Environment variables for secrets (.env.local)
 - Rate limiting on API routes (prevent abuse)
 
 ### Email Security
+
 - SPF, DKIM, DMARC records configured
 - Unsubscribe links in all emails
 - Track spam complaints
 - Bounce handling (mark invalid emails)
 
 ### Privacy
+
 - Privacy policy (GDPR-style, even though Australia)
 - User data export/deletion on request
 - Minimal data collection
@@ -553,17 +571,20 @@ async function matchVendors(wedding: Wedding): Promise<Vendor[]> {
 ## Performance Optimization
 
 ### Frontend
+
 - Next.js App Router (React Server Components for reduced JS)
 - Image optimization (next/image)
 - Lazy loading for dashboard (vendor cards)
 - Code splitting (route-based)
 
 ### Backend
+
 - Database indexing (category, location, userId)
 - Query optimization (select only needed fields)
 - Caching (Redis for future if needed)
 
 ### AI
+
 - Stream responses (don't wait for full completion)
 - Cache common prompts (reduce API calls)
 - Fallback to local LLM if API is slow/down
@@ -573,12 +594,14 @@ async function matchVendors(wedding: Wedding): Promise<Vendor[]> {
 ## Future Enhancements
 
 ### Phase 2
+
 - **Vendor Response Parsing:** AI extracts availability, quotes from emails
 - **Multi-language:** Support for non-English speaking couples
 - **Mobile App:** React Native or Flutter
 - **Vendor Dashboard:** Let vendors manage their profiles
 
 ### Phase 3
+
 - **Real-time Chat:** Direct messaging with vendors (WebSockets)
 - **Payment Integration:** Stripe for deposits/payments
 - **Contract Management:** E-signatures (DocuSign integration)

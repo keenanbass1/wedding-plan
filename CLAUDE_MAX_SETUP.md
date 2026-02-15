@@ -44,7 +44,7 @@ Edit `lib/claude.ts`:
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || 'dummy-key',
   baseURL: process.env.CLAUDE_BASE_URL || undefined,
-});
+})
 ```
 
 Edit `.env.local`:
@@ -80,6 +80,7 @@ cat ~/.claude/.credentials.json
 ```
 
 You'll see:
+
 ```json
 {
   "access_token": "sk-ant-oat01-...",
@@ -114,18 +115,21 @@ ANTHROPIC_API_KEY="sk-ant-oat01-YOUR-ACCESS-TOKEN"
 ## Cost Savings Example
 
 ### Development Phase (4 weeks, 1000 test conversations)
+
 - **With API (Haiku):** $5-10
 - **With API (Sonnet):** $50-100
 - **With Max:** $0 (already paying $200/month)
 - **Savings:** $50-100
 
 ### Beta Phase (4 weeks, 10,000 conversations)
+
 - **With API (Haiku):** $50-100
 - **With API (Sonnet):** $500-1,000
 - **With Max:** $0
 - **Savings:** $500-1,000
 
 ### Production (first 3 months, 50,000 conversations)
+
 - **With API (Sonnet):** $2,500-5,000
 - **With Max:** $0 (or $200/month if only using for this)
 - **Savings:** $2,000-4,400
@@ -137,6 +141,7 @@ ANTHROPIC_API_KEY="sk-ant-oat01-YOUR-ACCESS-TOKEN"
 ## Troubleshooting
 
 ### Proxy won't start
+
 ```bash
 # Check if Claude Code is installed
 claude --version
@@ -146,6 +151,7 @@ claude setup-token
 ```
 
 ### Token expired
+
 ```bash
 # Tokens expire every 8 hours
 # The proxy auto-refreshes using your refresh token
@@ -154,6 +160,7 @@ claude setup-token
 ```
 
 ### App can't connect to proxy
+
 ```bash
 # Make sure proxy is running
 curl http://localhost:3001/health
@@ -167,12 +174,14 @@ cat .env.local | grep CLAUDE_BASE_URL
 ## When to Use What
 
 **Use Max Subscription (Option 1) if:**
+
 - ✅ You already have Claude Max ($100-200/month)
 - ✅ You're in development/testing
 - ✅ You want unlimited free usage
 - ✅ You don't mind running a local proxy
 
 **Use Claude API if:**
+
 - ✅ You don't have Max subscription
 - ✅ You're in production with many users
 - ✅ You need official Anthropic support

@@ -1,5 +1,5 @@
-import { Vendor, Wedding } from '@prisma/client'
 import Anthropic from '@anthropic-ai/sdk'
+import { Vendor, Wedding } from '@prisma/client'
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || '',
@@ -60,10 +60,12 @@ Do not include any other text before or after.`
       model: process.env.CLAUDE_MODEL || 'claude-sonnet-4-5-20250929',
       max_tokens: 1000,
       temperature: 0.7,
-      messages: [{
-        role: 'user',
-        content: prompt,
-      }],
+      messages: [
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ],
     })
 
     const textContent = response.content.find(block => block.type === 'text')
@@ -73,7 +75,9 @@ Do not include any other text before or after.`
     const subjectMatch = generatedText.match(/SUBJECT:\s*(.+?)(?:\n|$)/i)
     const bodyMatch = generatedText.match(/BODY:\s*([\s\S]+?)(?:\n\n---|\n\nBest regards|$)/i)
 
-    const subject = subjectMatch?.[1]?.trim() || `Wedding Inquiry - ${new Date(wedding.weddingDate || Date.now()).toLocaleDateString('en-AU', { month: 'long', year: 'numeric' })}`
+    const subject =
+      subjectMatch?.[1]?.trim() ||
+      `Wedding Inquiry - ${new Date(wedding.weddingDate || Date.now()).toLocaleDateString('en-AU', { month: 'long', year: 'numeric' })}`
     const body = bodyMatch?.[1]?.trim() || generatedText
 
     return { subject, body }
@@ -94,8 +98,12 @@ function generateFallbackEmail(
   userEmail: string
 ): GeneratedEmail {
   const dateStr = wedding.weddingDate
-    ? new Date(wedding.weddingDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })
-    : 'a date we\'re still finalising'
+    ? new Date(wedding.weddingDate).toLocaleDateString('en-AU', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+    : "a date we're still finalising"
 
   const subject = `Wedding Inquiry - ${vendor.category} for ${new Date(wedding.weddingDate || Date.now()).toLocaleDateString('en-AU', { month: 'long', year: 'numeric' })}`
 

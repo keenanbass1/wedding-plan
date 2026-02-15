@@ -52,9 +52,11 @@ EMAIL_FROM="onboarding@resend.dev"  # ← For testing (or your verified domain)
 ```
 
 **For testing:**
+
 - Use `EMAIL_FROM="onboarding@resend.dev"` (works immediately)
 
 **For production:**
+
 - Use `EMAIL_FROM="noreply@yourdomain.com"` (requires domain verification)
 
 ---
@@ -72,6 +74,7 @@ vercel env add EMAIL_FROM production
 ```
 
 Or add manually in Vercel dashboard:
+
 1. Go to: https://vercel.com/keenanbass1/wedding-plan/settings/environment-variables
 2. Add `RESEND_API_KEY` = `re_YOUR_KEY_HERE`
 3. Add `EMAIL_FROM` = `onboarding@resend.dev`
@@ -84,6 +87,7 @@ Or add manually in Vercel dashboard:
 ### **Local Testing:**
 
 1. **Start the dev server:**
+
    ```bash
    npm run dev
    ```
@@ -110,12 +114,14 @@ Or add manually in Vercel dashboard:
    ```bash
    npx prisma studio
    ```
+
    - Look at the `VendorOutreach` table
    - You should see records with `sentAt` timestamps
 
 ### **Production Testing:**
 
 1. **Deploy with new env vars:**
+
    ```bash
    git add .
    git commit -m "Add Resend API key configuration"
@@ -218,16 +224,19 @@ For real-time updates, set up a webhook:
 ## 📈 Rate Limits
 
 ### **Free Tier:**
+
 - 100 emails/day
 - 10 requests/second
 - Perfect for testing
 
 ### **Paid Tier ($20/mo):**
+
 - 50,000 emails/month
 - $0.001 per email after that
 - Same API rate limits
 
 ### **Batch Sending:**
+
 - Up to 100 emails per batch API call
 - Your app automatically chunks into batches of 100
 
@@ -264,6 +273,7 @@ For real-time updates, set up a webhook:
 ### **Fallback Behavior:**
 
 If Claude API fails, a template email is used:
+
 - See: `/lib/email/generate-vendor-email.ts` line 91-127
 - Still personalized with wedding details
 - Ensures emails always send even if AI is down
@@ -290,6 +300,7 @@ Once you add your Resend API key, the entire automated outreach system will work
 ### **Problem: "Email not configured" error**
 
 **Solution:**
+
 ```bash
 # Check your .env.local has:
 RESEND_API_KEY="re_..." (not empty)
@@ -302,6 +313,7 @@ npm run dev
 ### **Problem: Emails not sending**
 
 **Solution:**
+
 1. Check Resend dashboard for errors
 2. Verify API key is correct
 3. Check rate limits (free: 100/day)
@@ -310,6 +322,7 @@ npm run dev
 ### **Problem: Emails going to spam**
 
 **Solution:**
+
 1. Use a verified domain (not @resend.dev)
 2. Warm up sending (start with 10-20 emails/day)
 3. Ensure email content is personalized and professional

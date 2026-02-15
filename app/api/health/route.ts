@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { NextResponse } from 'next/server'
+
 
 export async function GET() {
   try {
@@ -10,7 +10,7 @@ export async function GET() {
       status: 'healthy',
       timestamp: new Date().toISOString(),
       environment: process.env.NODE_ENV,
-    });
+    })
   } catch (error) {
     return NextResponse.json(
       {
@@ -18,6 +18,6 @@ export async function GET() {
         error: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
-    );
+    )
   }
 }

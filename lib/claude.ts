@@ -1,19 +1,19 @@
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from '@anthropic-ai/sdk'
 
 // Initialize Claude API client
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || '',
-});
+})
 
 export interface Message {
-  role: 'user' | 'assistant';
-  content: string;
+  role: 'user' | 'assistant'
+  content: string
 }
 
 export interface ChatOptions {
-  systemPrompt?: string;
-  maxTokens?: number;
-  temperature?: number;
+  systemPrompt?: string
+  maxTokens?: number
+  temperature?: number
 }
 
 /**
@@ -27,7 +27,7 @@ export async function* streamChatResponse(
     systemPrompt = 'You are a helpful wedding planning assistant.',
     maxTokens = 1024,
     temperature = 0.7,
-  } = options;
+  } = options
 
   const stream = await anthropic.messages.stream({
     model: process.env.CLAUDE_MODEL || 'claude-3-5-haiku-20241022', // Haiku for dev, can switch to Sonnet
@@ -38,14 +38,11 @@ export async function* streamChatResponse(
       role: msg.role,
       content: msg.content,
     })),
-  });
+  })
 
   for await (const chunk of stream) {
-    if (
-      chunk.type === 'content_block_delta' &&
-      chunk.delta.type === 'text_delta'
-    ) {
-      yield chunk.delta.text;
+    if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
+      yield chunk.delta.text
     }
   }
 }
@@ -61,7 +58,7 @@ export async function getChatResponse(
     systemPrompt = 'You are a helpful wedding planning assistant.',
     maxTokens = 1024,
     temperature = 0.7,
-  } = options;
+  } = options
 
   const response = await anthropic.messages.create({
     model: process.env.CLAUDE_MODEL || 'claude-3-5-haiku-20241022', // Haiku for dev, can switch to Sonnet
@@ -72,10 +69,10 @@ export async function getChatResponse(
       role: msg.role,
       content: msg.content,
     })),
-  });
+  })
 
-  const textContent = response.content.find(block => block.type === 'text');
-  return textContent && textContent.type === 'text' ? textContent.text : '';
+  const textContent = response.content.find(block => block.type === 'text')
+  return textContent && textContent.type === 'text' ? textContent.text : ''
 }
 
 // Wedding planning specific system prompt
@@ -101,4 +98,4 @@ Guidelines:
 - Keep responses concise and conversational
 
 When you've collected all necessary information, let them know you'll now search for vendors that match their requirements.
-`.trim();
+`.trim()

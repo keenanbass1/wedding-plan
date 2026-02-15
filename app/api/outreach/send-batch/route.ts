@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
 import { PrismaClient } from '@prisma/client'
+import { NextRequest, NextResponse } from 'next/server'
+
 import { resend, validateEmailConfig } from '@/lib/email/resend-client'
+import { createClient } from '@/lib/supabase/server'
 
 const prisma = new PrismaClient()
 
@@ -23,13 +24,12 @@ export async function POST(req: NextRequest) {
   try {
     // Check authentication
     const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
 
     if (!user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      )
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Validate email configuration
@@ -41,23 +41,17 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const { emails, weddingId } = await req.json() as {
+    const { emails, weddingId } = (await req.json()) as {
       emails: EmailToSend[]
       weddingId: string
     }
 
     if (!emails || !Array.isArray(emails) || emails.length === 0) {
-      return NextResponse.json(
-        { error: 'emails array is required' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'emails array is required' }, { status: 400 })
     }
 
     if (!weddingId) {
-      return NextResponse.json(
-        { error: 'weddingId is required' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'weddingId is required' }, { status: 400 })
     }
 
     // Verify wedding ownership
@@ -67,10 +61,7 @@ export async function POST(req: NextRequest) {
     })
 
     if (!wedding || wedding.user.authId !== user.id) {
-      return NextResponse.json(
-        { error: 'Wedding not found or access denied' },
-        { status: 404 }
-      )
+      return NextResponse.json({ error: 'Wedding not found or access denied' }, { status: 404 })
     }
 
     // Send batch emails via Resend
@@ -153,9 +144,6 @@ export async function POST(req: NextRequest) {
     })
   } catch (error) {
     console.error('Error sending batch emails:', error)
-    return NextResponse.json(
-      { error: 'Failed to send emails' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Failed to send emails' }, { status: 500 })
   }
 }

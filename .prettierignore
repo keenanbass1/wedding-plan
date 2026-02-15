@@ -1,0 +1,25 @@
+# Dependencies
+node_modules
+
+# Next.js
+.next
+out
+
+# Build outputs
+dist
+build
+
+# Cache
+.cache
+
+# Misc
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Prisma
+prisma/migrations
+
+# Archives
+docs/archive

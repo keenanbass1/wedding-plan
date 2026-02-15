@@ -9,9 +9,11 @@
 ## Week 1-2: Foundation & Setup
 
 ### Week 1: Project Setup
+
 **Goal:** Get development environment running with core infrastructure
 
 **Tasks:**
+
 - [x] Create PRD, Architecture docs
 - [ ] Initialize Next.js 14 project (TypeScript, App Router)
 - [ ] Set up Tailwind CSS + shadcn/ui
@@ -27,9 +29,11 @@
 ---
 
 ### Week 2: AI Chat Foundation
+
 **Goal:** Working conversational AI interface
 
 **Tasks:**
+
 - [ ] Integrate Claude API (using your account for testing)
 - [ ] Build chat UI component (message list, input field)
 - [ ] Implement conversation state management
@@ -46,9 +50,11 @@
 ## Week 3-4: Core Features
 
 ### Week 3: Wedding Data Model & Intake
+
 **Goal:** Complete the information gathering flow
 
 **Tasks:**
+
 - [ ] Design conversation stages (welcome → date → location → ... → review)
 - [ ] Implement stage-based prompting
 - [ ] Build "Review Summary" page (show collected data)
@@ -63,9 +69,11 @@
 ---
 
 ### Week 4: Vendor Database Setup
+
 **Goal:** 50+ vendors in database, searchable
 
 **Tasks:**
+
 - [ ] Finalize vendor schema (Prisma)
 - [ ] Research NSW wedding venues (Google Maps, directories)
 - [ ] Manually curate 50-100 Sydney/NSW venues
@@ -83,9 +91,11 @@
 ## Week 5-6: Email Automation
 
 ### Week 5: Email Infrastructure
+
 **Goal:** Send personalized emails to vendors
 
 **Tasks:**
+
 - [ ] Set up Resend account
 - [ ] Configure email domain (SPF, DKIM, DMARC)
 - [ ] Create email templates (venues, photographers, caterers)
@@ -100,9 +110,11 @@
 ---
 
 ### Week 6: Outreach Tracking
+
 **Goal:** Track email status and vendor responses
 
 **Tasks:**
+
 - [ ] Create `VendorOutreach` records when sending
 - [ ] Implement webhook handler (delivery, opens, bounces)
 - [ ] Manual response entry (until auto-parsing built)
@@ -118,9 +130,11 @@
 ## Week 7-8: Dashboard & UX
 
 ### Week 7: Response Dashboard
+
 **Goal:** Beautiful UI to review vendor options
 
 **Tasks:**
+
 - [ ] Design dashboard layout (category tabs, vendor cards)
 - [ ] Build vendor card component (name, price, availability, contact)
 - [ ] Add filtering (available only, price range)
@@ -135,9 +149,11 @@
 ---
 
 ### Week 8: Polish & Testing
+
 **Goal:** Bug-free, production-ready MVP
 
 **Tasks:**
+
 - [ ] End-to-end testing (complete user journey)
 - [ ] Fix bugs from testing
 - [ ] Add loading states (skeletons, spinners)
@@ -154,9 +170,11 @@
 ## Week 9-10: Beta Launch
 
 ### Week 9: Beta Preparation
+
 **Goal:** Prepare for real users
 
 **Tasks:**
+
 - [ ] Expand vendor database (200+ venues, 150+ photographers, 100+ caterers)
 - [ ] Create landing page (value prop, screenshots, signup)
 - [ ] Set up analytics (Vercel Analytics or Plausible)
@@ -171,9 +189,11 @@
 ---
 
 ### Week 10: Beta Testing & Iteration
+
 **Goal:** 10 beta users, gather feedback
 
 **Tasks:**
+
 - [ ] Recruit 10 beta couples (friends, family, Reddit, wedding forums)
 - [ ] Onboard beta users (walk through app)
 - [ ] Monitor usage (analytics, error logs)
@@ -190,6 +210,7 @@
 ## Post-MVP: Growth Phase (Weeks 11+)
 
 ### Immediate Improvements (Week 11-12)
+
 - [ ] Add florists category
 - [ ] Add entertainment/bands category
 - [ ] Improve AI prompts based on user feedback
@@ -197,6 +218,7 @@
 - [ ] A/B test pricing ($49 vs $79 vs $99)
 
 ### Phase 2 Features (Month 3-4)
+
 - [ ] Guest management (import contacts, track RSVPs)
 - [ ] Budget tracking dashboard
 - [ ] Timeline/checklist generator
@@ -205,6 +227,7 @@
 - [ ] Vendor partnerships (premium listings, verified badges)
 
 ### Phase 3 Features (Month 5-6)
+
 - [ ] Mobile app (React Native)
 - [ ] Real-time chat with vendors
 - [ ] Contract management (e-signatures)
@@ -217,6 +240,7 @@
 ## Development Setup Checklist
 
 ### Tools to Install
+
 - [ ] Node.js 20+ (or use nvm)
 - [ ] pnpm or bun (package manager)
 - [ ] PostgreSQL (Docker or local)
@@ -225,6 +249,7 @@
 - [ ] Prisma extension (VS Code)
 
 ### Accounts to Create
+
 - [ ] Vercel account (deployment)
 - [ ] GitHub account (code hosting)
 - [ ] Anthropic account (Claude API) - ✅ You have this
@@ -232,6 +257,7 @@
 - [ ] Sentry account (error monitoring) - optional
 
 ### Environment Variables (.env.local)
+
 ```bash
 # Database
 DATABASE_URL="postgresql://user:password@localhost:5432/weddingplan"
@@ -256,6 +282,7 @@ OLLAMA_URL="http://localhost:11434"  # If using local Llama
 ## Success Criteria (MVP)
 
 ### Technical
+
 - [ ] 99% uptime (Vercel reliability)
 - [ ] < 2s page load time
 - [ ] < 5s AI response time (first token)
@@ -263,12 +290,14 @@ OLLAMA_URL="http://localhost:11434"  # If using local Llama
 - [ ] Zero critical security vulnerabilities
 
 ### User Experience
+
 - [ ] 80%+ chat completion rate (users finish intake)
 - [ ] 4+ star average rating (beta feedback)
 - [ ] 70%+ users trigger vendor outreach
 - [ ] 20+ hours saved per user (vs manual outreach)
 
 ### Business
+
 - [ ] 50+ signups (organic + beta invites)
 - [ ] 10+ completed wedding plans
 - [ ] 40%+ vendor response rate
@@ -280,34 +309,38 @@ OLLAMA_URL="http://localhost:11434"  # If using local Llama
 ## Risk Mitigation
 
 ### Technical Risks
-| Risk | Mitigation |
-|------|-----------|
-| Claude API downtime | Implement retry logic, fallback to local LLM |
+
+| Risk                        | Mitigation                                                          |
+| --------------------------- | ------------------------------------------------------------------- |
+| Claude API downtime         | Implement retry logic, fallback to local LLM                        |
 | Email deliverability issues | Use reputable ESP (Resend), authenticate domain, monitor reputation |
-| Database performance | Add indexes, query optimization, consider caching |
-| Vendor data quality | Manual curation for MVP, user-submitted additions with review |
+| Database performance        | Add indexes, query optimization, consider caching                   |
+| Vendor data quality         | Manual curation for MVP, user-submitted additions with review       |
 
 ### Product Risks
-| Risk | Mitigation |
-|------|-----------|
-| Low vendor response rate | A/B test email templates, follow-up reminders, incentivize vendors |
-| Users abandon during chat | Shorten intake flow, save progress, allow resuming later |
-| Insufficient vendor coverage | Focus on Sydney initially, expand gradually |
-| Competition launches similar product | Move fast, build vendor relationships, focus on UX quality |
+
+| Risk                                 | Mitigation                                                         |
+| ------------------------------------ | ------------------------------------------------------------------ |
+| Low vendor response rate             | A/B test email templates, follow-up reminders, incentivize vendors |
+| Users abandon during chat            | Shorten intake flow, save progress, allow resuming later           |
+| Insufficient vendor coverage         | Focus on Sydney initially, expand gradually                        |
+| Competition launches similar product | Move fast, build vendor relationships, focus on UX quality         |
 
 ### Business Risks
-| Risk | Mitigation |
-|------|-----------|
-| No users sign up | Marketing (SEO, Reddit, wedding forums), free tier |
+
+| Risk                        | Mitigation                                                             |
+| --------------------------- | ---------------------------------------------------------------------- |
+| No users sign up            | Marketing (SEO, Reddit, wedding forums), free tier                     |
 | Users don't convert to paid | Test pricing, highlight value (time saved), offer money-back guarantee |
-| Spam complaints | Clear opt-out, only business emails, track complaints |
-| Legal issues (privacy) | Privacy policy, GDPR-style data handling, consult lawyer if scaling |
+| Spam complaints             | Clear opt-out, only business emails, track complaints                  |
+| Legal issues (privacy)      | Privacy policy, GDPR-style data handling, consult lawyer if scaling    |
 
 ---
 
 ## Metrics Dashboard (Track Weekly)
 
 ### User Metrics
+
 - New signups
 - Active users (weekly)
 - Chat completion rate
@@ -315,18 +348,21 @@ OLLAMA_URL="http://localhost:11434"  # If using local Llama
 - Dashboard engagement (time spent)
 
 ### Technical Metrics
+
 - API response time (p50, p95, p99)
 - Error rate
 - Uptime
 - Database query performance
 
 ### Business Metrics
+
 - Emails sent (total, per user)
 - Vendor response rate
 - Conversion rate (free → paid)
 - Customer satisfaction (NPS or CSAT)
 
 ### Vendor Metrics
+
 - Total vendors in database
 - Vendors contacted (this week)
 - Average response time

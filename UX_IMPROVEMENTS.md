@@ -14,6 +14,7 @@
 **After**: Professional questionnaire → Personalized consultant
 
 #### **Stage 1: Structured Questionnaire** (Questions 1-5)
+
 - **Professional button options** instead of open text
 - **5 key questions** with pre-defined choices:
   1. Wedding date (specific/2027/2028/deciding)
@@ -28,7 +29,9 @@
 - **Visual feedback** - buttons scale on hover, border changes color
 
 #### **Stage 2: AI Consultant Mode**
+
 - After 5 questions, **summarizes collected data** beautifully:
+
   ```
   Perfect! Here's what we've gathered:
   📅 Date: Flexible - sometime in 2027
@@ -39,6 +42,7 @@
 
   Now I'd love to learn more about your specific preferences...
   ```
+
 - **Text input appears** for open conversation
 - **AI streaming responses** kick in for personalized consultation
 - Still professional, but now tailored to their specific needs
@@ -48,18 +52,21 @@
 ### 2. **Visual Distinctions**
 
 **Quick Reply Messages** (button selections):
+
 - Light purple gradient background (`purple-100` to `purple-50`)
 - Purple text and border
 - Lighter shadow
 - Shows it's a pre-selected option, not typed
 
 **Typed Messages** (consultant mode):
+
 - Full rose-to-pink gradient
 - White text
 - Strong shadow
 - Shows it's a personal message
 
 **AI Messages**:
+
 - White background
 - Gray text
 - Sparkle icon avatar
@@ -70,6 +77,7 @@
 ### 3. **Progress Indicators**
 
 **Questionnaire Header**:
+
 ```
 Your Wedding Concierge
 Question 3 of 5
@@ -77,6 +85,7 @@ Question 3 of 5
 ```
 
 **Consultant Header**:
+
 ```
 Your Wedding Concierge
 Personalized consultation
@@ -88,18 +97,23 @@ Personalized consultation
 ### 4. **Bug Fix: Keyboard Shortcuts** ✅
 
 **Before**:
+
 ```html
 <kbd className="...">Enter</kbd>
 ```
+
 Rendered as literal `<kbd>` tags in some browsers
 
 **After**:
+
 ```html
 <span className="inline-block px-2 py-0.5 bg-gray-100 rounded ...">Enter</span>
 ```
+
 Styled inline elements that work everywhere
 
 **Result**: Beautiful keyboard button styling:
+
 ```
 Press [Enter] to send · [Shift + Enter] for new line
 ```
@@ -109,6 +123,7 @@ Press [Enter] to send · [Shift + Enter] for new line
 ## 🎯 **Benefits**
 
 ### **User Experience**
+
 ✅ **Less intimidating** - Buttons vs blank text box
 ✅ **Faster** - Click options instead of typing
 ✅ **Professional feel** - Structured like a premium service
@@ -117,12 +132,14 @@ Press [Enter] to send · [Shift + Enter] for new line
 ✅ **Smooth transition** - Summary before free conversation
 
 ### **Perception**
+
 ✅ **Not "AI spam"** - Feels like a professional intake form
 ✅ **Trustworthy** - Structured questionnaire like a real planner would ask
 ✅ **Efficient** - Quick to get through the basics
 ✅ **Personalized** - Summary shows we listened, then AI goes deep
 
 ### **Conversion**
+
 ✅ **Higher completion** - Easier to click than type
 ✅ **Better data quality** - Standardized answers
 ✅ **Reduced friction** - No "what should I say?" anxiety
@@ -133,14 +150,16 @@ Press [Enter] to send · [Shift + Enter] for new line
 ## 🔍 **Implementation Details**
 
 ### **State Management**
+
 ```typescript
-type ChatStage = 'questionnaire' | 'consultant';
-const [stage, setStage] = useState<ChatStage>('questionnaire');
-const [currentQuestion, setCurrentQuestion] = useState(0);
-const [collectedData, setCollectedData] = useState<Record<string, string>>({});
+type ChatStage = 'questionnaire' | 'consultant'
+const [stage, setStage] = useState<ChatStage>('questionnaire')
+const [currentQuestion, setCurrentQuestion] = useState(0)
+const [collectedData, setCollectedData] = useState<Record<string, string>>({})
 ```
 
 ### **Question Flow**
+
 ```typescript
 const QUESTIONS = [
   {
@@ -152,13 +171,14 @@ const QUESTIONS = [
 ```
 
 ### **Transition Logic**
+
 ```typescript
 if (currentQuestion < QUESTIONS.length - 1) {
   // Show next question with options
-  setCurrentQuestion(nextQ);
+  setCurrentQuestion(nextQ)
 } else {
   // Transition to consultant mode
-  setStage('consultant');
+  setStage('consultant')
   // Show summary + enable text input
 }
 ```
@@ -168,6 +188,7 @@ if (currentQuestion < QUESTIONS.length - 1) {
 ## 🎨 **UI Components**
 
 ### **Option Buttons**
+
 ```css
 - White background
 - 2px gray border (changes to rose on hover)
@@ -178,6 +199,7 @@ if (currentQuestion < QUESTIONS.length - 1) {
 ```
 
 ### **Progress Bar**
+
 ```css
 - Gray background
 - Rose-to-pink gradient fill
@@ -187,10 +209,13 @@ if (currentQuestion < QUESTIONS.length - 1) {
 ```
 
 ### **Stage Indicator**
+
 ```tsx
-{stage === 'questionnaire'
-  ? `Question ${currentQuestion + 1} of ${QUESTIONS.length}`
-  : 'Personalized consultation'}
+{
+  stage === 'questionnaire'
+    ? `Question ${currentQuestion + 1} of ${QUESTIONS.length}`
+    : 'Personalized consultation'
+}
 ```
 
 ---
@@ -198,6 +223,7 @@ if (currentQuestion < QUESTIONS.length - 1) {
 ## 📱 **Mobile Optimization**
 
 All button options:
+
 - **Wrap on small screens** (`flex-wrap`)
 - **Touch-friendly sizing** (px-4 py-2.5)
 - **Clear tap targets** (>44px height)
@@ -208,6 +234,7 @@ All button options:
 ## 🧪 **Testing Flow**
 
 ### **Questionnaire Stage** (Visit /chat)
+
 1. See welcome message with 4 date options
 2. Click "Flexible - sometime in 2027"
 3. See quick purple reply appear instantly
@@ -218,6 +245,7 @@ All button options:
 8. After 5th question, see data summary
 
 ### **Consultant Stage**
+
 9. Text input appears at bottom
 10. Type "We want mountain views and outdoor ceremony"
 11. See AI streaming response personalized to Blue Mountains
@@ -228,12 +256,14 @@ All button options:
 ## 🎯 **Expected User Reactions**
 
 ### **Before** (Open chat):
+
 😰 "Uh, what do I say?"
 🤖 "This feels like talking to a bot"
 ⏱️ "How long will this take?"
 ❌ "I'll come back to this later..."
 
 ### **After** (Questionnaire):
+
 ✅ "Oh, just click buttons - easy!"
 💼 "This feels professional"
 📊 "Question 2 of 5 - almost done"
@@ -245,6 +275,7 @@ All button options:
 ## 📊 **Metrics to Track**
 
 Once live, measure:
+
 - **Completion rate**: % who finish all 5 questions
 - **Time to complete**: Avg time for questionnaire stage
 - **Transition rate**: % who continue to consultant stage
@@ -252,6 +283,7 @@ Once live, measure:
 - **Drop-off point**: Which question loses users (if any)
 
 **Expected improvements**:
+
 - 📈 Completion rate: 60% → 85%+
 - ⏱️ Time to complete: 5-10 minutes → 1-2 minutes
 - 💬 Engagement: Higher quality questions in consultant stage
@@ -261,6 +293,7 @@ Once live, measure:
 ## 🔮 **Future Enhancements**
 
 ### **Potential Additions**:
+
 1. **"Go back" button** - Edit previous answers
 2. **"Skip" option** - For some questions
 3. **Conditional questions** - Ask different Q4 based on Q3 answer
@@ -270,6 +303,7 @@ Once live, measure:
 7. **Smart defaults** - Pre-select popular options
 
 ### **Data Collection**:
+
 - Track most common selections per question
 - A/B test different option wording
 - Optimize button order based on selection frequency
@@ -279,6 +313,7 @@ Once live, measure:
 ## 🎨 **Design Principles**
 
 ### **Why This Works**:
+
 1. **Cognitive load reduction** - One question at a time
 2. **Decision fatigue prevention** - Limited, clear choices
 3. **Progress transparency** - Always know where you are
@@ -287,6 +322,7 @@ Once live, measure:
 6. **Graduated engagement** - Easy start → deeper later
 
 ### **Psychology**:
+
 - **Commitment escalation** - Small asks → bigger asks
 - **Completion compulsion** - Seeing progress motivates finishing
 - **Option paralysis avoided** - 4-5 choices (not overwhelming)
@@ -297,17 +333,20 @@ Once live, measure:
 ## ✅ **Bugs Fixed**
 
 ### **Keyboard Shortcut Display**
+
 - **Issue**: `<kbd>` tags showing as text or not styled
 - **Root cause**: Browser inconsistency with `<kbd>` element
 - **Fix**: Use styled `<span>` elements instead
 - **Result**: Consistent, beautiful button appearance across all browsers
 
 **Before**:
+
 ```
 Press Enter to send · Shift + Enter for new line
 ```
 
 **After**:
+
 ```
 Press [Enter] to send · [Shift + Enter] for new line
      ↑styled   ↑styled
@@ -323,6 +362,7 @@ npm run dev
 ```
 
 **Test the new flow**:
+
 1. Click through all 5 questions (takes ~30 seconds)
 2. Watch progress bar advance
 3. See data summary after Q5

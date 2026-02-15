@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
+import { useState, FormEvent } from 'react'
 
 interface VendorResponseFormProps {
   outreachId: string
@@ -61,12 +61,12 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
         <textarea
           id="responseEmail"
           value={responseEmail}
-          onChange={(e) => setResponseEmail(e.target.value)}
+          onChange={e => setResponseEmail(e.target.value)}
           required
           disabled={loading}
           rows={8}
           className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-light leading-relaxed"
-          placeholder="Paste the vendor&apos;s email response here..."
+          placeholder="Paste the vendor's email response here..."
         />
       </div>
 
@@ -83,7 +83,7 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
             id="quote"
             type="number"
             value={quote}
-            onChange={(e) => setQuote(e.target.value)}
+            onChange={e => setQuote(e.target.value)}
             disabled={loading}
             step="0.01"
             min="0"
@@ -91,7 +91,9 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
             placeholder="0.00"
           />
         </div>
-        <p className="mt-1 text-xs text-gray-500 font-light">Enter the quoted price in dollars (e.g., 5000.00)</p>
+        <p className="mt-1 text-xs text-gray-500 font-light">
+          Enter the quoted price in dollars (e.g., 5000.00)
+        </p>
       </div>
 
       {/* Notes */}
@@ -102,7 +104,7 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
         <textarea
           id="notes"
           value={notes}
-          onChange={(e) => setNotes(e.target.value)}
+          onChange={e => setNotes(e.target.value)}
           disabled={loading}
           rows={3}
           className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-light"
@@ -121,15 +123,32 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
           {loading ? (
             <>
               <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  fill="none"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
               </svg>
               <span>Saving...</span>
             </>
           ) : (
             <>
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
               <span>Save Response</span>
             </>

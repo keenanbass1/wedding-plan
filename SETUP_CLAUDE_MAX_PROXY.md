@@ -33,6 +33,7 @@ node dist/server/standalone.js
 ```
 
 You should see:
+
 ```
 Claude Code CLI Provider running at http://localhost:3456
 ```
@@ -107,6 +108,7 @@ pm2 stop claude-proxy
 ### "Claude CLI not found"
 
 Make sure Claude Code CLI is in your PATH:
+
 ```bash
 which claude
 # Should show: /home/mrfishpants/.local/bin/claude
@@ -135,6 +137,7 @@ kill -9 $(lsof -t -i:3456)
 ## Cost Comparison
 
 ### With Claude Max Proxy (FREE)
+
 ```
 Development: $0 (unlimited)
 Beta testing: $0 (unlimited)
@@ -143,6 +146,7 @@ Total: $0 extra per month
 ```
 
 ### With API (Current Setup)
+
 ```
 Development (1000 chats): ~$50
 Beta (10,000 chats): ~$500
@@ -155,11 +159,13 @@ Total: Can add up quickly!
 ## When to Use What
 
 **Use Max Proxy:**
+
 - ✅ Development and testing
 - ✅ You're already paying for Max
 - ✅ Want unlimited free usage
 
 **Use API (Current):**
+
 - ✅ Quick testing right now
 - ✅ Don't want to manage proxy
 - ✅ Simpler setup
@@ -171,6 +177,7 @@ Total: Can add up quickly!
 You have both options available:
 
 **Option 1: API Key (Active Now)**
+
 ```
 ANTHROPIC_API_KEY="sk-ant-api03-X54qT..."
 Model: claude-3-5-sonnet-20241022
@@ -178,6 +185,7 @@ Cost: ~$3/M input, ~$15/M output
 ```
 
 **Option 2: Max OAuth (Set up later)**
+
 ```
 Access Token: sk-ant-oat01-... (in ~/.claude/.credentials.json)
 Refresh Token: sk-ant-ort01-...

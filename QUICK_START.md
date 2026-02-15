@@ -19,6 +19,7 @@
 ### **Step 1: Add Your Claude API Key** (Required)
 
 Edit `.env.local`:
+
 ```bash
 ANTHROPIC_API_KEY="sk-ant-your-key-here"
 ```
@@ -41,7 +42,9 @@ npm run dev
 ## 🎨 What You Can Do Now
 
 ### 1. Chat with the AI Wedding Planner
+
 Visit `/chat` and have a conversation:
+
 - It will ask about your wedding date
 - Location preferences (NSW)
 - Guest count
@@ -49,22 +52,27 @@ Visit `/chat` and have a conversation:
 - Style and requirements
 
 ### 2. View the Database
+
 ```bash
 npm run db:studio
 ```
+
 Opens a visual database browser at http://localhost:5555
 
 You'll see:
+
 - 1 test user
 - 1 test wedding (Blue Mountains)
 - 3 test vendors (2 venues + 1 photographer)
 
 ### 3. Test Database Connection
+
 ```bash
 npm run db:test
 ```
 
 Should output:
+
 ```
 ✅ Database connection successful!
 📊 Database Status:
@@ -84,6 +92,7 @@ Should output:
 **Password**: weddingpass123
 
 **Connection String**:
+
 ```
 postgresql://weddinguser:weddingpass123@localhost:5433/weddingplan
 ```
@@ -151,15 +160,18 @@ prisma/
 ## 🐛 Troubleshooting
 
 ### Chat doesn't work?
+
 → Make sure `ANTHROPIC_API_KEY` is in `.env.local`
 
 ### Database connection failed?
+
 ```bash
 docker start wedding-postgres
 npm run db:test
 ```
 
 ### Port 3000 already in use?
+
 ```bash
 PORT=3001 npm run dev
 ```
@@ -180,6 +192,7 @@ See `IMPLEMENTATION_PLAN.md` for details:
 ## ✨ Current Capabilities
 
 ✅ **Working Now:**
+
 - Beautiful landing page
 - AI chat interface (with Claude API key)
 - Real-time streaming responses
@@ -188,6 +201,7 @@ See `IMPLEMENTATION_PLAN.md` for details:
 - Docker container management
 
 ❌ **Not Yet Built (Coming in Weeks 2-10):**
+
 - User login/signup
 - Conversation persistence
 - Vendor search and matching

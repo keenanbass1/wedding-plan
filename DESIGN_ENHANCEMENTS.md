@@ -39,6 +39,7 @@ Transformed the wedding planning app from a clean MVP into a **polished, elegant
 ```
 
 **Visual Impact**:
+
 - More sophisticated and premium feeling
 - Gentle floating animations create life and movement
 - Subtle textures add richness without noise
@@ -59,6 +60,7 @@ Transformed the wedding planning app from a clean MVP into a **polished, elegant
 ```
 
 **Typography Refinement**:
+
 - Increased heading size (up to 9xl on large screens)
 - Better leading (0.95) for tight, elegant spacing
 - Staggered fade-in animations (100ms intervals)
@@ -95,6 +97,7 @@ Features:
 ```
 
 **Individual Accents**:
+
 - Card 1: `from-rose-400 to-pink-400`
 - Card 2: `from-pink-400 to-purple-400`
 - Card 3: `from-purple-400 to-pink-400`
@@ -151,6 +154,7 @@ Features:
 **After**: Sophisticated bubbles with effects
 
 **AI Messages**:
+
 ```tsx
 - Rounded-2xl avatar (was rounded-full)
 - Gradient star icon (was sparkle path)
@@ -161,6 +165,7 @@ Features:
 ```
 
 **User Messages (Quick Reply)**:
+
 ```tsx
 - Gradient background (purple-100 → purple-50)
 - Backdrop blur for glass effect
@@ -169,6 +174,7 @@ Features:
 ```
 
 **User Messages (Typed)**:
+
 ```tsx
 - Three-color gradient (rose → pink → pink)
 - Stronger shadow (shadow-xl with rose-300/40)
@@ -221,6 +227,7 @@ Features:
 ```
 
 **Keyboard Shortcuts**:
+
 - White backdrop blur pills
 - Proper kbd element styling
 - Border and shadow
@@ -246,33 +253,50 @@ Features:
 ### New Animations in `globals.css`
 
 **1. Float Animation**
+
 ```css
 @keyframes float {
-  0%, 100% { transform: translateY(0) translateX(0); }
-  33% { transform: translateY(-20px) translateX(10px); }
-  66% { transform: translateY(10px) translateX(-10px); }
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  66% {
+    transform: translateY(10px) translateX(-10px);
+  }
 }
 ```
 
 **Usage**:
+
 - `.animate-float` (15s duration)
 - `.animate-float-delayed` (18s with -3s delay)
 - Applied to background orbs and floral elements
 
 **2. Gradient Animation**
+
 ```css
 @keyframes gradient {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 ```
 
 **Usage**:
+
 - `.animate-gradient` (8s infinite)
 - Applied to gradient text headings
 - Creates subtle color shifting effect
 
 **3. Enhanced FadeIn**
+
 - Retained existing fadeIn animation
 - Applied with staggered delays throughout
 - Creates orchestrated entrance sequence
@@ -282,6 +306,7 @@ Features:
 ## 🎯 Typography Hierarchy
 
 ### Display Text (Headings)
+
 ```css
 - Font: Cormorant Garamond (serif)
 - Weights: 300 (light), 400 (regular), 500 (medium), 600 (semibold)
@@ -291,6 +316,7 @@ Features:
 ```
 
 ### Body Text
+
 ```css
 - Font: Inter (sans-serif)
 - Weight: 300 (light) for most body text
@@ -299,6 +325,7 @@ Features:
 ```
 
 ### Special Cases
+
 ```css
 - Uppercase labels: tracking-[0.3em], text-sm, font-medium
 - Mono text (keyboard): font-mono, text-xs
@@ -310,6 +337,7 @@ Features:
 ## 🌈 Color System
 
 ### Primary Gradients
+
 ```css
 - Rose to Pink: from-rose-400 to-pink-400
 - Pink to Purple: from-pink-400 to-purple-400
@@ -318,6 +346,7 @@ Features:
 ```
 
 ### Backgrounds
+
 ```css
 - Page: from-rose-50 via-white to-purple-50
 - Cards: white/80-90 with backdrop-blur
@@ -326,6 +355,7 @@ Features:
 ```
 
 ### Accents
+
 ```css
 - Primary: rose-400, pink-400, purple-400
 - Secondary: rose-300, pink-300, purple-300
@@ -334,6 +364,7 @@ Features:
 ```
 
 ### Special Effects
+
 ```css
 - Shadows: rose-200/50, rose-300/40, pink-200/50
 - Glows: Gradient backgrounds at 30-50% opacity with blur
@@ -345,6 +376,7 @@ Features:
 ## 📐 Spacing & Layout
 
 ### Component Spacing
+
 ```css
 - Container padding: p-6 to p-8
 - Section gaps: space-y-6 to space-y-8
@@ -353,6 +385,7 @@ Features:
 ```
 
 ### Rounded Corners
+
 ```css
 - Small elements: rounded-lg (8px)
 - Buttons: rounded-full or rounded-2xl (16px)
@@ -361,6 +394,7 @@ Features:
 ```
 
 ### Shadows
+
 ```css
 Progression:
 - Rest: shadow-sm to shadow-lg
@@ -374,6 +408,7 @@ Progression:
 ## 🎨 Visual Patterns & Textures
 
 ### Dot Pattern
+
 ```css
 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.02)_1px,transparent_0)]
 bg-[size:24px_24px] or bg-[size:32px_32px]
@@ -383,6 +418,7 @@ bg-[size:24px_24px] or bg-[size:32px_32px]
 **Usage**: Background overlays on headers, footers, sections
 
 ### Floral Accents
+
 ```svg
 SVG paths creating heart-shaped floral motifs
 - Positioned absolutely with low opacity (15-20%)
@@ -391,6 +427,7 @@ SVG paths creating heart-shaped floral motifs
 ```
 
 ### Gradient Orbs
+
 ```css
 - Large circular divs (w-96 h-96)
 - Positioned absolutely off-screen edges
@@ -406,22 +443,26 @@ SVG paths creating heart-shaped floral motifs
 ### Hover States
 
 **Buttons**:
+
 - Scale: 105% (hover)
 - Shadow: Increase intensity
 - Translate: Icons move (arrows, etc.)
 
 **Cards**:
+
 - Shadow: sm → xl
 - Border: gray → rose/purple
 - Inner gradient: 0% → 5% opacity
 - Accent lines: 0% → 100% opacity
 
 **Inputs**:
+
 - Shadow: md → lg → xl
 - Accent line: fade in gradient
 - Border: expand ring
 
 ### Click/Active States
+
 - Quick visual feedback
 - Maintain consistency with hover
 - No jarring transitions
@@ -431,6 +472,7 @@ SVG paths creating heart-shaped floral motifs
 ## 📱 Responsive Design
 
 ### Breakpoint Strategy
+
 ```css
 - Base: Mobile-first (default)
 - md: Tablets (768px+)
@@ -440,18 +482,21 @@ SVG paths creating heart-shaped floral motifs
 ### Key Adjustments
 
 **Typography**:
+
 ```css
 text-5xl md:text-6xl lg:text-7xl (progressive scaling)
 text-xl md:text-2xl (body text scaling)
 ```
 
 **Layout**:
+
 ```css
 grid-cols-1 md:grid-cols-3 (feature cards)
 flex-col sm:flex-row (button groups)
 ```
 
 **Spacing**:
+
 ```css
 px-6 py-24 (mobile comfortable padding)
 max-w-6xl mx-auto (contained content width)
@@ -462,17 +507,20 @@ max-w-6xl mx-auto (contained content width)
 ## 🔍 Accessibility Considerations
 
 ### Visual Clarity
+
 - High contrast text (gray-900 on white, white on gradients)
 - Clear focus states (ring-2 with colored rings)
 - Readable font sizes (minimum 14px / text-sm)
 
 ### Interactive Elements
+
 - Touch-friendly sizing (min 44px height)
 - Clear hover/focus states
 - Disabled states with opacity reduction
 - Semantic HTML (proper headings, buttons, etc.)
 
 ### Motion
+
 - Respects user preferences (can be disabled via media query)
 - Subtle, purposeful animations
 - No motion-induced nausea (gentle float, no rapid spinning)
@@ -482,6 +530,7 @@ max-w-6xl mx-auto (contained content width)
 ## 📊 Performance Impact
 
 ### Build Size
+
 ```
 Before: ~102 kB first load
 After: ~102 kB first load (minimal increase)
@@ -489,6 +538,7 @@ Chat: ~110 kB (slightly increased due to enhanced animations)
 ```
 
 ### Optimizations
+
 - CSS-only animations (no JS overhead)
 - Backdrop-blur instead of background images
 - SVG icons (scalable, small file size)
@@ -500,6 +550,7 @@ Chat: ~110 kB (slightly increased due to enhanced animations)
 ## 🎯 User Experience Improvements
 
 ### Perceived Quality
+
 ✅ Feels more premium and trustworthy
 ✅ Wedding-themed without being cliché
 ✅ Delightful animations increase engagement
@@ -507,12 +558,14 @@ Chat: ~110 kB (slightly increased due to enhanced animations)
 ✅ Cohesive design builds confidence
 
 ### Emotional Response
+
 ✅ Romantic and elegant (appropriate for weddings)
 ✅ Calm and reassuring (reduces planning anxiety)
 ✅ Professional yet warm (AI + human touch)
 ✅ Memorable (distinct from generic chat apps)
 
 ### Usability
+
 ✅ Clear visual feedback on interactions
 ✅ Obvious interactive elements (buttons, inputs)
 ✅ Progress clearly communicated
@@ -524,6 +577,7 @@ Chat: ~110 kB (slightly increased due to enhanced animations)
 ## 🚀 Testing Checklist
 
 ### Visual Testing
+
 - [ ] Landing page: Check gradient animations
 - [ ] Landing page: Verify floating elements
 - [ ] Landing page: Test feature card hovers
@@ -535,6 +589,7 @@ Chat: ~110 kB (slightly increased due to enhanced animations)
 - [ ] Mobile: Verify touch targets
 
 ### Animation Testing
+
 - [ ] Float animations running smoothly
 - [ ] Gradient text shifting subtly
 - [ ] Staggered fade-ins working
@@ -542,6 +597,7 @@ Chat: ~110 kB (slightly increased due to enhanced animations)
 - [ ] Loading indicator animating
 
 ### Cross-Browser Testing
+
 - [ ] Chrome/Edge (Chromium)
 - [ ] Safari (WebKit)
 - [ ] Firefox (Gecko)
@@ -553,21 +609,27 @@ Chat: ~110 kB (slightly increased due to enhanced animations)
 ## 💡 Design Decisions
 
 ### Why Rounded-2xl Avatars?
+
 **Rationale**: Softer than perfect circles, more modern and wedding-appropriate. Creates visual consistency with other rounded elements.
 
 ### Why Three-Color Gradients?
+
 **Rationale**: Creates richer, more sophisticated color transitions than two-color gradients. Adds depth and visual interest.
 
 ### Why Backdrop Blur?
+
 **Rationale**: Creates depth and layering without heavy images. Modern, performant, and elegant glass-morphism effect.
 
 ### Why Dot Pattern Texture?
+
 **Rationale**: Adds subtle visual interest and texture without being distracting. Creates richness and prevents flat, sterile feeling.
 
 ### Why Floating Animations?
+
 **Rationale**: Creates gentle life and movement that feels organic and wedding-appropriate. Suggests growth, romance, lightness.
 
 ### Why Star Icons?
+
 **Rationale**: Universal symbol of excellence, wishes, and special moments. Perfect for wedding theme without being overly literal (no rings, bells, etc.)
 
 ---
@@ -575,26 +637,31 @@ Chat: ~110 kB (slightly increased due to enhanced animations)
 ## 🎨 Design System Summary
 
 ### Fonts
+
 - **Display**: Cormorant Garamond (300, 400, 500, 600)
 - **Body**: Inter (variable weight)
 
 ### Colors
+
 - **Primary**: Rose-400, Pink-400, Purple-400
 - **Backgrounds**: White, Rose-50, Purple-50
 - **Text**: Gray-900, Gray-600, Gray-500
 
 ### Spacing Scale
+
 - **Tight**: 2-4 (0.5-1rem)
 - **Medium**: 6-8 (1.5-2rem)
 - **Loose**: 12-24 (3-6rem)
 
 ### Shadows
+
 - **Subtle**: shadow-sm, shadow-md
 - **Standard**: shadow-lg
 - **Dramatic**: shadow-xl, shadow-2xl
 - **Colored**: shadow-rose-200/50
 
 ### Animations
+
 - **Duration**: 200-700ms
 - **Easing**: ease, ease-out, ease-in-out
 - **Delays**: 100-600ms (staggered)
@@ -628,6 +695,7 @@ The wedding planning app now has a **distinctive, elegant, and polished** design
 ## 🔮 Future Enhancement Ideas
 
 ### Potential Additions
+
 1. **Seasonal themes** - Spring florals, autumn leaves, winter snowflakes
 2. **Custom color schemes** - Let couples pick their wedding colors
 3. **Photo integration** - Upload inspiration photos, show vendor portfolios
@@ -642,6 +710,7 @@ The wedding planning app now has a **distinctive, elegant, and polished** design
 **Status**: ✅ **READY FOR TESTING**
 
 Run `npm run dev` and visit:
+
 - Landing: http://localhost:3000
 - Chat: http://localhost:3000/chat
 

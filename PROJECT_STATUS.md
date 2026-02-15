@@ -9,6 +9,7 @@
 ## ✅ COMPLETED (Working & Deployed)
 
 ### **Infrastructure** ✅
+
 - Next.js 15 + TypeScript
 - PostgreSQL (Supabase)
 - Deployed to Vercel with HTTPS
@@ -16,11 +17,13 @@
 - All environment variables configured
 
 ### **Database** ✅
+
 - Complete Prisma schema
 - 17 Newcastle vendors seeded
 - Real pricing, contact info, descriptions
 
 ### **UI/UX** ✅
+
 - Elegant landing page (wedding-themed)
 - 5-question questionnaire with buttons
 - Progress tracking (1-5)
@@ -28,6 +31,7 @@
 - Beautiful animations
 
 ### **Vendor Matching** ✅
+
 - Smart algorithm (0-100 scoring)
 - Auto-displays after questionnaire
 - Shows 5-6 matches per category
@@ -35,6 +39,7 @@
 - Match reasons displayed
 
 ### **AI Chat** ✅
+
 - Claude streaming responses
 - Wedding planner personality
 - Contextual conversations
@@ -44,6 +49,7 @@
 ## ⏳ NEEDED FOR MVP
 
 ### **1. Authentication** (3-4 days)
+
 **Use**: Supabase Auth (already have Supabase)
 
 - [ ] Signup/login pages
@@ -57,6 +63,7 @@
 ---
 
 ### **2. Vendor Selection UI** (2 days)
+
 - [ ] Checkbox on each vendor card
 - [ ] "Contact X Selected Vendors" button
 - [ ] Selection counter
@@ -65,6 +72,7 @@
 ---
 
 ### **3. Email Outreach** (3 days)
+
 - [ ] AI email generation (personalized per vendor)
 - [ ] Email preview screen
 - [ ] Send via Resend API
@@ -74,6 +82,7 @@
 ---
 
 ### **4. Basic Dashboard** (3 days)
+
 - [ ] Show contacted vendors
 - [ ] Response status (sent/opened/replied)
 - [ ] Display vendor responses
@@ -83,6 +92,7 @@
 ---
 
 ### **5. Email Notifications** (2 days)
+
 - [ ] Notify when vendor responds
 - [ ] Response summary emails
 - [ ] Webhook from Resend
@@ -104,10 +114,12 @@
 ## 🎯 Recommended Next Steps
 
 ### **Option A: Auth First** ⭐ (Recommended)
+
 **Time**: 3-4 days
 **Why**: Foundation for everything else
 
 **Build**:
+
 1. Supabase Auth setup (1 day)
 2. Signup/login pages with frontend-design skill (1 day)
 3. Save wedding data (1 day)
@@ -118,10 +130,12 @@ Then → Email outreach
 ---
 
 ### **Option B: Email Outreach First**
+
 **Time**: 1 week
 **Why**: Core value prop demo
 
 **Build**:
+
 1. Vendor selection UI (2 days)
 2. Email generation + sending (2 days)
 3. Basic tracking (1 day)
@@ -135,12 +149,12 @@ Then → Add auth later
 
 ## 🛠️ Technical Decisions
 
-| Decision | Choice | Why |
-|----------|--------|-----|
-| **Auth** | Supabase Auth | Already have Supabase, free, easy |
-| **Email** | Resend | Modern API, webhooks, free tier |
-| **Payments** | Stripe | Later - after MVP validation |
-| **Frontend** | Claude Code + frontend-design skill | No need for v0, full control |
+| Decision     | Choice                              | Why                               |
+| ------------ | ----------------------------------- | --------------------------------- |
+| **Auth**     | Supabase Auth                       | Already have Supabase, free, easy |
+| **Email**    | Resend                              | Modern API, webhooks, free tier   |
+| **Payments** | Stripe                              | Later - after MVP validation      |
+| **Frontend** | Claude Code + frontend-design skill | No need for v0, full control      |
 
 ---
 
@@ -149,6 +163,7 @@ Then → Add auth later
 **YES!** ✅
 
 We can build everything with Claude Code + frontend-design skill:
+
 - ✅ Already built beautiful landing page this way
 - ✅ frontend-design skill creates production-quality UI
 - ✅ Matches wedding theme perfectly
@@ -162,12 +177,14 @@ We can build everything with Claude Code + frontend-design skill:
 ## 📈 Current Metrics
 
 **Today**:
+
 - ✅ Live app deployed
 - ✅ 17 vendors in database
 - ✅ Vendor matching works
 - ✅ Beautiful UI
 
 **Week 2 Target**:
+
 - ⏳ User accounts working
 - ⏳ Can send emails to vendors
 - ⏳ Dashboard showing responses
