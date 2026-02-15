@@ -13,18 +13,28 @@ An intelligent wedding planning platform that:
 
 ## 🚀 Tech Stack
 
-- **Frontend**: Next.js 14 (App Router), TypeScript, Tailwind CSS
+- **Frontend**: Next.js 15 (App Router), TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes, Prisma ORM
-- **Database**: PostgreSQL
-- **AI**: Claude 3.5 Sonnet (Anthropic API)
-- **Email**: Resend (for vendor outreach)
+- **Database**: PostgreSQL (Supabase)
+- **Authentication**: Supabase Auth (@supabase/ssr)
+- **AI**: Claude Sonnet 4.5 (claude-sonnet-4-5-20250929)
+- **Email**: Resend API (batch sending, webhooks)
 - **Hosting**: Vercel
+- **Linting**: ESLint + Prettier + auto-formatting
 
 ## 📋 Project Status
 
-**Current Phase**: Week 1 - Foundation Setup ✅
+**Current Phase**: Phase 4 Complete - Dashboard & Response Tracking ✅
 
-See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for detailed roadmap.
+**Completed Features:**
+- ✅ Authentication (Supabase Auth)
+- ✅ Multi-stage questionnaire UI
+- ✅ AI-powered vendor matching (17 Newcastle vendors)
+- ✅ Email outreach system (generate & send)
+- ✅ Dashboard with response tracking
+- ✅ Deployed to Vercel with Supabase database
+
+See [docs/product/IMPLEMENTATION_PLAN.md](./docs/product/IMPLEMENTATION_PLAN.md) for full roadmap.
 
 ## 🛠️ Setup Instructions
 
@@ -49,9 +59,13 @@ See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for detailed roadmap.
    ```
 
    Edit `.env.local` and add:
-   - `DATABASE_URL`: Your PostgreSQL connection string
+   - `DATABASE_URL`: Your PostgreSQL connection string (Supabase)
    - `ANTHROPIC_API_KEY`: Your Claude API key
-   - `NEXTAUTH_SECRET`: Generate with `openssl rand -base64 32`
+   - `CLAUDE_MODEL`: claude-sonnet-4-5-20250929
+   - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anon key
+   - `RESEND_API_KEY`: Your Resend API key (for email)
+   - `EMAIL_FROM`: Your verified sender email
 
 3. **Set up database**
 
@@ -71,82 +85,114 @@ See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for detailed roadmap.
 
 ```
 wedding-plan/
-├── app/                    # Next.js app directory
-│   ├── api/               # API routes
-│   │   ├── chat/         # Claude AI chat endpoint
-│   │   └── health/       # Health check endpoint
-│   ├── chat/             # Chat interface page
-│   ├── layout.tsx        # Root layout
-│   ├── page.tsx          # Landing page
-│   └── globals.css       # Global styles
-├── components/            # React components
-│   └── ChatInterface.tsx # AI chat component
-├── lib/                   # Utility libraries
-│   ├── claude.ts         # Claude API integration
-│   └── prisma.ts         # Prisma client
+├── app/                       # Next.js 15 App Router
+│   ├── api/                  # API routes
+│   │   ├── auth/            # Auth sync endpoint
+│   │   ├── chat/            # Claude AI chat
+│   │   ├── outreach/        # Email generation & sending
+│   │   └── vendors/         # Vendor matching
+│   ├── auth/                # Login, signup, callback
+│   ├── dashboard/           # User dashboard pages
+│   ├── outreach/            # Email preview & editing
+│   └── vendors/             # Vendor browsing
+├── components/              # React components
+│   ├── ChatInterface.tsx   # Multi-stage questionnaire
+│   ├── VendorCard.tsx      # Vendor display
+│   └── VendorGrid.tsx      # Vendor selection UI
+├── lib/                     # Core utilities
+│   ├── supabase/           # Supabase Auth clients
+│   ├── email/              # Resend integration
+│   ├── claude.ts           # Claude API
+│   ├── vendor-matching.ts  # Matching algorithm
+│   └── prisma.ts           # Database client
 ├── prisma/
-│   └── schema.prisma     # Database schema
-├── public/               # Static assets
-├── PRD.md               # Product Requirements Document
-├── ARCHITECTURE.md      # Technical architecture
-└── IMPLEMENTATION_PLAN.md # Development roadmap
+│   └── schema.prisma       # Database schema (7 tables)
+├── docs/                    # Documentation
+│   ├── INDEX.md            # Documentation index
+│   ├── architecture/       # Technical docs
+│   ├── product/            # Product & planning docs
+│   ├── guides/             # Setup guides
+│   └── archive/            # Historical docs
+├── QUICK_START.md          # Getting started guide
+├── DEPLOYMENT.md           # Production deployment
+└── TESTING_PLAN.md         # Testing strategy
 ```
 
-## 🎨 Features (MVP)
+## 🎨 Features
 
 ### ✅ Implemented
 
-- [x] Next.js project setup
-- [x] Claude API integration
-- [x] Chat interface
-- [x] Database schema
-- [x] Landing page
+- [x] User authentication (Supabase Auth with email/password and Google OAuth)
+- [x] Multi-stage questionnaire with button-based selections
+- [x] AI chat consultant (Claude Sonnet 4.5)
+- [x] Vendor matching algorithm (Newcastle region)
+- [x] Vendor selection UI with checkboxes
+- [x] AI-powered personalized email generation
+- [x] Batch email sending via Resend API
+- [x] Dashboard with outreach tracking
+- [x] Manual response entry
+- [x] Email tracking (delivery, open, response status)
+- [x] Production deployment (Vercel + Supabase)
 
 ### 🚧 In Progress
 
-- [ ] User authentication (NextAuth)
-- [ ] Conversation persistence
-- [ ] Vendor database
-- [ ] Email automation
+- [ ] Resend webhook integration (waiting for Resend service restoration)
+- [ ] Automated email notifications to users
+- [ ] Expand vendor database (Hunter Valley, Blue Mountains, Sydney)
 
 ### 📅 Planned
 
-- [ ] Vendor matching algorithm
-- [ ] Response dashboard
-- [ ] Admin panel for vendor management
-- [ ] Deployment to Vercel
+- [ ] Payment integration (Stripe)
+- [ ] SMS notifications (Twilio)
+- [ ] Quote comparison tools
+- [ ] Wedding timeline planner
+- [ ] Budget tracker
+- [ ] Guest list management
 
-## 🧪 Testing the Chat
+## 🧪 Using the App
 
-1. Add your Claude API key to `.env.local`:
+1. **Sign up** at `/auth/signup` with email/password or Google
 
-   ```bash
-   ANTHROPIC_API_KEY="sk-ant-your-key-here"
-   ```
-
-2. Navigate to `/chat` and start a conversation
-
-3. The AI will ask about:
+2. **Complete the questionnaire** - 5 questions about your wedding:
    - Wedding date
-   - Location (NSW suburb/region)
+   - Location (currently supports Newcastle, NSW)
    - Guest count
    - Budget
-   - Style preferences
-   - Requirements
+   - Wedding style preferences
+
+3. **View vendor matches** - See 15+ recommended vendors
+
+4. **Select vendors** - Choose which vendors to contact (checkboxes)
+
+5. **Generate emails** - AI creates personalized emails for each vendor
+
+6. **Send outreach** - Batch send via Resend API
+
+7. **Track responses** - Dashboard shows delivery, open, and response status
 
 ## 📖 Documentation
 
-- [PRD.md](./PRD.md) - Complete product requirements
-- [ARCHITECTURE.md](./ARCHITECTURE.md) - Technical architecture and design
-- [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) - 10-week development plan
+**Essential:**
+- [QUICK_START.md](./QUICK_START.md) - Get started in 3 minutes
+- [DEPLOYMENT.md](./DEPLOYMENT.md) - Deploy to production
+- [TESTING_PLAN.md](./TESTING_PLAN.md) - Testing strategy (36 test cases)
+- [BUGS.md](./BUGS.md) - Known issues and tracking
 
-## 🎯 MVP Target
+**Comprehensive Documentation:**
+- [docs/INDEX.md](./docs/INDEX.md) - Complete documentation index
+- [docs/product/PRD.md](./docs/product/PRD.md) - Product requirements
+- [docs/architecture/ARCHITECTURE.md](./docs/architecture/ARCHITECTURE.md) - Technical architecture
+- [docs/product/IMPLEMENTATION_PLAN.md](./docs/product/IMPLEMENTATION_PLAN.md) - Development roadmap
 
-**Launch**: Mid-April 2026 (10 weeks)
+## 🎯 Launch Status
 
-**Initial Coverage**: Sydney and regional NSW
+**Status**: ✅ MVP Complete (February 2026)
 
-**Beta Users**: 10 couples
+**Live URL**: [wedding-plan-lime.vercel.app](https://wedding-plan-lime.vercel.app)
+
+**Coverage**: Newcastle, NSW (17 vendors)
+
+**Next Launch**: Hunter Valley & Blue Mountains (March 2026)
 
 ## 🤝 Contributing
 
@@ -158,11 +204,11 @@ Private - Not yet open source
 
 ## 🚀 Next Steps
 
-1. Set up PostgreSQL database
-2. Add your Claude API key
-3. Start building vendor database
-4. Test chat flow with sample conversations
-5. Implement user authentication
+1. **Resend webhook integration** - Automate email tracking (waiting for Resend)
+2. **Expand vendor database** - Add Hunter Valley, Blue Mountains, Sydney vendors
+3. **Email notifications** - Alert users when vendors respond
+4. **Testing suite** - Add Vitest for automated testing
+5. **Payment integration** - Stripe for subscription model
 
 ---
 
