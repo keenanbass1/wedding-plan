@@ -107,7 +107,7 @@ export default function SignupPage() {
               </h1>
 
               <p className="text-gray-600 font-light leading-relaxed mb-8 animate-fadeIn" style={{ animationDelay: '300ms' }}>
-                We've sent a confirmation link to <strong className="text-gray-900">{email}</strong>.
+                We&apos;ve sent a confirmation link to <strong className="text-gray-900">{email}</strong>.
                 Click the link to verify your account and start planning your dream wedding.
               </p>
 

@@ -66,7 +66,7 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
           disabled={loading}
           rows={8}
           className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-light leading-relaxed"
-          placeholder="Paste the vendor's email response here..."
+          placeholder="Paste the vendor&apos;s email response here..."
         />
       </div>
 

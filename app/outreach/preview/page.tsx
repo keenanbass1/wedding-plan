@@ -348,7 +348,7 @@ export default function OutreachPreviewPage() {
               </h3>
 
               <p className="text-gray-600 font-light text-center mb-6 leading-relaxed">
-                Your personalized inquiries will be sent to the selected vendors. You'll be able to track responses in your dashboard.
+                Your personalized inquiries will be sent to the selected vendors. You&apos;ll be able to track responses in your dashboard.
               </p>
 
               <div className="flex gap-3">

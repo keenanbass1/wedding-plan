@@ -179,7 +179,7 @@ export default async function ResponsesPage() {
                 No responses yet
               </h3>
               <p className="text-gray-600 font-light mb-8">
-                When vendors respond to your inquiries, they'll appear here
+                When vendors respond to your inquiries, they&apos;ll appear here
               </p>
               <Link
                 href="/dashboard/outreach"
