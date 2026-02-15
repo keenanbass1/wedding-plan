@@ -6,13 +6,15 @@ import { VendorResponseForm } from '@/components/VendorResponseForm'
 
 const prisma = new PrismaClient()
 
-export default async function VendorDetailPage({ params }: { params: { id: string } }) {
+export default async function VendorDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+
   // Check authentication
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect('/auth/login?redirect=/dashboard/vendor/' + params.id)
+    redirect('/auth/login?redirect=/dashboard/vendor/' + id)
   }
 
   // Get user from database
@@ -34,7 +36,7 @@ export default async function VendorDetailPage({ params }: { params: { id: strin
 
   // Get vendor details
   const vendor = await prisma.vendor.findUnique({
-    where: { id: params.id },
+    where: { id },
   })
 
   if (!vendor) {
@@ -46,7 +48,7 @@ export default async function VendorDetailPage({ params }: { params: { id: strin
     where: {
       weddingId_vendorId: {
         weddingId: wedding.id,
-        vendorId: params.id,
+        vendorId: id,
       },
     },
   })

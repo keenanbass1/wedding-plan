@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
@@ -13,7 +13,7 @@ interface GeneratedEmail {
   body: string
 }
 
-export default function OutreachPreviewPage() {
+function OutreachPreviewContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const weddingId = searchParams.get('wedding')
@@ -33,6 +33,7 @@ export default function OutreachPreviewPage() {
     }
 
     generateEmails()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [weddingId, vendorIds])
 
   const generateEmails = async () => {
@@ -372,5 +373,17 @@ export default function OutreachPreviewPage() {
         )}
       </div>
     </main>
+  )
+}
+
+export default function OutreachPreviewPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-purple-50">
+        <div className="animate-pulse text-rose-400">Loading...</div>
+      </div>
+    }>
+      <OutreachPreviewContent />
+    </Suspense>
   )
 }

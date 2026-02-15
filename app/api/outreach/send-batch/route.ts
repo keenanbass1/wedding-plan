@@ -14,6 +14,11 @@ interface EmailToSend {
   body: string
 }
 
+interface ResendEmailResult {
+  id: string
+  [key: string]: any
+}
+
 export async function POST(req: NextRequest) {
   try {
     // Check authentication
@@ -78,8 +83,8 @@ export async function POST(req: NextRequest) {
       batches.push(batch)
     }
 
-    const results = []
-    const errors = []
+    const results: ResendEmailResult[] = []
+    const errors: any[] = []
 
     for (const batch of batches) {
       try {
@@ -98,7 +103,13 @@ export async function POST(req: NextRequest) {
         )
 
         if (batchResult.data) {
-          results.push(...batchResult.data)
+          // Type assertion needed due to Resend SDK type definitions
+          const batchData = batchResult.data as any
+          if (Array.isArray(batchData)) {
+            results.push(...batchData)
+          } else {
+            results.push(batchData)
+          }
         }
       } catch (error) {
         console.error('Batch send error:', error)

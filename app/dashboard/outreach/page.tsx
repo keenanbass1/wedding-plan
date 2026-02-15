@@ -39,12 +39,12 @@ export default async function OutreachTrackingPage() {
   })
 
   const getStatusBadge = (o: typeof outreach[0]) => {
-    if (o.bounced) return { label: 'Bounced', color: 'red' }
-    if (o.replied) return { label: 'Responded', color: 'green' }
-    if (o.opened) return { label: 'Opened', color: 'blue' }
-    if (o.delivered) return { label: 'Delivered', color: 'purple' }
-    if (o.sentAt) return { label: 'Sent', color: 'gray' }
-    return { label: 'Pending', color: 'yellow' }
+    if (o.bounced) return { label: 'Bounced', color: 'red' as const }
+    if (o.replied) return { label: 'Responded', color: 'green' as const }
+    if (o.opened) return { label: 'Opened', color: 'blue' as const }
+    if (o.delivered) return { label: 'Delivered', color: 'purple' as const }
+    if (o.sentAt) return { label: 'Sent', color: 'gray' as const }
+    return { label: 'Pending', color: 'yellow' as const }
   }
 
   const getCategoryIcon = (category: VendorCategory) => {

@@ -56,7 +56,7 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
       {/* Response Email */}
       <div>
         <label htmlFor="responseEmail" className="block text-sm font-medium text-gray-700 mb-2">
-          Vendor's Response <span className="text-rose-500">*</span>
+          Vendor&apos;s Response <span className="text-rose-500">*</span>
         </label>
         <textarea
           id="responseEmail"
