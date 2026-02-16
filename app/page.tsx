@@ -1,6 +1,11 @@
+import Header from '@/components/Header'
+
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-rose-50 via-white to-purple-50">
+      {/* Header */}
+      <Header />
+
       {/* Elegant background with depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Soft gradient orbs */}

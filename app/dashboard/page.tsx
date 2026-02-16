@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
+import Header from '@/components/Header'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/lib/supabase/server'
 
@@ -59,6 +60,9 @@ export default async function DashboardPage() {
 
   return (
     <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50">
+      {/* Header */}
+      <Header />
+
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 rounded-full blur-3xl" />

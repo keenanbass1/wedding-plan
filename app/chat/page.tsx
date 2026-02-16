@@ -1,6 +1,5 @@
-import Link from 'next/link'
-
 import ChatInterface from '@/components/ChatInterface'
+import Header from '@/components/Header'
 
 export default function ChatPage() {
   return (
@@ -23,29 +22,10 @@ export default function ChatPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.02)_1px,transparent_0)] bg-[size:32px_32px]" />
       </div>
 
+      {/* Header with user menu */}
+      <Header />
+
       <div className="relative p-8">
-        {/* Elegant Header */}
-        <div className="max-w-6xl mx-auto mb-8 animate-fadeIn">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-white/50 text-gray-600 hover:text-gray-900 hover:bg-white/80 hover:shadow-md transition-all duration-300 group"
-          >
-            <svg
-              className="w-4 h-4 group-hover:-translate-x-1 transition-transform"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              />
-            </svg>
-            <span className="font-light text-sm">Back to Home</span>
-          </Link>
-        </div>
 
         <div className="max-w-6xl mx-auto">
           {/* Enhanced Title Section */}
