@@ -1,7 +1,7 @@
 'use client'
 
 import { PriceRange, Vendor, VendorCategory } from '@prisma/client'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import { VendorCard } from './VendorCard'
 
@@ -35,6 +35,8 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
   const [styleFilter, setStyleFilter] = useState<Set<string>>(new Set())
   const [priceFilter, setPriceFilter] = useState<Set<PriceRange>>(new Set())
   const [sortBy, setSortBy] = useState<SortOption>('score')
+  const [styleDropdownOpen, setStyleDropdownOpen] = useState(false)
+  const styleDropdownRef = useRef<HTMLDivElement>(null)
 
   // Derive available filter options from data
   const availableCategories = useMemo(
@@ -54,6 +56,20 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
   )
 
   const hasActiveFilters = categoryFilter.size > 0 || styleFilter.size > 0 || priceFilter.size > 0
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (styleDropdownRef.current && !styleDropdownRef.current.contains(event.target as Node)) {
+        setStyleDropdownOpen(false)
+      }
+    }
+
+    if (styleDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [styleDropdownOpen])
 
   // Apply filters and sort
   const filteredMatches = useMemo(() => {
@@ -294,23 +310,70 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
               <div className="h-5 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block" />
             )}
 
-            {/* Style filters */}
+            {/* Style filters - Dropdown */}
             {availableStyles.length > 0 && (
-              <div className="flex items-center gap-1.5">
-                <span className="text-[11px] text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide mr-1">Style</span>
-                {availableStyles.map(style => (
-                  <button
-                    key={style}
-                    onClick={() => toggleSet(setStyleFilter, style)}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg border transition-all ${
-                      styleFilter.has(style)
-                        ? 'bg-purple-50 dark:bg-purple-900/30 border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-300'
-                        : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-purple-300 dark:hover:border-purple-600'
-                    }`}
+              <div className="relative" ref={styleDropdownRef}>
+                <span className="text-[11px] text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide mr-1.5 inline-block">Style</span>
+                <button
+                  onClick={() => setStyleDropdownOpen(!styleDropdownOpen)}
+                  className={`px-4 py-2 text-sm font-medium rounded-lg border transition-all inline-flex items-center gap-2 ${
+                    styleFilter.size > 0
+                      ? 'bg-purple-50 dark:bg-purple-900/30 border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-300'
+                      : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-purple-300 dark:hover:border-purple-600'
+                  }`}
+                >
+                  <span>
+                    {styleFilter.size > 0 ? `${styleFilter.size} selected` : 'Select styles'}
+                  </span>
+                  <svg
+                    className={`w-4 h-4 transition-transform ${styleDropdownOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                    {style}
-                  </button>
-                ))}
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {/* Dropdown menu */}
+                {styleDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-72 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-20 max-h-96 overflow-y-auto">
+                      <div className="p-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                          Select Styles
+                        </span>
+                        {styleFilter.size > 0 && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              setStyleFilter(new Set())
+                            }}
+                            className="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium"
+                          >
+                            Clear
+                          </button>
+                        )}
+                      </div>
+                      <div className="p-2">
+                        {availableStyles.map(style => (
+                          <label
+                            key={style}
+                            className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={styleFilter.has(style)}
+                              onChange={() => toggleSet(setStyleFilter, style)}
+                              className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-purple-600 focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 cursor-pointer"
+                            />
+                            <span className="text-sm text-gray-700 dark:text-gray-200 flex-1">
+                              {style}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                  </div>
+                )}
               </div>
             )}
 
