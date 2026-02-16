@@ -29,7 +29,7 @@ export default async function VendorsPage() {
   })
 
   if (!dbUser || dbUser.weddings.length === 0) {
-    redirect('/chat')
+    redirect('/questionnaire')
   }
 
   const wedding = dbUser.weddings[0]
@@ -77,7 +77,7 @@ export default async function VendorsPage() {
           <div className="max-w-7xl mx-auto px-6 py-8">
             <div className="flex items-center justify-between mb-6">
               <Link
-                href="/chat"
+                href="/dashboard"
                 className="flex items-center gap-2 text-gray-600 hover:text-rose-500 transition-colors duration-300 group"
               >
                 <svg
@@ -93,7 +93,7 @@ export default async function VendorsPage() {
                     d="M10 19l-7-7m0 0l7-7m-7 7h18"
                   />
                 </svg>
-                <span className="text-sm font-light tracking-wide">Back to Chat</span>
+                <span className="text-sm font-light tracking-wide">Back to Dashboard</span>
               </Link>
 
               <Link

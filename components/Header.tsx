@@ -57,10 +57,10 @@ export default async function Header() {
                     Vendors
                   </Link>
                   <Link
-                    href="/chat"
+                    href="/questionnaire"
                     className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 rounded-xl transition-colors"
                   >
-                    Assistant
+                    Questionnaire
                   </Link>
                 </nav>
 
@@ -76,7 +76,7 @@ export default async function Header() {
               <>
                 {/* Not logged in - Show login button */}
                 <Link
-                  href="/chat"
+                  href="/dashboard"
                   className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors"
                 >
                   Start Planning

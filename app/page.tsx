@@ -78,7 +78,7 @@ export default function Home() {
               className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12 animate-fadeIn"
               style={{ animationDelay: '500ms' }}
             >
-              <a href="/chat" className="group relative">
+              <a href="/dashboard" className="group relative">
                 {/* Button glow effect */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 to-purple-400 rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
                 <button className="relative px-12 py-5 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-full text-lg font-medium hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-lg shadow-rose-200/50">
