@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/lib/supabase/server'
 
+import ThemeToggle from './ThemeToggle'
 import UserMenu from './UserMenu'
 
 export default async function Header() {
@@ -19,7 +20,7 @@ export default async function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200/50 bg-white/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl transition-colors">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo / Brand */}
@@ -46,23 +47,26 @@ export default async function Header() {
                 <nav className="hidden md:flex items-center gap-2">
                   <Link
                     href="/dashboard"
-                    className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl transition-colors"
                   >
                     Dashboard
                   </Link>
                   <Link
                     href="/vendors"
-                    className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-xl transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-xl transition-colors"
                   >
                     Vendors
                   </Link>
                   <Link
                     href="/questionnaire"
-                    className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 rounded-xl transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-pink-50 dark:hover:bg-pink-900/20 rounded-xl transition-colors"
                   >
                     Questionnaire
                   </Link>
                 </nav>
+
+                {/* Theme Toggle */}
+                <ThemeToggle />
 
                 {/* User Menu */}
                 <UserMenu
@@ -74,10 +78,13 @@ export default async function Header() {
               </>
             ) : (
               <>
+                {/* Theme Toggle */}
+                <ThemeToggle />
+
                 {/* Not logged in - Show login button */}
                 <Link
                   href="/dashboard"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl transition-colors"
                 >
                   Start Planning
                 </Link>
