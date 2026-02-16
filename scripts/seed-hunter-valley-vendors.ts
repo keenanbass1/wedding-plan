@@ -216,7 +216,7 @@ const hunterValleyVendors = [
     priceDescription: 'Venue hire and basics from $7k-16k',
     priceRange: 'MODERATE' as PriceRange,
     capacity: 'MEDIUM' as VendorCapacity,
-    maxGuests: 150,
+    maxGuests: 140,
     styles: ['Rustic', 'Barn', 'Nature', 'Farm'],
     servicesOffered: [
       'Barn reception',
@@ -436,7 +436,7 @@ const hunterValleyVendors = [
     priceMin: 70,
     priceMax: 150,
     priceDescription: '$70-150 per person with staff included',
-    capacity: 'MEDIUM' as VendorCapacity,
+    capacity: 'LARGE' as VendorCapacity,
     maxGuests: 200,
     styles: ['Modern', 'Versatile', 'Professional'],
     servicesOffered: [
@@ -461,7 +461,7 @@ const hunterValleyVendors = [
     priceMin: 65,
     priceMax: 140,
     priceDescription: '$65-140 per person depending on selections',
-    capacity: 'MEDIUM' as VendorCapacity,
+    capacity: 'LARGE' as VendorCapacity,
     maxGuests: 180,
     styles: ['Contemporary', 'Creative', 'Modern Australian'],
     servicesOffered: [
@@ -486,7 +486,7 @@ const hunterValleyVendors = [
     priceMin: 95,
     priceMax: 175,
     priceDescription: '$95-175 per person for premium seasonal menus',
-    capacity: 'SMALL' as VendorCapacity,
+    capacity: 'MEDIUM' as VendorCapacity,
     maxGuests: 80,
     styles: ['Boutique', 'Seasonal', 'Wine-paired', 'Share-style'],
     servicesOffered: [
