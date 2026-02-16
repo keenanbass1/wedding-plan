@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 
 interface Message {
@@ -186,6 +187,17 @@ export default function ChatInterface() {
     try {
       setIsLoading(true)
 
+      // STEP 1: Save wedding data to database
+      const saveResponse = await fetch('/api/wedding', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(weddingData),
+      })
+
+      if (!saveResponse.ok) {
+        throw new Error('Failed to save wedding data')
+      }
+
       // Parse location from answer
       const locationMap: Record<string, string> = {
         'Sydney & surrounds': 'Sydney',
@@ -211,6 +223,7 @@ export default function ChatInterface() {
         'Above $80,000': 100000,
       }
 
+      // STEP 2: Fetch vendor matches
       const response = await fetch('/api/vendors/match', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -400,7 +413,7 @@ export default function ChatInterface() {
               idx === messages.length - 1 &&
               !isLoading && (
                 <div className="ml-14 mt-4 animate-fadeIn" style={{ animationDelay: '300ms' }}>
-                  <a href="/vendors" className="group relative inline-block">
+                  <Link href="/vendors" className="group relative inline-block">
                     <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 to-purple-400 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
                     <div className="relative px-6 py-3 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
                       <svg
@@ -431,7 +444,7 @@ export default function ChatInterface() {
                         />
                       </svg>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               )}
           </div>
