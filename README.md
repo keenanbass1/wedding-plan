@@ -125,15 +125,15 @@ wedding-plan/
 │   ├── seed-hunter-valley-vendors.ts
 │   └── validate-vendor-data.ts
 ├── test/                    # Vitest test suite
-├── docs/                    # Documentation
-│   ├── INDEX.md            # Documentation index
-│   ├── architecture/       # Technical docs
-│   ├── product/            # Product & planning docs
-│   ├── guides/             # Setup guides
-│   └── archive/            # Historical docs
+├── docs/                    # Documentation (see docs/README.md)
+│   ├── PRODUCT_STRATEGY.md  # Product planning & decisions
+│   ├── USER_JOURNEY.md      # Complete user flow (CRITICAL)
+│   ├── VENDOR_OUTREACH_RESEARCH.md  # Research plan
+│   ├── TESTING_PLAN.md      # Testing strategy
+│   └── ... (see docs/README.md for full index)
+├── ROADMAP.md              # Future features & Phase 1-4 planning
 ├── QUICK_START.md          # Getting started guide
-├── DEPLOYMENT.md           # Production deployment
-└── TESTING_PLAN.md         # Testing strategy
+└── USER_JOURNEY.md         # ⭐ Critical: complete user flow reference
 ```
 
 ## 🎨 Features

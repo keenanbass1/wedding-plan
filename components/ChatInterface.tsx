@@ -11,46 +11,11 @@ interface Message {
   showVendorButton?: boolean
 }
 
-type ChatStage = 'questionnaire' | 'consultant'
-
-const QUESTIONS = [
-  {
-    question: "First, let's start with the basics. When are you thinking of getting married?",
-    options: [
-      'We have a specific date',
-      'Flexible - sometime in 2027',
-      'Flexible - sometime in 2028',
-      "We're still deciding",
-    ],
-  },
-  {
-    question: 'Wonderful! Where in New South Wales would you like to celebrate?',
-    options: [
-      'Sydney & surrounds',
-      'Blue Mountains',
-      'Hunter Valley',
-      'South Coast',
-      'Other region',
-    ],
-  },
-  {
-    question: 'How many guests are you planning to invite?',
-    options: ['Intimate (under 50)', 'Medium (50-100)', 'Large (100-150)', 'Grand (150+)'],
-  },
-  {
-    question: "What's your estimated total budget?",
-    options: ['Under $30,000', '$30,000 - $50,000', '$50,000 - $80,000', 'Above $80,000'],
-  },
-  {
-    question: 'What style resonates with your vision?',
-    options: [
-      'Modern & Minimalist',
-      'Rustic & Outdoor',
-      'Classic & Elegant',
-      'Bohemian & Relaxed',
-      'Luxury & Glamorous',
-    ],
-  },
+const QUICK_ACTIONS = [
+  'Explain my vendor matches',
+  'When should I book my photographer?',
+  'How do I contact vendors?',
+  'What should I ask at a venue tour?',
 ]
 
 export default function ChatInterface() {
@@ -58,15 +23,12 @@ export default function ChatInterface() {
     {
       role: 'assistant',
       content:
-        "Congratulations on your engagement! 🎉\n\nI'm your wedding planning concierge. Let me ask you a few quick questions to understand your vision, then we'll dive deeper into creating your perfect day.",
-      options: QUESTIONS[0].options,
+        "Hi! I'm your wedding planning assistant. 💍\n\nI can help you:\n• Understand your vendor recommendations\n• Answer wedding planning questions\n• Navigate the platform\n• Provide guidance on timelines and budgets\n\nWhat would you like to know?",
+      options: QUICK_ACTIONS,
     },
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [stage, setStage] = useState<ChatStage>('questionnaire')
-  const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [collectedData, setCollectedData] = useState<Record<string, string>>({})
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
@@ -78,7 +40,7 @@ export default function ChatInterface() {
   }, [messages])
 
   const handleOptionClick = (option: string) => {
-    // Add user's selection
+    // Add user's selection as a message
     const userMessage: Message = {
       role: 'user',
       content: option,
@@ -86,48 +48,9 @@ export default function ChatInterface() {
     }
     setMessages(prev => [...prev, userMessage])
 
-    // Store the data
-    const questionKey = ['date', 'location', 'guestCount', 'budget', 'style'][currentQuestion]
-    setCollectedData(prev => ({ ...prev, [questionKey]: option }))
-
-    // Move to next question or transition to consultant
-    if (currentQuestion < QUESTIONS.length - 1) {
-      const nextQ = currentQuestion + 1
-      setCurrentQuestion(nextQ)
-
-      setTimeout(() => {
-        setMessages(prev => [
-          ...prev,
-          {
-            role: 'assistant',
-            content: QUESTIONS[nextQ].question,
-            options: QUESTIONS[nextQ].options,
-          },
-        ])
-      }, 300)
-    } else {
-      // Transition to consultant mode
-      setStage('consultant')
-
-      // Show summary
-      setTimeout(() => {
-        const summary = `Perfect! Here's what we've gathered:\n\n📅 Date: ${collectedData.date || option}\n📍 Location: ${collectedData.location}\n👥 Guests: ${collectedData.guestCount}\n💰 Budget: ${collectedData.budget}\n🎨 Style: ${option}\n\nLet me find vendors that match your vision... 🔍`
-
-        setMessages(prev => [
-          ...prev,
-          {
-            role: 'assistant',
-            content: summary,
-          },
-        ])
-
-        // Fetch vendor matches
-        fetchVendorMatches({
-          ...collectedData,
-          style: option,
-        })
-      }, 500)
-    }
+    // Send to AI for response
+    setInput(option)
+    setTimeout(() => handleSend(), 100)
   }
 
   const handleSend = async () => {
@@ -183,87 +106,6 @@ export default function ChatInterface() {
     }
   }
 
-  const fetchVendorMatches = async (weddingData: Record<string, string>) => {
-    try {
-      setIsLoading(true)
-
-      // STEP 1: Save wedding data to database
-      const saveResponse = await fetch('/api/wedding', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(weddingData),
-      })
-
-      if (!saveResponse.ok) {
-        throw new Error('Failed to save wedding data')
-      }
-
-      // Parse location from answer
-      const locationMap: Record<string, string> = {
-        'Sydney & surrounds': 'Sydney',
-        'Blue Mountains': 'Blue Mountains',
-        'Hunter Valley': 'Hunter Valley',
-        'South Coast': 'South Coast',
-        'Other region': 'Newcastle', // Default to Newcastle for now
-      }
-
-      // Parse guest count
-      const guestMap: Record<string, number> = {
-        'Intimate (under 50)': 40,
-        'Medium (50-100)': 75,
-        'Large (100-150)': 125,
-        'Grand (150+)': 200,
-      }
-
-      // Parse budget
-      const budgetMap: Record<string, number> = {
-        'Under $30,000': 25000,
-        '$30,000 - $50,000': 40000,
-        '$50,000 - $80,000': 65000,
-        'Above $80,000': 100000,
-      }
-
-      // STEP 2: Fetch vendor matches
-      const response = await fetch('/api/vendors/match', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          location: locationMap[weddingData.location] || 'Newcastle',
-          guestCount: guestMap[weddingData.guestCount],
-          budgetTotal: budgetMap[weddingData.budget],
-          style: weddingData.style?.split(' & ')[0], // Extract first style word
-        }),
-      })
-
-      if (!response.ok) throw new Error('Failed to fetch vendors')
-
-      const data = await response.json()
-
-      // Add vendor matches to chat
-      setTimeout(() => {
-        setMessages(prev => [
-          ...prev,
-          {
-            role: 'assistant',
-            content: data.chatMessage,
-            showVendorButton: true,
-          },
-        ])
-        setIsLoading(false)
-      }, 1000)
-    } catch (error) {
-      console.error('Error fetching vendors:', error)
-      setMessages(prev => [
-        ...prev,
-        {
-          role: 'assistant',
-          content:
-            "I'm having trouble finding vendors right now. Let's continue our conversation and I'll help you with your wedding planning!",
-        },
-      ])
-      setIsLoading(false)
-    }
-  }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -292,12 +134,10 @@ export default function ChatInterface() {
             </div>
             <div>
               <h2 className="text-2xl font-serif font-medium text-gray-900 mb-0.5">
-                Your Wedding Concierge
+                Wedding Planning Assistant
               </h2>
               <p className="text-sm text-gray-600 font-light">
-                {stage === 'questionnaire'
-                  ? `Question ${currentQuestion + 1} of ${QUESTIONS.length}`
-                  : 'Personalized consultation'}
+                Here to help with your questions
               </p>
             </div>
           </div>
@@ -306,22 +146,6 @@ export default function ChatInterface() {
             <span className="text-xs text-gray-600 font-medium">Online</span>
           </div>
         </div>
-
-        {/* Enhanced Progress bar for questionnaire */}
-        {stage === 'questionnaire' && (
-          <div className="relative mt-5">
-            <div className="w-full bg-gray-200/50 rounded-full h-2 overflow-hidden">
-              <div
-                className="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 h-2 rounded-full transition-all duration-700 shadow-sm shadow-rose-400/30"
-                style={{ width: `${((currentQuestion + 1) / QUESTIONS.length) * 100}%` }}
-              />
-            </div>
-            {/* Progress percentage */}
-            <div className="mt-2 text-xs text-gray-500 font-light text-center">
-              {Math.round(((currentQuestion + 1) / QUESTIONS.length) * 100)}% Complete
-            </div>
-          </div>
-        )}
 
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rose-300/50 to-transparent" />
       </div>
@@ -484,9 +308,8 @@ export default function ChatInterface() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Enhanced Input Area - Only show in consultant mode */}
-      {stage === 'consultant' && (
-        <div className="relative p-6 bg-gradient-to-r from-rose-50/60 via-white/90 to-purple-50/60 backdrop-blur-sm border-t border-white/50">
+      {/* Enhanced Input Area */}
+      <div className="relative p-6 bg-gradient-to-r from-rose-50/60 via-white/90 to-purple-50/60 backdrop-blur-sm border-t border-white/50">
           {/* Subtle pattern overlay */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.02)_1px,transparent_0)] bg-[size:24px_24px]" />
 
@@ -544,26 +367,7 @@ export default function ChatInterface() {
             <span>for new line</span>
           </div>
         </div>
-      )}
-
-      {/* Enhanced Info footer for questionnaire mode */}
-      {stage === 'questionnaire' && (
-        <div className="relative p-5 bg-gradient-to-r from-rose-50/60 via-white/90 to-purple-50/60 backdrop-blur-sm border-t border-white/50 text-center">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.02)_1px,transparent_0)] bg-[size:24px_24px]" />
-          <div className="relative flex items-center justify-center gap-2">
-            <svg className="w-4 h-4 text-rose-400" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <p className="text-xs text-gray-600 font-light">
-              Select an option above to continue your journey
-            </p>
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   )
 }
