@@ -14,12 +14,13 @@ export async function POST(req: NextRequest) {
     const dbUser = user.dbUser
 
     const body = await req.json()
-    const { date, location, guestCount, budget, style } = body
+    const { date, specificDate, location, guestCount, budget, style } = body
 
-    // Parse date (optional for now)
+    // Parse date
     let weddingDate: Date | null = null
-    if (date && date !== "We're still deciding") {
-      // For now, set a placeholder date in the future
+    if (specificDate) {
+      weddingDate = new Date(specificDate + 'T00:00:00')
+    } else if (date && date !== 'deciding' && date !== "We're still deciding") {
       weddingDate = new Date()
       weddingDate.setFullYear(weddingDate.getFullYear() + 1)
     }

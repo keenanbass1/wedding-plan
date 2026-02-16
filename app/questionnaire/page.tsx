@@ -40,6 +40,7 @@ const STEPS = [
       { value: '75', label: 'Medium (50-100)' },
       { value: '125', label: 'Large (100-150)' },
       { value: '200', label: 'Grand (150+)' },
+      { value: 'custom', label: 'Enter exact number' },
     ],
   },
   {
@@ -52,6 +53,7 @@ const STEPS = [
       { value: '40000', label: '$30,000 - $50,000' },
       { value: '65000', label: '$50,000 - $80,000' },
       { value: '100000', label: 'Above $80,000' },
+      { value: 'custom', label: 'Enter exact amount' },
     ],
   },
   {
@@ -75,6 +77,8 @@ export default function QuestionnairePage() {
   const [formData, setFormData] = useState<Record<string, string>>({})
   const [specificDate, setSpecificDate] = useState('')
   const [showDatePicker, setShowDatePicker] = useState(false)
+  const [showCustomInput, setShowCustomInput] = useState(false)
+  const [customValue, setCustomValue] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -121,6 +125,13 @@ export default function QuestionnairePage() {
   }, [])
 
   const handleOptionSelect = (value: string) => {
+    // If selecting "custom", show custom input instead of moving to next step
+    if (value === 'custom') {
+      setShowCustomInput(true)
+      setCustomValue('')
+      return
+    }
+
     const newData = { ...formData, [currentStepData.id]: value }
     setFormData(newData)
 
@@ -135,6 +146,28 @@ export default function QuestionnairePage() {
       handleSubmit(newData)
     } else {
       // Move to next step
+      setTimeout(() => {
+        setCurrentStep(currentStep + 1)
+      }, 300)
+    }
+  }
+
+  const handleCustomConfirm = () => {
+    const num = parseInt(customValue)
+    if (!num || num <= 0) {
+      setError(currentStepData.id === 'budget' ? 'Please enter a valid amount' : 'Please enter a valid number')
+      return
+    }
+    setError(null)
+    setShowCustomInput(false)
+
+    const newData = { ...formData, [currentStepData.id]: num.toString() }
+    setFormData(newData)
+
+    // If this is the last step, submit
+    if (currentStep === STEPS.length - 1) {
+      handleSubmit(newData)
+    } else {
       setTimeout(() => {
         setCurrentStep(currentStep + 1)
       }, 300)
@@ -307,6 +340,47 @@ export default function QuestionnairePage() {
                   )
                 })}
               </div>
+
+              {/* Custom Input - shown when "Enter exact number/amount" is selected */}
+              {showCustomInput && (currentStepData.id === 'guestCount' || currentStepData.id === 'budget') && (
+                <div className="mt-6 p-6 bg-gradient-to-br from-rose-50 to-purple-50 dark:from-rose-950/40 dark:to-purple-950/40 border-2 border-rose-300 dark:border-rose-600 rounded-2xl animate-fadeIn">
+                  <label htmlFor="customValue" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">
+                    {currentStepData.id === 'budget' ? 'Enter your budget (AUD)' : 'Enter your guest count'}
+                  </label>
+                  <div className="relative">
+                    {currentStepData.id === 'budget' && (
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 font-medium">$</span>
+                    )}
+                    <input
+                      type="number"
+                      id="customValue"
+                      value={customValue}
+                      onChange={(e) => setCustomValue(e.target.value)}
+                      min={1}
+                      step={currentStepData.id === 'budget' ? 1000 : 1}
+                      placeholder={currentStepData.id === 'budget' ? '42000' : '87'}
+                      className={`w-full ${currentStepData.id === 'budget' ? 'pl-8' : 'pl-4'} pr-4 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 focus:border-transparent transition-all text-gray-900 dark:text-white`}
+                    />
+                  </div>
+                  <div className="mt-4 flex gap-3">
+                    <button
+                      onClick={handleCustomConfirm}
+                      className="flex-1 px-6 py-3 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-[1.02] transition-all duration-300"
+                    >
+                      Confirm
+                    </button>
+                    <button
+                      onClick={() => {
+                        setShowCustomInput(false)
+                        setCustomValue('')
+                      }}
+                      className="px-6 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 rounded-xl font-medium hover:border-gray-300 dark:hover:border-gray-600 transition-all"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {/* Date Picker - shown when "specific date" is selected */}
               {showDatePicker && currentStepData.id === 'date' && (

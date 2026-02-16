@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
+import Header from '@/components/Header'
 import { VendorResponseForm } from '@/components/VendorResponseForm'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/lib/supabase/server'
@@ -71,6 +72,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
 
   return (
     <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
+      <Header />
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
