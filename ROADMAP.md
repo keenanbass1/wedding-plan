@@ -30,6 +30,91 @@ This document tracks future features and enhancements planned for post-MVP relea
 
 ### **Phase 1: Enhanced User Experience (Month 1-2)**
 
+#### 1.0 Dark Mode 🌙
+**Priority:** High | **Effort:** 1 day
+
+**Description:**
+Dark mode support with system preference detection and manual toggle.
+
+**User Story:**
+*"As a user planning my wedding late at night, I want a dark mode option so my eyes don't hurt from the bright screen."*
+
+**Why Priority High:**
+- Quick to implement with Tailwind CSS
+- Highly requested feature
+- Better accessibility
+- Professional polish
+
+**Technical Approach:**
+- **Tailwind dark mode:** Use `class` strategy with `dark:` variants
+- **System preference detection:** `prefers-color-scheme: dark`
+- **Toggle component:** Moon/sun icon in header
+- **Persistence:** Store preference in localStorage
+- **Automatic switching:** Respect system preference by default
+
+**Implementation Steps:**
+1. Enable dark mode in `tailwind.config.js`:
+```javascript
+module.exports = {
+  darkMode: 'class', // or 'media' for system-only
+  // ...
+}
+```
+
+2. Create theme toggle component:
+```typescript
+// components/ThemeToggle.tsx
+export function ThemeToggle() {
+  const [theme, setTheme] = useState('light')
+
+  useEffect(() => {
+    // Check localStorage or system preference
+    const savedTheme = localStorage.getItem('theme')
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    setTheme(savedTheme || systemTheme)
+  }, [])
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    setTheme(newTheme)
+    localStorage.setItem('theme', newTheme)
+    document.documentElement.classList.toggle('dark')
+  }
+}
+```
+
+3. Update color palette for dark mode:
+- **Background:** `bg-white dark:bg-gray-900`
+- **Text:** `text-gray-900 dark:text-gray-100`
+- **Cards:** `bg-white dark:bg-gray-800`
+- **Borders:** `border-gray-200 dark:border-gray-700`
+- **Accent colors:** Rose/pink gradients work in both modes
+
+4. Test all pages in dark mode:
+- Landing page
+- Questionnaire
+- Vendor browsing
+- Dashboard
+- Chat interface
+
+**Design Considerations:**
+- Keep rose/pink/purple gradients (wedding theme)
+- Soften backgrounds (not pure black, use gray-900)
+- Maintain contrast ratios for accessibility
+- Smooth transition between modes
+
+**Accessibility:**
+- WCAG 2.1 AA contrast ratios in both modes
+- Test with color blind simulators
+- Ensure all text is readable
+
+**Future Enhancement:**
+- Auto-switch based on time of day (optional)
+- Per-page theme preferences
+- High contrast mode for accessibility
+
+---
+
 #### 1.1 Interactive Vendor Map 🗺️
 **Priority:** Medium | **Effort:** 2-3 days
 
@@ -357,6 +442,199 @@ Sophisticated filtering for vendor discovery.
 ---
 
 ### **Phase 2: Wedding Planning Tools (Month 3-4)**
+
+#### 2.0 Invitation & RSVP Tracking 💌
+**Priority:** Medium | **Effort:** 3-5 days
+
+**Description:**
+Centralized invitation and RSVP tracking to reduce cognitive load and keep everything in one place.
+
+**User Story:**
+*"As a couple planning our wedding, I want to track invitations and RSVPs in the same dashboard where I'm managing vendors, so I don't have to jump between multiple platforms."*
+
+**Philosophy:**
+- **Don't increase cognitive load** by creating another place that needs updating
+- **Integrate with existing data** (guest count from questionnaire, venue capacity)
+- **API-first approach** when possible (auto-sync)
+- **Manual fallback** when APIs unavailable
+
+**Features:**
+
+**Phase 2a: Manual Tracking (Simple Start)**
+- Guest list management (name, email, phone, address)
+- RSVP status tracking (invited, responded, attending, declined)
+- Dietary restrictions (linked to caterer requirements)
+- Plus-one tracking
+- Group invitations (families)
+- Send date tracking (when invitations were mailed/sent)
+
+**Phase 2b: API Integrations (Advanced)**
+Integrate with popular invitation platforms:
+
+**Platform Research:**
+- **[WithJoy](https://joy.logicbroker.com/hc/en-us/articles/4404558457620-API-Documentation)** - Has API documentation, Smart RSVP features
+- **[Paperless Post](https://www.paperless.io/en/developer)** - Webhook support for document events
+- **Greenvelope** - No public API found (manual import option)
+- **[Joy](https://withjoy.com/blog/effortlessly-send-collect-manage-rsvps-joy/)** - Wedding website builder with RSVP tracking
+
+**API Integration Approach:**
+```typescript
+// /lib/invitations/integrations.ts
+interface InvitationProvider {
+  name: 'withjoy' | 'paperlesspost' | 'greenvelope' | 'manual'
+  syncRSVPs: () => Promise<RSVP[]>
+  webhook?: string // Webhook URL for automatic updates
+}
+
+// Example: WithJoy integration
+const withJoyIntegration: InvitationProvider = {
+  name: 'withjoy',
+  syncRSVPs: async () => {
+    const response = await fetch('https://api.withjoy.com/rsvps', {
+      headers: { 'X-API-Key': process.env.WITHJOY_API_KEY }
+    })
+    return response.json()
+  },
+  webhook: '/api/webhooks/withjoy'
+}
+```
+
+**Dashboard Integration:**
+- RSVP summary card on main dashboard
+  - Total invited: 100
+  - Responded: 75 (75%)
+  - Attending: 68
+  - Declined: 7
+  - Pending: 25
+
+- Link to full guest list page
+- Dietary restrictions summary for caterer
+- Seating chart preparation (future)
+
+**Smart Features:**
+- **Auto-update guest count** for vendors when RSVPs come in
+  - "You now have 68 confirmed guests (down from 75 estimate)"
+  - "Notify caterer of final count?"
+
+- **Dietary restriction alerts**
+  - "5 guests are vegetarian - make sure caterer knows"
+  - Auto-populate caterer inquiry with dietary info
+
+- **Venue capacity warnings**
+  - "Venue capacity: 80 | Current RSVPs: 75 attending"
+  - Alert if approaching capacity
+
+**Data Flow:**
+```
+Guest List (our platform)
+    ↓
+Link to WithJoy/Paperless Post (send invitations)
+    ↓
+Webhook/API sync (RSVPs come back)
+    ↓
+Update our dashboard (attendance count)
+    ↓
+Notify vendors (update guest counts)
+```
+
+**Important: Avoid Cognitive Load Trap**
+- **Don't force manual entry** if they're already using WithJoy
+- **API sync is automatic** - set it up once, forget it
+- **Manual entry only** for paper invitations or platforms without API
+- **Show sync status**: "Last synced with WithJoy: 2 hours ago"
+
+**Implementation Phases:**
+
+**Phase 2a: Manual Tracking (Week 1-2)**
+1. Create Guest model in Prisma schema
+2. Guest list CRUD (add, edit, delete guests)
+3. RSVP status tracking
+4. Basic dashboard card with stats
+5. Export to CSV for paper invitations
+
+**Phase 2b: WithJoy Integration (Week 3)**
+1. Research WithJoy API authentication
+2. Build OAuth flow or API key setup
+3. Sync RSVPs automatically
+4. Webhook for real-time updates
+5. Test with real WithJoy account
+
+**Phase 2c: Smart Integrations (Week 4)**
+1. Auto-update vendor guest counts
+2. Dietary restriction aggregation
+3. Venue capacity warnings
+4. Caterer notification system
+
+**Alternative Approach: Import/Export**
+If APIs are limited or require premium accounts:
+- **CSV import** from invitation platforms
+- **Manual refresh** (click "Import from WithJoy")
+- **One-way sync** (read-only from invitation platform)
+
+**Schema Addition:**
+```prisma
+model Guest {
+  id            String   @id @default(cuid())
+  weddingId     String
+  wedding       Wedding  @relation(fields: [weddingId], references: [id])
+
+  // Basic info
+  firstName     String
+  lastName      String
+  email         String?
+  phone         String?
+  address       String?
+
+  // RSVP tracking
+  invitationSent Boolean @default(false)
+  sentDate       DateTime?
+  rsvpStatus     RSVPStatus @default(PENDING)
+  respondedDate  DateTime?
+  attending      Boolean?
+  plusOne        Boolean @default(false)
+  plusOneName    String?
+
+  // Dietary & preferences
+  dietaryRestrictions String[]
+  mealChoice     String? // If multiple menu options
+
+  // Integration
+  externalId     String? // WithJoy guest ID
+  provider       String? // 'withjoy', 'paperlesspost', 'manual'
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum RSVPStatus {
+  PENDING      // Invitation sent, no response
+  ATTENDING    // Confirmed attending
+  DECLINED     // Cannot attend
+  TENTATIVE    // Maybe attending
+  NO_RESPONSE  // Deadline passed, no response
+}
+```
+
+**Success Metrics:**
+- Users with 50+ guests prefer API sync (less manual work)
+- Users with <30 guests okay with manual entry
+- Dietary restrictions flow to caterer automatically
+- Guest count updates reduce caterer back-and-forth
+
+**Future Enhancements:**
+- Seating chart tool
+- Table assignments
+- Meal choice collection
+- Thank you note tracking
+- Gift registry tracking (if not using existing platform)
+
+**Sources:**
+- [WithJoy API Documentation](https://joy.logicbroker.com/hc/en-us/articles/4404558457620-API-Documentation)
+- [Paperless Post for Developers](https://www.paperless.io/en/developer)
+- [Best Digital Wedding Invitations](https://withjoy.com/blog/12-best-evite-wedding-invitations-sites/)
+- [How To Manage RSVPs With Joy](https://withjoy.com/blog/effortlessly-send-collect-manage-rsvps-joy/)
+
+---
 
 #### 2.1 Budget Tracker 💰
 **Priority:** High | **Effort:** 3-4 days
