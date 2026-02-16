@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { getResendClient, validateEmailConfig } from '@/lib/email/resend-client'
 import { prisma } from '@/lib/prisma'
-import { createClient } from '@/lib/supabase/server'
+import { requireAuth } from '@/lib/auth-helpers'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+import { validateArray } from '@/lib/input-validation'
 
 interface EmailToSend {
   vendorId: string
@@ -20,14 +22,27 @@ interface ResendEmailResult {
 
 export async function POST(req: NextRequest) {
   try {
-    // Check authentication
-    const supabase = await createClient()
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
+    // Require authentication
+    const authResult = await requireAuth(req)
+    if (authResult instanceof NextResponse) {
+      return authResult
+    }
+    const { user } = authResult
 
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    // Rate limiting for email sending
+    const rateLimitResult = checkRateLimit(user.dbUser.id, RATE_LIMITS.EMAIL_SEND)
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json(
+        { error: 'Email rate limit exceeded. You can send more emails in an hour.' },
+        {
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': rateLimitResult.limit.toString(),
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': new Date(rateLimitResult.resetAt).toISOString(),
+          },
+        }
+      )
     }
 
     // Validate email configuration
@@ -39,17 +54,16 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const { emails, weddingId } = (await req.json()) as {
-      emails: EmailToSend[]
-      weddingId: string
+    const body = await req.json()
+    const emails = validateArray<EmailToSend>(body.emails, 100) // Max 100 emails per batch
+    const { weddingId } = body
+
+    if (emails.length === 0) {
+      return NextResponse.json({ error: 'At least one email is required' }, { status: 400 })
     }
 
-    if (!emails || !Array.isArray(emails) || emails.length === 0) {
-      return NextResponse.json({ error: 'emails array is required' }, { status: 400 })
-    }
-
-    if (!weddingId) {
-      return NextResponse.json({ error: 'weddingId is required' }, { status: 400 })
+    if (!weddingId || typeof weddingId !== 'string') {
+      return NextResponse.json({ error: 'Valid weddingId is required' }, { status: 400 })
     }
 
     // Verify wedding ownership
@@ -58,7 +72,7 @@ export async function POST(req: NextRequest) {
       include: { user: true },
     })
 
-    if (!wedding || wedding.user.authId !== user.id) {
+    if (!wedding || wedding.user.authId !== user.supabaseUser.id) {
       return NextResponse.json({ error: 'Wedding not found or access denied' }, { status: 404 })
     }
 

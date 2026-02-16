@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { Vendor, Wedding } from '@prisma/client'
+import { sanitizeForAIPrompt } from '@/lib/input-validation'
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || '',
@@ -18,21 +19,28 @@ export async function generateVendorEmail(
   wedding: Wedding,
   userEmail: string
 ): Promise<GeneratedEmail> {
+  // Sanitize all user inputs to prevent prompt injection
+  const sanitizedVendorName = sanitizeForAIPrompt(vendor.name)
+  const sanitizedLocation = sanitizeForAIPrompt(wedding.location)
+  const sanitizedStyle = sanitizeForAIPrompt(wedding.style || 'Not specified')
+  const sanitizedMustHaves = wedding.mustHaves.map(h => sanitizeForAIPrompt(h)).join(', ')
+  const sanitizedDietaryNeeds = wedding.dietaryNeeds.map(d => sanitizeForAIPrompt(d)).join(', ')
+
   const prompt = `You are helping a couple contact wedding vendors. Generate a professional, warm, and personalized email inquiry.
 
 VENDOR DETAILS:
-- Name: ${vendor.name}
+- Name: ${sanitizedVendorName}
 - Category: ${vendor.category}
 - Location: ${vendor.location}
 - Services: ${vendor.servicesOffered.join(', ')}
 
 WEDDING DETAILS:
 - Date: ${wedding.weddingDate ? new Date(wedding.weddingDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Flexible'}
-- Location: ${wedding.location}
+- Location: ${sanitizedLocation}
 - Guest Count: ${wedding.guestCount || 'To be determined'}
-- Style: ${wedding.style || 'Not specified'}
-${wedding.mustHaves.length > 0 ? `- Must-haves: ${wedding.mustHaves.join(', ')}` : ''}
-${wedding.dietaryNeeds.length > 0 ? `- Dietary requirements: ${wedding.dietaryNeeds.join(', ')}` : ''}
+- Style: ${sanitizedStyle}
+${wedding.mustHaves.length > 0 ? `- Must-haves: ${sanitizedMustHaves}` : ''}
+${wedding.dietaryNeeds.length > 0 ? `- Dietary requirements: ${sanitizedDietaryNeeds}` : ''}
 
 Generate a professional email with:
 1. A compelling subject line (max 60 characters)

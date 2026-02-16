@@ -1,11 +1,36 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 import { streamChatResponse, WEDDING_PLANNER_PROMPT, Message } from '@/lib/claude'
+import { requireAuth } from '@/lib/auth-helpers'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 export const runtime = 'edge'
 
 export async function POST(req: NextRequest) {
   try {
+    // Require authentication
+    const authResult = await requireAuth(req)
+    if (authResult instanceof NextResponse) {
+      return authResult
+    }
+    const { user } = authResult
+
+    // Rate limiting
+    const rateLimitResult = checkRateLimit(user.dbUser.id, RATE_LIMITS.CHAT)
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please try again later.' },
+        {
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': rateLimitResult.limit.toString(),
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': new Date(rateLimitResult.resetAt).toISOString(),
+          },
+        }
+      )
+    }
+
     const { messages } = await req.json()
 
     if (!messages || !Array.isArray(messages)) {

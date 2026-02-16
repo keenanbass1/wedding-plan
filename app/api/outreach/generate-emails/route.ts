@@ -2,28 +2,45 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { generateVendorEmail } from '@/lib/email/generate-vendor-email'
 import { prisma } from '@/lib/prisma'
-import { createClient } from '@/lib/supabase/server'
+import { requireAuth } from '@/lib/auth-helpers'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+import { validateArray } from '@/lib/input-validation'
 
 export async function POST(req: NextRequest) {
   try {
-    // Check authentication
-    const supabase = await createClient()
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
+    // Require authentication
+    const authResult = await requireAuth(req)
+    if (authResult instanceof NextResponse) {
+      return authResult
+    }
+    const { user } = authResult
 
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    // Rate limiting for AI generation
+    const rateLimitResult = checkRateLimit(user.dbUser.id, RATE_LIMITS.AI_GENERATION)
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please wait before generating more emails.' },
+        {
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': rateLimitResult.limit.toString(),
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': new Date(rateLimitResult.resetAt).toISOString(),
+          },
+        }
+      )
     }
 
-    const { vendorIds, weddingId } = await req.json()
+    const body = await req.json()
+    const vendorIds = validateArray<string>(body.vendorIds, 50) // Max 50 vendors at once
+    const { weddingId } = body
 
-    if (!vendorIds || !Array.isArray(vendorIds) || vendorIds.length === 0) {
-      return NextResponse.json({ error: 'vendorIds array is required' }, { status: 400 })
+    if (vendorIds.length === 0) {
+      return NextResponse.json({ error: 'At least one vendor ID is required' }, { status: 400 })
     }
 
-    if (!weddingId) {
-      return NextResponse.json({ error: 'weddingId is required' }, { status: 400 })
+    if (!weddingId || typeof weddingId !== 'string') {
+      return NextResponse.json({ error: 'Valid weddingId is required' }, { status: 400 })
     }
 
     // Get wedding details
@@ -37,7 +54,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Verify ownership
-    if (wedding.user.authId !== user.id) {
+    if (wedding.user.authId !== user.supabaseUser.id) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
