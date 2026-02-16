@@ -10,8 +10,8 @@ const cormorant = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
-  title: 'WeddingPlan AI - Automated Wedding Planning',
-  description: 'AI-powered wedding planning assistant that automates vendor discovery and outreach',
+  title: 'WeddingPlan - Find Your Perfect Wedding Vendors',
+  description: 'Discover and connect with NSW wedding vendors. Match with venues, photographers, caterers and more based on your preferences.',
 }
 
 export default function RootLayout({
@@ -20,8 +20,23 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${cormorant.variable} font-sans`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('theme');
+                const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (theme === 'dark' || (!theme && systemDark)) {
+                  document.documentElement.classList.add('dark');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body className={`${inter.variable} ${cormorant.variable} font-sans bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors`}>{children}</body>
     </html>
   )
 }

@@ -1,19 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { prisma } from '@/lib/prisma'
-import { createClient } from '@/lib/supabase/server'
+import { requireAuth } from '@/lib/auth-helpers'
 
 export async function POST(req: NextRequest) {
   try {
-    // Check authentication
-    const supabase = await createClient()
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
-
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    const authResult = await requireAuth(req)
+    if (authResult instanceof NextResponse) {
+      return authResult
     }
+    const { user } = authResult
 
     const { outreachId, responseEmail, quote, notes } = await req.json()
 
@@ -35,7 +31,7 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    if (!outreach || outreach.wedding.user.authId !== user.id) {
+    if (!outreach || outreach.wedding.user.authId !== user.supabaseUser.id) {
       return NextResponse.json({ error: 'Outreach not found or access denied' }, { status: 404 })
     }
 

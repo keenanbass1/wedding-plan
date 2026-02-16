@@ -48,15 +48,15 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {error && (
-        <div className="p-4 bg-red-50/80 backdrop-blur-sm border border-red-200/50 rounded-2xl animate-fadeIn">
-          <p className="text-sm text-red-600 font-light">{error}</p>
+        <div className="p-4 bg-red-50/80 dark:bg-red-900/30 backdrop-blur-sm border border-red-200/50 dark:border-red-700/50 rounded-2xl animate-fadeIn">
+          <p className="text-sm text-red-600 dark:text-red-400 font-light">{error}</p>
         </div>
       )}
 
       {/* Response Email */}
       <div>
-        <label htmlFor="responseEmail" className="block text-sm font-medium text-gray-700 mb-2">
-          Vendor&apos;s Response <span className="text-rose-500">*</span>
+        <label htmlFor="responseEmail" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+          Vendor&apos;s Response <span className="text-rose-500 dark:text-rose-400">*</span>
         </label>
         <textarea
           id="responseEmail"
@@ -65,19 +65,19 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
           required
           disabled={loading}
           rows={8}
-          className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-light leading-relaxed"
+          className="w-full px-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-light leading-relaxed text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
           placeholder="Paste the vendor's email response here..."
         />
       </div>
 
       {/* Quote Amount */}
       <div>
-        <label htmlFor="quote" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="quote" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
           Quote Amount (optional)
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <span className="text-gray-500">$</span>
+            <span className="text-gray-500 dark:text-gray-400">$</span>
           </div>
           <input
             id="quote"
@@ -87,18 +87,18 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
             disabled={loading}
             step="0.01"
             min="0"
-            className="w-full pl-8 pr-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full pl-8 pr-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
             placeholder="0.00"
           />
         </div>
-        <p className="mt-1 text-xs text-gray-500 font-light">
+        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 font-light">
           Enter the quoted price in dollars (e.g., 5000.00)
         </p>
       </div>
 
       {/* Notes */}
       <div>
-        <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="notes" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
           Notes (optional)
         </label>
         <textarea

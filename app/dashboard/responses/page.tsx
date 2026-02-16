@@ -43,21 +43,21 @@ export default async function ResponsesPage() {
   })
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50">
+    <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 rounded-full blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
       </div>
 
       <div className="relative">
         {/* Header */}
-        <div className="border-b border-gray-200/50 bg-white/80 backdrop-blur-xl">
+        <div className="border-b border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-6 py-8">
             <Link
               href="/dashboard"
-              className="flex items-center gap-2 text-gray-600 hover:text-rose-500 transition-colors duration-300 group mb-6"
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-rose-500 transition-colors duration-300 group mb-6"
             >
               <svg
                 className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -89,7 +89,7 @@ export default async function ResponsesPage() {
               </span>
             </h1>
 
-            <p className="text-gray-600 font-light">
+            <p className="text-gray-600 dark:text-gray-300 font-light">
               {responses.length > 0
                 ? `${responses.length} ${responses.length === 1 ? 'vendor has' : 'vendors have'} responded to your inquiries`
                 : 'No responses yet'}
@@ -105,7 +105,7 @@ export default async function ResponsesPage() {
                 <Link
                   key={response.id}
                   href={`/dashboard/vendor/${response.vendorId}`}
-                  className="block group bg-white/80 backdrop-blur-xl rounded-3xl overflow-hidden shadow-lg border border-white/50 hover:shadow-2xl hover:border-rose-200 transition-all duration-300 animate-fadeIn"
+                  className="block group bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl overflow-hidden shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 hover:shadow-2xl hover:border-rose-200 dark:hover:border-rose-700 transition-all duration-300 animate-fadeIn"
                   style={{ animationDelay: `${idx * 100}ms` }}
                 >
                   <div className="p-8">
@@ -113,16 +113,16 @@ export default async function ResponsesPage() {
                     <div className="flex items-start justify-between mb-6">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-2xl font-serif font-medium text-gray-900 group-hover:text-rose-600 transition-colors">
+                          <h3 className="text-2xl font-serif font-medium text-gray-900 dark:text-white group-hover:text-rose-600 transition-colors">
                             {response.vendor.name}
                           </h3>
-                          <span className="px-2.5 py-1 bg-rose-50 text-rose-700 rounded-lg text-xs font-medium">
+                          <span className="px-2.5 py-1 bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 rounded-lg text-xs font-medium">
                             {response.vendor.category}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                           <svg
-                            className="w-4 h-4 text-gray-400"
+                            className="w-4 h-4 text-gray-400 dark:text-gray-500"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -145,8 +145,8 @@ export default async function ResponsesPage() {
                       </div>
 
                       <div className="text-right">
-                        <div className="text-sm text-gray-500 font-light mb-1">Responded</div>
-                        <div className="text-base font-medium text-gray-900">
+                        <div className="text-sm text-gray-500 dark:text-gray-400 font-light mb-1">Responded</div>
+                        <div className="text-base font-medium text-gray-900 dark:text-white">
                           {new Date(response.repliedAt || response.updatedAt).toLocaleDateString(
                             'en-AU',
                             {
@@ -160,8 +160,8 @@ export default async function ResponsesPage() {
                     </div>
 
                     {/* Response Preview */}
-                    <div className="bg-green-50/50 rounded-xl p-4 border border-green-200/50 mb-4">
-                      <div className="text-sm text-gray-700 font-light line-clamp-3 leading-relaxed">
+                    <div className="bg-green-50/50 dark:bg-green-900/30 rounded-xl p-4 border border-green-200/50 dark:border-green-700/50 mb-4">
+                      <div className="text-sm text-gray-700 dark:text-gray-200 font-light line-clamp-3 leading-relaxed">
                         {response.responseEmail}
                       </div>
                     </div>
@@ -171,7 +171,7 @@ export default async function ResponsesPage() {
                       <div className="flex items-center gap-4">
                         {response.quote && (
                           <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 flex items-center justify-center">
                               <svg
                                 className="w-4 h-4 text-purple-600"
                                 fill="none"
@@ -187,8 +187,8 @@ export default async function ResponsesPage() {
                               </svg>
                             </div>
                             <div>
-                              <div className="text-xs text-gray-500 font-medium">Quote</div>
-                              <div className="text-sm font-medium text-gray-900">
+                              <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">Quote</div>
+                              <div className="text-sm font-medium text-gray-900 dark:text-white">
                                 ${(response.quote / 100).toLocaleString()}
                               </div>
                             </div>
@@ -219,7 +219,7 @@ export default async function ResponsesPage() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-full flex items-center justify-center">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-900/50 dark:to-indigo-900/50 rounded-full flex items-center justify-center">
                 <svg
                   className="w-10 h-10 text-purple-400"
                   fill="none"
@@ -234,10 +234,10 @@ export default async function ResponsesPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-2xl font-serif font-medium text-gray-900 mb-3">
+              <h3 className="text-2xl font-serif font-medium text-gray-900 dark:text-white mb-3">
                 No responses yet
               </h3>
-              <p className="text-gray-600 font-light mb-8">
+              <p className="text-gray-600 dark:text-gray-300 font-light mb-8">
                 When vendors respond to your inquiries, they&apos;ll appear here
               </p>
               <Link

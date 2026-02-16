@@ -79,21 +79,21 @@ function LoginForm() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-rose-50 via-white to-purple-50">
+    <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
       {/* Elegant background with depth - matching landing page */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 rounded-full blur-3xl animate-float-delayed" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-pink-100/20 to-transparent rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-pink-100/20 to-transparent dark:from-pink-900/10 rounded-full blur-3xl" />
 
         {/* Delicate floral accents */}
-        <div className="absolute top-20 right-20 text-rose-300/15 animate-float">
+        <div className="absolute top-20 right-20 text-rose-300/15 dark:text-rose-700/15 animate-float">
           <svg className="w-24 h-24" viewBox="0 0 200 200" fill="currentColor">
             <path d="M100 40c-8 0-15 7-15 15 0-8-7-15-15-15s-15 7-15 15c0 15 15 30 30 45 15-15 30-30 30-45 0-8-7-15-15-15z" />
             <circle cx="100" cy="100" r="8" opacity="0.6" />
           </svg>
         </div>
-        <div className="absolute bottom-32 left-16 text-purple-300/15 animate-float-delayed">
+        <div className="absolute bottom-32 left-16 text-purple-300/15 dark:text-purple-700/15 animate-float-delayed">
           <svg className="w-20 h-20" viewBox="0 0 200 200" fill="currentColor">
             <path
               d="M100 40c-8 0-15 7-15 15 0-8-7-15-15-15s-15 7-15 15c0 15 15 30 30 45 15-15 30-30 30-45 0-8-7-15-15-15z"
@@ -110,7 +110,7 @@ function LoginForm() {
         {/* Back to home link */}
         <Link
           href="/"
-          className="absolute top-8 left-8 flex items-center gap-2 text-gray-600 hover:text-rose-500 transition-colors duration-300 group"
+          className="absolute top-8 left-8 flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-rose-500 dark:hover:text-rose-400 transition-colors duration-300 group"
         >
           <svg
             className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -144,29 +144,29 @@ function LoginForm() {
                 Welcome Back
               </span>
             </h1>
-            <p className="text-gray-600 font-light">Continue planning your perfect day</p>
+            <p className="text-gray-600 dark:text-gray-300 font-light">Continue planning your perfect day</p>
           </div>
 
           {/* Glass morphism card */}
           <div
-            className="relative bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/50 overflow-hidden animate-fadeIn"
+            className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 overflow-hidden animate-fadeIn"
             style={{ animationDelay: '200ms' }}
           >
             {/* Subtle gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-rose-50/30 via-transparent to-purple-50/30 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-rose-50/30 via-transparent to-purple-50/30 dark:from-rose-950/20 dark:to-purple-950/20 pointer-events-none" />
 
             <div className="relative">
               {/* Error message */}
               {error && (
-                <div className="mb-6 p-4 bg-red-50/80 backdrop-blur-sm border border-red-200/50 rounded-2xl animate-fadeIn">
-                  <p className="text-sm text-red-600 font-light text-center">{error}</p>
+                <div className="mb-6 p-4 bg-red-50/80 dark:bg-red-900/30 backdrop-blur-sm border border-red-200/50 dark:border-red-800/50 rounded-2xl animate-fadeIn">
+                  <p className="text-sm text-red-600 dark:text-red-400 font-light text-center">{error}</p>
                 </div>
               )}
 
               {/* Magic link success */}
               {magicLinkSent && (
-                <div className="mb-6 p-4 bg-green-50/80 backdrop-blur-sm border border-green-200/50 rounded-2xl animate-fadeIn">
-                  <p className="text-sm text-green-700 font-light text-center">
+                <div className="mb-6 p-4 bg-green-50/80 dark:bg-green-900/30 backdrop-blur-sm border border-green-200/50 dark:border-green-800/50 rounded-2xl animate-fadeIn">
+                  <p className="text-sm text-green-700 dark:text-green-400 font-light text-center">
                     ✨ Check your email for a magic sign-in link
                   </p>
                 </div>
@@ -175,7 +175,7 @@ function LoginForm() {
               {/* Email/Password Form */}
               <form onSubmit={handleEmailLogin} className="space-y-5">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
                     Email Address
                   </label>
                   <input
@@ -185,7 +185,7 @@ function LoginForm() {
                     onChange={e => setEmail(e.target.value)}
                     required
                     disabled={loading}
-                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full px-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -193,7 +193,7 @@ function LoginForm() {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2"
                   >
                     Password
                   </label>
@@ -204,7 +204,7 @@ function LoginForm() {
                     onChange={e => setPassword(e.target.value)}
                     required
                     disabled={loading}
-                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full px-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="••••••••"
                   />
                 </div>
@@ -214,13 +214,13 @@ function LoginForm() {
                     type="button"
                     onClick={handleMagicLink}
                     disabled={loading || !email}
-                    className="text-purple-600 hover:text-purple-700 font-light hover:underline transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-light hover:underline transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Send magic link
                   </button>
                   <Link
                     href="/auth/reset-password"
-                    className="text-gray-600 hover:text-rose-600 font-light hover:underline transition-colors"
+                    className="text-gray-600 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400 font-light hover:underline transition-colors"
                   >
                     Forgot password?
                   </Link>
@@ -278,10 +278,10 @@ function LoginForm() {
               {/* Divider */}
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200/50" />
+                  <div className="w-full border-t border-gray-200/50 dark:border-gray-700/50" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white/80 text-gray-500 font-light">
+                  <span className="px-4 bg-white/80 dark:bg-gray-800/80 text-gray-500 dark:text-gray-400 font-light">
                     or continue with
                   </span>
                 </div>
@@ -292,7 +292,7 @@ function LoginForm() {
                 type="button"
                 onClick={handleGoogleLogin}
                 disabled={loading}
-                className="w-full px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-xl hover:bg-white hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
+                className="w-full px-6 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl hover:bg-white dark:hover:bg-gray-700 hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
@@ -312,17 +312,17 @@ function LoginForm() {
                     d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                   />
                 </svg>
-                <span className="font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
+                <span className="font-medium text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
                   Sign in with Google
                 </span>
               </button>
 
               {/* Sign up link */}
-              <p className="mt-6 text-center text-sm text-gray-600 font-light">
+              <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-300 font-light">
                 Don&apos;t have an account?{' '}
                 <Link
                   href="/auth/signup"
-                  className="text-rose-600 hover:text-rose-700 font-medium hover:underline transition-colors"
+                  className="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-medium hover:underline transition-colors"
                 >
                   Create one now
                 </Link>
@@ -332,10 +332,10 @@ function LoginForm() {
 
           {/* Footer decoration */}
           <div
-            className="mt-8 flex items-center justify-center gap-2 text-xs text-gray-400 font-light animate-fadeIn"
+            className="mt-8 flex items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500 font-light animate-fadeIn"
             style={{ animationDelay: '300ms' }}
           >
-            <svg className="w-3 h-3 text-rose-300" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-3 h-3 text-rose-300 dark:text-rose-700" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
                 d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -354,7 +354,7 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-purple-50">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
           <div className="animate-pulse text-rose-400">Loading...</div>
         </div>
       }

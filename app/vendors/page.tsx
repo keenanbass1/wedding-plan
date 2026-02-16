@@ -63,22 +63,22 @@ export default async function VendorsPage() {
   ]
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50">
+    <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
       {/* Elegant background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 rounded-full blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
       </div>
 
       <div className="relative">
         {/* Header */}
-        <div className="border-b border-gray-200/50 bg-white/80 backdrop-blur-xl">
+        <div className="border-b border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-6 py-8">
             <div className="flex items-center justify-between mb-6">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 text-gray-600 hover:text-rose-500 transition-colors duration-300 group"
+                className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-rose-500 transition-colors duration-300 group"
               >
                 <svg
                   className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -98,7 +98,7 @@ export default async function VendorsPage() {
 
               <Link
                 href="/dashboard"
-                className="text-sm text-purple-600 hover:text-purple-700 font-medium hover:underline transition-colors"
+                className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium hover:underline transition-colors"
               >
                 View Dashboard
               </Link>
@@ -119,7 +119,7 @@ export default async function VendorsPage() {
               </span>
             </h1>
 
-            <div className="flex items-center gap-6 text-sm text-gray-600">
+            <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
               <div className="flex items-center gap-2">
                 <svg
                   className="w-4 h-4 text-rose-400"
@@ -144,7 +144,7 @@ export default async function VendorsPage() {
               </div>
               {wedding.guestCount && (
                 <>
-                  <div className="h-1 w-1 rounded-full bg-gray-300" />
+                  <div className="h-1 w-1 rounded-full bg-gray-300 dark:bg-gray-600" />
                   <div className="flex items-center gap-2">
                     <svg
                       className="w-4 h-4 text-purple-400"
@@ -165,7 +165,7 @@ export default async function VendorsPage() {
               )}
               {wedding.style && (
                 <>
-                  <div className="h-1 w-1 rounded-full bg-gray-300" />
+                  <div className="h-1 w-1 rounded-full bg-gray-300 dark:bg-gray-600" />
                   <div className="flex items-center gap-2">
                     <svg
                       className="w-4 h-4 text-pink-400"

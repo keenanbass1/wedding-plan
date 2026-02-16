@@ -41,7 +41,7 @@ export default function UserMenu({ user }: UserMenuProps) {
       {/* User Avatar Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:border-rose-300 hover:shadow-lg transition-all duration-300 group"
+        className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-rose-300 hover:shadow-lg dark:shadow-gray-900/30 transition-all duration-300 group"
       >
         {/* Avatar */}
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-400 to-purple-400 flex items-center justify-center text-white font-medium shadow-md group-hover:scale-105 transition-transform">
@@ -50,13 +50,13 @@ export default function UserMenu({ user }: UserMenuProps) {
 
         {/* User Info (hidden on mobile) */}
         <div className="hidden md:block text-left">
-          <div className="text-sm font-medium text-gray-900">{user.name || 'Account'}</div>
-          <div className="text-xs text-gray-500 font-light">{user.email}</div>
+          <div className="text-sm font-medium text-gray-900 dark:text-white">{user.name || 'Account'}</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400 font-light">{user.email}</div>
         </div>
 
         {/* Chevron */}
         <svg
-          className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -72,18 +72,18 @@ export default function UserMenu({ user }: UserMenuProps) {
           <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
 
           {/* Menu */}
-          <div className="absolute right-0 mt-2 w-64 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/50 overflow-hidden z-20 animate-fadeIn">
+          <div className="absolute right-0 mt-2 w-64 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 overflow-hidden z-20 animate-fadeIn">
             {/* User Info */}
-            <div className="p-4 border-b border-gray-100/50 bg-gradient-to-br from-rose-50/50 to-purple-50/50">
+            <div className="p-4 border-b border-gray-100/50 dark:border-gray-700/50 bg-gradient-to-br from-rose-50/50 to-purple-50/50 dark:from-rose-900/30 dark:to-purple-900/30">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-400 to-purple-400 flex items-center justify-center text-white font-medium text-lg shadow-md">
                   {initials}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-gray-900 truncate">
+                  <div className="text-sm font-medium text-gray-900 dark:text-white truncate">
                     {user.name || 'Account'}
                   </div>
-                  <div className="text-xs text-gray-600 truncate font-light">{user.email}</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-300 truncate font-light">{user.email}</div>
                 </div>
               </div>
             </div>
@@ -95,10 +95,10 @@ export default function UserMenu({ user }: UserMenuProps) {
                   setIsOpen(false)
                   router.push('/dashboard')
                 }}
-                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-rose-50 rounded-xl transition-colors group"
+                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-xl transition-colors group"
               >
                 <svg
-                  className="w-5 h-5 text-gray-500 group-hover:text-rose-600 transition-colors"
+                  className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -118,10 +118,10 @@ export default function UserMenu({ user }: UserMenuProps) {
                   setIsOpen(false)
                   router.push('/chat')
                 }}
-                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-purple-50 rounded-xl transition-colors group"
+                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-purple-50 dark:hover:bg-purple-900/30 rounded-xl transition-colors group"
               >
                 <svg
-                  className="w-5 h-5 text-gray-500 group-hover:text-purple-600 transition-colors"
+                  className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -141,10 +141,10 @@ export default function UserMenu({ user }: UserMenuProps) {
                   setIsOpen(false)
                   router.push('/vendors')
                 }}
-                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-pink-50 rounded-xl transition-colors group"
+                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-pink-50 dark:hover:bg-pink-900/30 rounded-xl transition-colors group"
               >
                 <svg
-                  className="w-5 h-5 text-gray-500 group-hover:text-pink-600 transition-colors"
+                  className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -161,11 +161,11 @@ export default function UserMenu({ user }: UserMenuProps) {
             </div>
 
             {/* Logout */}
-            <div className="p-2 border-t border-gray-100/50">
+            <div className="p-2 border-t border-gray-100/50 dark:border-gray-700/50">
               <button
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed group"
+                className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed group"
               >
                 <svg
                   className="w-5 h-5 transition-colors"

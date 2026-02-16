@@ -1,28 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { prisma } from '@/lib/prisma'
-import { createClient } from '@/lib/supabase/server'
+import { requireAuth } from '@/lib/auth-helpers'
 
 export async function POST(req: NextRequest) {
   try {
-    // Check authentication
-    const supabase = await createClient()
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
-
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    const authResult = await requireAuth(req)
+    if (authResult instanceof NextResponse) {
+      return authResult
     }
-
-    // Get user from database
-    const dbUser = await prisma.user.findUnique({
-      where: { authId: user.id },
-    })
-
-    if (!dbUser) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 })
-    }
+    const { user } = authResult
+    const dbUser = user.dbUser
 
     const body = await req.json()
     const { date, location, guestCount, budget, style } = body
@@ -64,41 +52,29 @@ export async function POST(req: NextRequest) {
     }
     const parsedLocation = locationMap[location] || location || 'Newcastle'
 
-    // Check if user already has a wedding (update instead of create)
+    // Upsert wedding (create or update)
+    const weddingData = {
+      weddingDate,
+      location: parsedLocation,
+      guestCount: parsedGuestCount,
+      budgetTotal: parsedBudget,
+      style: style?.split(' & ')[0] || 'Modern',
+      chatCompleted: true,
+      status: 'MATCHING',
+    }
+
     const existingWedding = await prisma.wedding.findFirst({
       where: { userId: dbUser.id },
     })
 
-    let wedding
-    if (existingWedding) {
-      // Update existing wedding
-      wedding = await prisma.wedding.update({
-        where: { id: existingWedding.id },
-        data: {
-          weddingDate,
-          location: parsedLocation,
-          guestCount: parsedGuestCount,
-          budgetTotal: parsedBudget,
-          style: style?.split(' & ')[0] || 'Modern',
-          chatCompleted: true,
-          status: 'MATCHING',
-        },
-      })
-    } else {
-      // Create new wedding
-      wedding = await prisma.wedding.create({
-        data: {
-          userId: dbUser.id,
-          weddingDate,
-          location: parsedLocation,
-          guestCount: parsedGuestCount,
-          budgetTotal: parsedBudget,
-          style: style?.split(' & ')[0] || 'Modern',
-          chatCompleted: true,
-          status: 'MATCHING',
-        },
-      })
-    }
+    const wedding = existingWedding
+      ? await prisma.wedding.update({
+          where: { id: existingWedding.id },
+          data: weddingData,
+        })
+      : await prisma.wedding.create({
+          data: { userId: dbUser.id, ...weddingData },
+        })
 
     return NextResponse.json({ success: true, wedding })
   } catch (error) {
@@ -109,32 +85,18 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    // Check authentication
-    const supabase = await createClient()
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
-
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    const authResult = await requireAuth(req)
+    if (authResult instanceof NextResponse) {
+      return authResult
     }
+    const { user } = authResult
 
-    // Get user from database
-    const dbUser = await prisma.user.findUnique({
-      where: { authId: user.id },
-      include: {
-        weddings: {
-          orderBy: { createdAt: 'desc' },
-          take: 1,
-        },
-      },
+    const wedding = await prisma.wedding.findFirst({
+      where: { userId: user.dbUser.id },
+      orderBy: { createdAt: 'desc' },
     })
 
-    if (!dbUser) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 })
-    }
-
-    return NextResponse.json({ wedding: dbUser.weddings[0] || null })
+    return NextResponse.json({ wedding: wedding || null })
   } catch (error) {
     console.error('Error fetching wedding:', error)
     return NextResponse.json({ error: 'Failed to fetch wedding data' }, { status: 500 })

@@ -9,18 +9,18 @@ export default function Home() {
       {/* Elegant background with depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Soft gradient orbs */}
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 rounded-full blur-3xl animate-float-delayed" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-pink-100/20 to-transparent rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-pink-100/20 to-transparent dark:from-pink-900/10 dark:to-transparent rounded-full blur-3xl" />
 
         {/* Delicate floral accents */}
-        <div className="absolute top-20 left-10 text-rose-300/20 animate-float">
+        <div className="absolute top-20 left-10 text-rose-300/20 dark:text-rose-700/15 animate-float">
           <svg className="w-32 h-32" viewBox="0 0 200 200" fill="currentColor">
             <path d="M100 40c-8 0-15 7-15 15 0-8-7-15-15-15s-15 7-15 15c0 15 15 30 30 45 15-15 30-30 30-45 0-8-7-15-15-15z" />
             <circle cx="100" cy="100" r="8" opacity="0.6" />
           </svg>
         </div>
-        <div className="absolute bottom-32 right-16 text-purple-300/15 animate-float-delayed">
+        <div className="absolute bottom-32 right-16 text-purple-300/15 dark:text-purple-700/10 animate-float-delayed">
           <svg className="w-24 h-24" viewBox="0 0 200 200" fill="currentColor">
             <path
               d="M100 40c-8 0-15 7-15 15 0-8-7-15-15-15s-15 7-15 15c0 15 15 30 30 45 15-15 30-30 30-45 0-8-7-15-15-15z"
@@ -30,7 +30,7 @@ export default function Home() {
         </div>
 
         {/* Subtle texture overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.02)_1px,transparent_0)] bg-[size:32px_32px]" />
       </div>
 
       <div className="relative flex min-h-screen flex-col items-center justify-center px-6 py-24">
@@ -42,16 +42,16 @@ export default function Home() {
               className="flex items-center justify-center gap-3 mb-6 animate-fadeIn"
               style={{ animationDelay: '100ms' }}
             >
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
-              <svg className="w-5 h-5 text-rose-400" viewBox="0 0 24 24" fill="currentColor">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300 dark:to-rose-600" />
+              <svg className="w-5 h-5 text-rose-400 dark:text-rose-500" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-300" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-300 dark:to-purple-600" />
             </div>
 
             <div className="inline-block mb-6 animate-fadeIn" style={{ animationDelay: '200ms' }}>
-              <span className="text-sm font-medium tracking-[0.3em] text-rose-600 uppercase">
-                AI-Powered Wedding Planning
+              <span className="text-sm font-medium tracking-[0.3em] text-rose-600 dark:text-rose-400 uppercase">
+                Vendor Discovery Made Simple
               </span>
             </div>
 
@@ -59,19 +59,21 @@ export default function Home() {
               className="text-7xl md:text-8xl lg:text-9xl font-serif font-light tracking-tight leading-[0.95] animate-fadeIn"
               style={{ animationDelay: '300ms' }}
             >
-              <span className="block text-gray-900 mb-2">Your Dream</span>
+              <span className="block text-gray-900 dark:text-white mb-2">Find Your Perfect</span>
               <span className="block bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
-                Wedding Awaits
+                Wedding Vendors
               </span>
             </h1>
 
             <p
-              className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto font-light leading-relaxed mt-8 animate-fadeIn"
+              className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-light leading-relaxed mt-8 animate-fadeIn"
               style={{ animationDelay: '400ms' }}
             >
-              Let our intelligent assistant orchestrate every detail of your perfect day, from{' '}
-              <span className="text-rose-500 font-normal">venues</span> to{' '}
-              <span className="text-purple-500 font-normal">vendors</span>.
+              Tell us about your wedding. Get matched with{' '}
+              <span className="text-rose-500 dark:text-rose-400 font-normal">NSW vendors</span>.
+              Send inquiries and{' '}
+              <span className="text-purple-500 dark:text-purple-400 font-normal">track responses</span>{' '}
+              &mdash; all in one place.
             </p>
 
             <div
@@ -81,12 +83,12 @@ export default function Home() {
               <a href="/dashboard" className="group relative">
                 {/* Button glow effect */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 to-purple-400 rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-                <button className="relative px-12 py-5 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-full text-lg font-medium hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-lg shadow-rose-200/50">
+                <button className="relative px-12 py-5 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-full text-lg font-medium hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-lg shadow-rose-200/50 dark:shadow-rose-900/30">
                   <span className="flex items-center gap-3">
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                     </svg>
-                    Begin Your Journey
+                    Get Started
                     <svg
                       className="w-5 h-5 group-hover:translate-x-1 transition-transform"
                       fill="none"
@@ -107,36 +109,36 @@ export default function Home() {
 
             {/* Trust indicators */}
             <div
-              className="flex items-center justify-center gap-6 mt-10 text-sm text-gray-500 font-light animate-fadeIn"
+              className="flex items-center justify-center gap-6 mt-10 text-sm text-gray-500 dark:text-gray-400 font-light animate-fadeIn"
               style={{ animationDelay: '600ms' }}
             >
               <div className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-rose-400" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-rose-400 dark:text-rose-500" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
                     d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                     clipRule="evenodd"
                   />
                 </svg>
-                <span>Secure & Private</span>
+                <span>45+ NSW Vendors</span>
               </div>
-              <div className="h-1 w-1 rounded-full bg-gray-300" />
+              <div className="h-1 w-1 rounded-full bg-gray-300 dark:bg-gray-600" />
               <div className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                <svg className="w-4 h-4 text-purple-400 dark:text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
-                <span>Instant Responses</span>
+                <span>Editable Templates</span>
               </div>
-              <div className="h-1 w-1 rounded-full bg-gray-300" />
+              <div className="h-1 w-1 rounded-full bg-gray-300 dark:bg-gray-600" />
               <div className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-pink-400" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-pink-400 dark:text-pink-500" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
-                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                     clipRule="evenodd"
                   />
                 </svg>
-                <span>Tailored to You</span>
+                <span>Track Everything</span>
               </div>
             </div>
           </div>
@@ -151,14 +153,14 @@ export default function Home() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={1.5}
-                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
                     />
                   </svg>
                 ),
                 accent: 'from-rose-400 to-pink-400',
-                title: 'Intelligent Conversations',
+                title: 'Share Your Details',
                 description:
-                  'Share your vision through natural dialogue. Our AI understands your style, budget, and dreams.',
+                  'Quick questionnaire about your date, location, guest count, budget, and style. Takes a few minutes.',
                 number: '01',
               },
               {
@@ -173,9 +175,9 @@ export default function Home() {
                   </svg>
                 ),
                 accent: 'from-pink-400 to-purple-400',
-                title: 'Curated Matching',
+                title: 'Browse Matched Vendors',
                 description:
-                  'Discover handpicked venues and vendors perfectly aligned with your aesthetic and requirements.',
+                  'We show you NSW vendors that fit your criteria. See their services, pricing, and details.',
                 number: '02',
               },
               {
@@ -190,24 +192,24 @@ export default function Home() {
                   </svg>
                 ),
                 accent: 'from-purple-400 to-pink-400',
-                title: 'Seamless Coordination',
+                title: 'Send & Track Inquiries',
                 description:
-                  'We reach out to vendors on your behalf, managing inquiries and gathering responses effortlessly.',
+                  'Use email templates or write your own. Send inquiries and track every response in your dashboard.',
                 number: '03',
               },
             ].map((feature, idx) => (
               <div
                 key={idx}
-                className="group relative bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/50 hover:border-white overflow-hidden animate-fadeIn"
+                className="group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-3xl p-8 shadow-lg hover:shadow-2xl dark:shadow-gray-900/30 transition-all duration-500 border border-white/50 dark:border-gray-700/50 hover:border-white dark:hover:border-gray-600 overflow-hidden animate-fadeIn"
                 style={{ animationDelay: `${700 + idx * 100}ms` }}
               >
                 {/* Gradient accent on hover */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-br ${feature.accent} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
+                  className={`absolute inset-0 bg-gradient-to-br ${feature.accent} opacity-0 group-hover:opacity-5 dark:group-hover:opacity-10 transition-opacity duration-500`}
                 />
 
                 {/* Decorative corner element */}
-                <div className="absolute top-4 right-4 text-6xl font-serif text-gray-100 group-hover:text-rose-100/50 transition-colors duration-500">
+                <div className="absolute top-4 right-4 text-6xl font-serif text-gray-100 dark:text-gray-800 group-hover:text-rose-100/50 dark:group-hover:text-rose-900/30 transition-colors duration-500">
                   {feature.number}
                 </div>
 
@@ -219,16 +221,16 @@ export default function Home() {
                   <div
                     className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.accent} bg-opacity-10 flex items-center justify-center text-transparent bg-clip-text group-hover:scale-110 transition-transform duration-300`}
                   >
-                    <div className="text-rose-500 group-hover:text-purple-500 transition-colors duration-300">
+                    <div className="text-rose-500 dark:text-rose-400 group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors duration-300">
                       {feature.icon}
                     </div>
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-serif font-medium mb-4 text-gray-900 relative">
+                <h3 className="text-2xl font-serif font-medium mb-4 text-gray-900 dark:text-white relative">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed font-light relative">
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed font-light relative">
                   {feature.description}
                 </p>
 
@@ -247,18 +249,18 @@ export default function Home() {
           >
             {/* Decorative divider */}
             <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="h-px w-16 bg-gradient-to-r from-transparent via-rose-300 to-transparent" />
-              <svg className="w-4 h-4 text-rose-300" viewBox="0 0 24 24" fill="currentColor">
+              <div className="h-px w-16 bg-gradient-to-r from-transparent via-rose-300 dark:via-rose-700 to-transparent" />
+              <svg className="w-4 h-4 text-rose-300 dark:text-rose-600" viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"
                   opacity="0.3"
                 />
                 <circle cx="12" cy="12" r="3" />
               </svg>
-              <div className="h-px w-16 bg-gradient-to-l from-transparent via-purple-300 to-transparent" />
+              <div className="h-px w-16 bg-gradient-to-l from-transparent via-purple-300 dark:via-purple-700 to-transparent" />
             </div>
 
-            <div className="inline-flex items-center gap-3 px-8 py-4 bg-white/90 backdrop-blur-md rounded-full shadow-lg border border-white/50 hover:shadow-xl transition-all duration-300 group">
+            <div className="inline-flex items-center gap-3 px-8 py-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-full shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 hover:shadow-xl transition-all duration-300 group">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose-400 to-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -269,16 +271,16 @@ export default function Home() {
                 </svg>
               </div>
               <div className="text-left">
-                <div className="text-xs font-medium tracking-wider text-gray-500 uppercase">
+                <div className="text-xs font-medium tracking-wider text-gray-500 dark:text-gray-400 uppercase">
                   Serving
                 </div>
-                <div className="text-sm font-medium text-gray-900">New South Wales, Australia</div>
+                <div className="text-sm font-medium text-gray-900 dark:text-white">New South Wales, Australia</div>
               </div>
             </div>
 
             {/* Additional trust element */}
-            <p className="text-xs text-gray-400 font-light tracking-wide">
-              Your wedding journey begins with a conversation
+            <p className="text-xs text-gray-400 dark:text-gray-500 font-light tracking-wide">
+              Less admin. More time to enjoy planning your wedding.
             </p>
           </div>
         </div>

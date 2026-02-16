@@ -84,11 +84,11 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-rose-50 via-white to-purple-50">
+      <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
         {/* Background effects */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 rounded-full blur-3xl animate-float" />
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 rounded-full blur-3xl animate-float-delayed" />
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-float-delayed" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
         </div>
 
@@ -124,18 +124,18 @@ export default function SignupPage() {
               </h1>
 
               <p
-                className="text-gray-600 font-light leading-relaxed mb-8 animate-fadeIn"
+                className="text-gray-600 dark:text-gray-300 font-light leading-relaxed mb-8 animate-fadeIn"
                 style={{ animationDelay: '300ms' }}
               >
                 We&apos;ve sent a confirmation link to{' '}
-                <strong className="text-gray-900">{email}</strong>. Click the link to verify your
+                <strong className="text-gray-900 dark:text-white">{email}</strong>. Click the link to verify your
                 account and start planning your dream wedding.
               </p>
 
               <div className="space-y-3 animate-fadeIn" style={{ animationDelay: '400ms' }}>
                 <Link
                   href="/auth/login"
-                  className="inline-flex items-center gap-2 text-rose-600 hover:text-rose-700 font-medium hover:underline transition-colors"
+                  className="inline-flex items-center gap-2 text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-medium hover:underline transition-colors"
                 >
                   Return to login
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -156,21 +156,21 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-rose-50 via-white to-purple-50">
+    <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
       {/* Elegant background with depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 rounded-full blur-3xl animate-float-delayed" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-pink-100/20 to-transparent rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-pink-100/20 to-transparent dark:from-pink-900/10 rounded-full blur-3xl" />
 
         {/* Delicate floral accents */}
-        <div className="absolute top-20 right-20 text-rose-300/15 animate-float">
+        <div className="absolute top-20 right-20 text-rose-300/15 dark:text-rose-700/15 animate-float">
           <svg className="w-24 h-24" viewBox="0 0 200 200" fill="currentColor">
             <path d="M100 40c-8 0-15 7-15 15 0-8-7-15-15-15s-15 7-15 15c0 15 15 30 30 45 15-15 30-30 30-45 0-8-7-15-15-15z" />
             <circle cx="100" cy="100" r="8" opacity="0.6" />
           </svg>
         </div>
-        <div className="absolute bottom-32 left-16 text-purple-300/15 animate-float-delayed">
+        <div className="absolute bottom-32 left-16 text-purple-300/15 dark:text-purple-700/15 animate-float-delayed">
           <svg className="w-20 h-20" viewBox="0 0 200 200" fill="currentColor">
             <path
               d="M100 40c-8 0-15 7-15 15 0-8-7-15-15-15s-15 7-15 15c0 15 15 30 30 45 15-15 30-30 30-45 0-8-7-15-15-15z"
@@ -187,7 +187,7 @@ export default function SignupPage() {
         {/* Back to home link */}
         <Link
           href="/"
-          className="absolute top-8 left-8 flex items-center gap-2 text-gray-600 hover:text-rose-500 transition-colors duration-300 group"
+          className="absolute top-8 left-8 flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-rose-500 dark:hover:text-rose-400 transition-colors duration-300 group"
         >
           <svg
             className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -221,7 +221,7 @@ export default function SignupPage() {
                 Begin Your Journey
               </span>
             </h1>
-            <p className="text-gray-600 font-light">Create your account to start planning</p>
+            <p className="text-gray-600 dark:text-gray-300 font-light">Create your account to start planning</p>
           </div>
 
           {/* Glass morphism card */}

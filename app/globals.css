@@ -76,14 +76,23 @@ body {
   animation: gradient 8s ease infinite;
 }
 
-/* Fix input text visibility - make sure text is always dark and visible */
+/* Input text visibility - respects dark mode */
 input[type='text'],
 input[type='email'],
 input[type='password'],
 input[type='date'],
 input[type='number'],
 textarea {
-  color: #1f2937 !important; /* Dark gray text */
+  color: #1f2937;
+}
+
+.dark input[type='text'],
+.dark input[type='email'],
+.dark input[type='password'],
+.dark input[type='date'],
+.dark input[type='number'],
+.dark textarea {
+  color: #f1f5f9;
 }
 
 input[type='text']::placeholder,
@@ -92,14 +101,36 @@ input[type='password']::placeholder,
 input[type='date']::placeholder,
 input[type='number']::placeholder,
 textarea::placeholder {
-  color: #9ca3af !important; /* Light gray placeholder */
+  color: #9ca3af;
   opacity: 0.6;
+}
+
+.dark input[type='text']::placeholder,
+.dark input[type='email']::placeholder,
+.dark input[type='password']::placeholder,
+.dark input[type='date']::placeholder,
+.dark input[type='number']::placeholder,
+.dark textarea::placeholder {
+  color: #6b7280;
+  opacity: 0.8;
 }
 
 /* Ensure autofill text is also visible */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #1f2937 !important;
+  -webkit-text-fill-color: #1f2937;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f1f5f9;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Dark mode color scheme for native elements */
+.dark input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }

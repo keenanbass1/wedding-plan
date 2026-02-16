@@ -96,7 +96,7 @@ export function VendorCard({
 
   return (
     <div
-      className={`group relative bg-white/80 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border ${isSelected ? 'border-rose-300 ring-2 ring-rose-200' : 'border-white/50 hover:border-rose-200'}`}
+      className={`group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg dark:shadow-gray-900/30 hover:shadow-2xl transition-all duration-500 border ${isSelected ? 'border-rose-300 ring-2 ring-rose-200' : 'border-white/50 dark:border-gray-700/50 hover:border-rose-200'}`}
     >
       {/* Match score badge */}
       {matchScore && (
@@ -114,7 +114,7 @@ export function VendorCard({
           className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all duration-300 ${
             isSelected
               ? 'bg-gradient-to-br from-rose-400 to-pink-400 border-rose-400 scale-110'
-              : 'bg-white/80 backdrop-blur-sm border-gray-300 hover:border-rose-400'
+              : 'bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-300 hover:border-rose-400'
           }`}
         >
           {isSelected && (
@@ -136,7 +136,7 @@ export function VendorCard({
       </div>
 
       {/* Placeholder image area */}
-      <div className="relative h-48 bg-gradient-to-br from-rose-100 via-pink-50 to-purple-100 overflow-hidden">
+      <div className="relative h-48 bg-gradient-to-br from-rose-100 dark:from-rose-900/30 via-pink-50 to-purple-100 dark:to-pink-900/30 overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center text-rose-300">
           {getCategoryIcon(vendor.category)}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -149,17 +149,17 @@ export function VendorCard({
         <div className="mb-3">
           <div className="flex items-center gap-2 mb-2">
             <div className="text-rose-500">{getCategoryIcon(vendor.category)}</div>
-            <span className="text-xs font-medium tracking-wider text-gray-500 uppercase">
+            <span className="text-xs font-medium tracking-wider text-gray-500 dark:text-gray-400 uppercase">
               {vendor.category.replace('_', ' ')}
             </span>
           </div>
-          <h3 className="text-xl font-serif font-medium text-gray-900 group-hover:text-rose-600 transition-colors">
+          <h3 className="text-xl font-serif font-medium text-gray-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
             {vendor.name}
           </h3>
         </div>
 
         {/* Location */}
-        <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mb-3">
           <svg
             className="w-4 h-4 text-rose-400"
             fill="none"
@@ -186,11 +186,11 @@ export function VendorCard({
 
         {/* Pricing */}
         <div className="flex items-baseline gap-2 mb-4">
-          <span className="text-lg font-medium text-gray-900">
+          <span className="text-lg font-medium text-gray-900 dark:text-white">
             {formatPrice(vendor.priceMin, vendor.priceMax)}
           </span>
           {vendor.priceRange && (
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-gray-500 dark:text-gray-400">
               {'$'.repeat(
                 ['BUDGET', 'MODERATE', 'PREMIUM', 'LUXURY'].indexOf(vendor.priceRange) + 1
               )}
@@ -204,14 +204,14 @@ export function VendorCard({
             {[...Array(5)].map((_, i) => (
               <svg
                 key={i}
-                className={`w-4 h-4 ${i < Math.floor(vendor.rating!) ? 'text-rose-400' : 'text-gray-200'}`}
+                className={`w-4 h-4 ${i < Math.floor(vendor.rating!) ? 'text-rose-400' : 'text-gray-200 dark:text-gray-600'}`}
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
             ))}
-            <span className="ml-2 text-sm text-gray-600 font-light">
+            <span className="ml-2 text-sm text-gray-600 dark:text-gray-300 font-light">
               {vendor.rating.toFixed(1)}
             </span>
           </div>
@@ -223,13 +223,13 @@ export function VendorCard({
             {vendor.styles.slice(0, 3).map((style, idx) => (
               <span
                 key={idx}
-                className="px-2 py-1 text-xs bg-rose-50 text-rose-700 rounded-lg font-light"
+                className="px-2 py-1 text-xs bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 rounded-lg font-light"
               >
                 {style}
               </span>
             ))}
             {vendor.styles.length > 3 && (
-              <span className="px-2 py-1 text-xs text-gray-500 font-light">
+              <span className="px-2 py-1 text-xs text-gray-500 dark:text-gray-400 font-light">
                 +{vendor.styles.length - 3} more
               </span>
             )}
@@ -239,7 +239,7 @@ export function VendorCard({
         {/* View Details Button */}
         <button
           onClick={() => setShowDetails(!showDetails)}
-          className="w-full py-2 text-sm font-medium text-rose-600 hover:text-rose-700 transition-colors flex items-center justify-center gap-2 group/btn"
+          className="w-full py-2 text-sm font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition-colors flex items-center justify-center gap-2 group/btn"
         >
           <span>{showDetails ? 'Hide Details' : 'View Details'}</span>
           <svg
@@ -254,17 +254,17 @@ export function VendorCard({
 
         {/* Expandable details */}
         {showDetails && (
-          <div className="mt-4 pt-4 border-t border-gray-100 space-y-3 animate-fadeIn">
+          <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 space-y-3 animate-fadeIn">
             {/* Description */}
-            <p className="text-sm text-gray-600 font-light leading-relaxed">{vendor.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 font-light leading-relaxed">{vendor.description}</p>
 
             {/* Match reasons */}
             {matchReasons && matchReasons.length > 0 && (
-              <div className="bg-rose-50/50 rounded-xl p-3">
+              <div className="bg-rose-50/50 dark:bg-rose-900/30 rounded-xl p-3">
                 <h4 className="text-xs font-medium text-rose-900 mb-2">Why this matches:</h4>
                 <ul className="space-y-1">
                   {matchReasons.map((reason, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-xs text-rose-700">
+                    <li key={idx} className="flex items-start gap-2 text-xs text-rose-700 dark:text-rose-300">
                       <svg
                         className="w-3 h-3 mt-0.5 flex-shrink-0"
                         fill="currentColor"

@@ -156,18 +156,18 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
     <div className="space-y-12">
       {/* Header with selection counter */}
       {selectedVendors.size > 0 && (
-        <div className="sticky top-0 z-20 bg-white/95 backdrop-blur-xl border-b border-gray-200/50 -mx-6 px-6 py-4 animate-fadeIn">
+        <div className="sticky top-0 z-20 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-700/50 -mx-6 px-6 py-4 animate-fadeIn">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-pink-400 rounded-full flex items-center justify-center text-white font-medium">
                 {selectedVendors.size}
               </div>
               <div>
-                <div className="text-sm font-medium text-gray-900">
+                <div className="text-sm font-medium text-gray-900 dark:text-white">
                   {selectedVendors.size} {selectedVendors.size === 1 ? 'vendor' : 'vendors'}{' '}
                   selected
                 </div>
-                <div className="text-xs text-gray-500 font-light">
+                <div className="text-xs text-gray-500 dark:text-gray-400 font-light">
                   Ready to send personalized inquiries
                 </div>
               </div>
@@ -220,14 +220,14 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
             {/* Category header */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-100 to-pink-100 flex items-center justify-center text-rose-500">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-100 dark:from-rose-900/30 to-pink-100 dark:to-pink-900/30 flex items-center justify-center text-rose-500">
                   {categoryIcons[categoryKey]}
                 </div>
                 <div>
-                  <h2 className="text-2xl font-serif font-medium text-gray-900">
+                  <h2 className="text-2xl font-serif font-medium text-gray-900 dark:text-white">
                     {categoryLabels[categoryKey]}
                   </h2>
-                  <p className="text-sm text-gray-500 font-light">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 font-light">
                     {categoryMatches.length} {categoryMatches.length === 1 ? 'match' : 'matches'}{' '}
                     found
                     {selectedInCategory > 0 && ` · ${selectedInCategory} selected`}
@@ -240,14 +240,14 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
                 {allSelectedInCategory ? (
                   <button
                     onClick={() => deselectAllInCategory(categoryKey)}
-                    className="px-4 py-2 text-sm font-medium text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors"
                   >
                     Deselect All
                   </button>
                 ) : (
                   <button
                     onClick={() => selectAllInCategory(categoryKey)}
-                    className="px-4 py-2 text-sm font-medium text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors"
                   >
                     Select All
                   </button>
@@ -275,7 +275,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
       {/* Empty state */}
       {matches.length === 0 && (
         <div className="text-center py-16">
-          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-rose-100 to-pink-100 rounded-full flex items-center justify-center">
+          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-rose-100 dark:from-rose-900/30 to-pink-100 dark:to-pink-900/30 rounded-full flex items-center justify-center">
             <svg
               className="w-10 h-10 text-rose-400"
               fill="none"
@@ -290,8 +290,8 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
               />
             </svg>
           </div>
-          <h3 className="text-xl font-serif font-medium text-gray-900 mb-2">No vendors found</h3>
-          <p className="text-gray-600 font-light">Try adjusting your search criteria or budget</p>
+          <h3 className="text-xl font-serif font-medium text-gray-900 dark:text-white mb-2">No vendors found</h3>
+          <p className="text-gray-600 dark:text-gray-300 font-light">Try adjusting your search criteria or budget</p>
         </div>
       )}
     </div>

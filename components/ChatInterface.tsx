@@ -116,11 +116,11 @@ export default function ChatInterface() {
 
   return (
     <div
-      className="flex flex-col h-[700px] max-w-5xl mx-auto rounded-3xl shadow-2xl bg-white/90 backdrop-blur-xl border border-white/50 overflow-hidden animate-fadeIn"
+      className="flex flex-col h-[700px] max-w-5xl mx-auto rounded-3xl shadow-2xl dark:shadow-gray-900/30 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-white/50 dark:border-gray-700/50 overflow-hidden animate-fadeIn"
       style={{ animationDelay: '500ms' }}
     >
       {/* Enhanced Elegant Header */}
-      <div className="relative p-6 bg-gradient-to-r from-rose-50/80 via-pink-50/60 to-purple-50/80 backdrop-blur-sm border-b border-white/50">
+      <div className="relative p-6 bg-gradient-to-r from-rose-50/80 via-pink-50/60 to-purple-50/80 dark:from-rose-900/30 dark:via-pink-900/20 dark:to-purple-900/30 backdrop-blur-sm border-b border-white/50 dark:border-gray-700/50">
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.02)_1px,transparent_0)] bg-[size:24px_24px]" />
 
@@ -133,17 +133,17 @@ export default function ChatInterface() {
               </svg>
             </div>
             <div>
-              <h2 className="text-2xl font-serif font-medium text-gray-900 mb-0.5">
+              <h2 className="text-2xl font-serif font-medium text-gray-900 dark:text-white mb-0.5">
                 Wedding Planning Assistant
               </h2>
-              <p className="text-sm text-gray-600 font-light">
+              <p className="text-sm text-gray-600 dark:text-gray-300 font-light">
                 Here to help with your questions
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-white/80 backdrop-blur-sm rounded-full border border-green-200/50">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-green-200/50">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-sm shadow-green-400/50" />
-            <span className="text-xs text-gray-600 font-medium">Online</span>
+            <span className="text-xs text-gray-600 dark:text-gray-300 font-medium">Online</span>
           </div>
         </div>
 
@@ -151,7 +151,7 @@ export default function ChatInterface() {
       </div>
 
       {/* Enhanced Messages Container */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gradient-to-b from-white via-rose-50/10 to-purple-50/20">
+      <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gradient-to-b from-white via-rose-50/10 to-purple-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
         {/* Subtle background pattern */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.015)_1px,transparent_0)] bg-[size:24px_24px] pointer-events-none" />
 
@@ -163,7 +163,7 @@ export default function ChatInterface() {
             >
               {msg.role === 'assistant' && (
                 <div className="flex-shrink-0 mr-3">
-                  <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-400 via-pink-400 to-purple-400 flex items-center justify-center shadow-lg">
+                  <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-400 via-pink-400 to-purple-400 flex items-center justify-center shadow-lg dark:shadow-gray-900/30">
                     {/* Inner glow */}
                     <div className="absolute inset-0.5 bg-white/20 rounded-2xl" />
                     <svg
@@ -181,9 +181,9 @@ export default function ChatInterface() {
                 className={`max-w-[75%] rounded-2xl px-6 py-4 ${
                   msg.role === 'user'
                     ? msg.isQuickReply
-                      ? 'bg-gradient-to-br from-purple-100/90 to-purple-50/90 text-purple-900 border border-purple-200/50 shadow-md backdrop-blur-sm'
-                      : 'bg-gradient-to-br from-rose-400 via-pink-400 to-pink-500 text-white shadow-xl shadow-rose-300/40'
-                    : 'bg-white/95 border border-gray-100/50 text-gray-800 shadow-lg backdrop-blur-sm'
+                      ? 'bg-gradient-to-br from-purple-100/90 to-purple-50/90 dark:from-purple-900/40 dark:to-purple-800/40 text-purple-900 dark:text-purple-200 border border-purple-200/50 dark:border-purple-700/50 shadow-md dark:shadow-gray-900/30 backdrop-blur-sm'
+                      : 'bg-gradient-to-br from-rose-400 via-pink-400 to-pink-500 text-white shadow-xl shadow-rose-300/40 dark:shadow-rose-900/40'
+                    : 'bg-white/95 dark:bg-gray-800/95 border border-gray-100/50 dark:border-gray-700/50 text-gray-800 dark:text-gray-200 shadow-lg dark:shadow-gray-900/30 backdrop-blur-sm'
                 }`}
               >
                 <p className="whitespace-pre-wrap leading-relaxed font-light">{msg.content}</p>
@@ -191,7 +191,7 @@ export default function ChatInterface() {
 
               {msg.role === 'user' && !msg.isQuickReply && (
                 <div className="flex-shrink-0 ml-3">
-                  <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-400 to-indigo-500 flex items-center justify-center text-white shadow-lg">
+                  <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-400 to-indigo-500 flex items-center justify-center text-white shadow-lg dark:shadow-gray-900/30">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
                         strokeLinecap="round"
@@ -218,10 +218,10 @@ export default function ChatInterface() {
                     <button
                       key={optIdx}
                       onClick={() => handleOptionClick(option)}
-                      className="group relative px-5 py-3 bg-white/90 backdrop-blur-sm border-2 border-gray-200/50 hover:border-rose-300 rounded-2xl text-sm font-medium text-gray-700 hover:text-rose-600 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
+                      className="group relative px-5 py-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-2 border-gray-200/50 dark:border-gray-700/50 hover:border-rose-300 dark:hover:border-rose-500 rounded-2xl text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-rose-600 dark:hover:text-rose-400 shadow-md dark:shadow-gray-900/30 hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
                     >
                       {/* Gradient effect on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-rose-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-rose-50 to-purple-50 dark:from-rose-900/30 dark:to-purple-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <span className="relative z-10">{option}</span>
 
                       {/* Decorative corner accent */}
@@ -277,7 +277,7 @@ export default function ChatInterface() {
         {isLoading && (
           <div className="flex justify-start animate-fadeIn relative">
             <div className="flex-shrink-0 mr-3">
-              <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-400 via-pink-400 to-purple-400 flex items-center justify-center shadow-lg">
+              <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-400 via-pink-400 to-purple-400 flex items-center justify-center shadow-lg dark:shadow-gray-900/30">
                 <div className="absolute inset-0.5 bg-white/20 rounded-2xl" />
                 <svg
                   className="w-5 h-5 text-white relative z-10"
@@ -288,7 +288,7 @@ export default function ChatInterface() {
                 </svg>
               </div>
             </div>
-            <div className="bg-white/95 backdrop-blur-sm border border-gray-100/50 rounded-2xl px-6 py-4 shadow-lg">
+            <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border border-gray-100/50 dark:border-gray-700/50 rounded-2xl px-6 py-4 shadow-lg dark:shadow-gray-900/30">
               <div className="flex items-center space-x-2">
                 <div className="w-2.5 h-2.5 bg-gradient-to-br from-rose-400 to-pink-400 rounded-full animate-bounce shadow-sm" />
                 <div
@@ -299,7 +299,7 @@ export default function ChatInterface() {
                   className="w-2.5 h-2.5 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full animate-bounce shadow-sm"
                   style={{ animationDelay: '0.2s' }}
                 />
-                <span className="ml-2 text-sm text-gray-500 font-light">Thinking...</span>
+                <span className="ml-2 text-sm text-gray-500 dark:text-gray-400 font-light">Thinking...</span>
               </div>
             </div>
           </div>
@@ -309,7 +309,7 @@ export default function ChatInterface() {
       </div>
 
       {/* Enhanced Input Area */}
-      <div className="relative p-6 bg-gradient-to-r from-rose-50/60 via-white/90 to-purple-50/60 backdrop-blur-sm border-t border-white/50">
+      <div className="relative p-6 bg-gradient-to-r from-rose-50/60 via-white/90 to-purple-50/60 dark:from-rose-900/20 dark:via-gray-800/90 dark:to-purple-900/20 backdrop-blur-sm border-t border-white/50 dark:border-gray-700/50">
           {/* Subtle pattern overlay */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.02)_1px,transparent_0)] bg-[size:24px_24px]" />
 
@@ -321,7 +321,7 @@ export default function ChatInterface() {
                 onChange={e => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Share your thoughts, dreams, and preferences..."
-                className="w-full px-6 py-4 bg-white/95 backdrop-blur-sm border-2 border-gray-200/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-rose-300/50 focus:border-rose-300 transition-all duration-300 placeholder:text-gray-400 font-light shadow-md hover:shadow-lg focus:shadow-xl"
+                className="w-full px-6 py-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-2 border-gray-200/50 dark:border-gray-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-rose-300/50 dark:focus:ring-rose-500/50 focus:border-rose-300 dark:focus:border-rose-500 transition-all duration-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 text-gray-900 dark:text-white font-light shadow-md dark:shadow-gray-900/30 hover:shadow-lg focus:shadow-xl"
                 disabled={isLoading}
               />
               {/* Decorative accent when focused */}
@@ -352,14 +352,14 @@ export default function ChatInterface() {
             </button>
           </div>
 
-          <div className="flex items-center justify-center gap-3 mt-3 text-xs text-gray-500 font-light relative">
+          <div className="flex items-center justify-center gap-3 mt-3 text-xs text-gray-500 dark:text-gray-400 font-light relative">
             <span>Press</span>
-            <span className="inline-flex items-center gap-1 px-2 py-1 bg-white/80 backdrop-blur-sm rounded-lg border border-gray-200/50 text-gray-600 font-mono shadow-sm">
+            <span className="inline-flex items-center gap-1 px-2 py-1 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-300 font-mono shadow-sm">
               <kbd className="text-xs">Enter</kbd>
             </span>
             <span>to send</span>
-            <span className="text-gray-300">·</span>
-            <span className="inline-flex items-center gap-1 px-2 py-1 bg-white/80 backdrop-blur-sm rounded-lg border border-gray-200/50 text-gray-600 font-mono shadow-sm">
+            <span className="text-gray-300 dark:text-gray-600">·</span>
+            <span className="inline-flex items-center gap-1 px-2 py-1 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-300 font-mono shadow-sm">
               <kbd className="text-xs">Shift</kbd>
               <span>+</span>
               <kbd className="text-xs">Enter</kbd>
