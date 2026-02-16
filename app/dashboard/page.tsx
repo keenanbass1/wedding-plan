@@ -34,18 +34,18 @@ export default async function DashboardPage() {
     },
   })
 
-  if (!dbUser || dbUser.weddings.length === 0) {
-    redirect('/chat')
-  }
+  // Check if user has wedding data
+  const hasWedding = dbUser && dbUser.weddings.length > 0
+  const wedding = hasWedding ? dbUser.weddings[0] : null
 
-  const wedding = dbUser.weddings[0]
-
-  // Get outreach statistics
-  const outreach = await prisma.vendorOutreach.findMany({
-    where: { weddingId: wedding.id },
-    include: { vendor: true },
-    orderBy: { createdAt: 'desc' },
-  })
+  // Get outreach statistics (only if wedding exists)
+  const outreach = wedding
+    ? await prisma.vendorOutreach.findMany({
+        where: { weddingId: wedding.id },
+        include: { vendor: true },
+        orderBy: { createdAt: 'desc' },
+      })
+    : []
 
   const stats = {
     totalContacted: outreach.length,
@@ -112,8 +112,117 @@ export default async function DashboardPage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 py-12">
-          {/* Wedding Summary Card */}
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-white/50 mb-8 animate-fadeIn">
+          {/* Empty State - No Wedding Data */}
+          {!hasWedding && (
+            <div className="flex items-center justify-center min-h-[70vh] animate-fadeIn">
+              <div className="max-w-2xl w-full text-center space-y-8">
+                {/* Icon */}
+                <div className="flex justify-center">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-rose-400 to-purple-400 rounded-full blur-2xl opacity-20" />
+                    <div className="relative w-32 h-32 rounded-full bg-gradient-to-br from-rose-100 to-purple-100 flex items-center justify-center">
+                      <svg
+                        className="w-16 h-16 text-rose-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="space-y-4">
+                  <h2 className="text-4xl font-serif font-light text-gray-900">
+                    Welcome to Your{' '}
+                    <span className="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+                      Wedding Dashboard
+                    </span>
+                  </h2>
+                  <p className="text-lg text-gray-600 font-light max-w-xl mx-auto leading-relaxed">
+                    We need a few details about your special day to find the perfect vendors and
+                    create your personalized wedding plan.
+                  </p>
+                </div>
+
+                {/* CTA */}
+                <div className="pt-4">
+                  <Link href="/questionnaire" className="group relative inline-block">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 to-purple-400 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                    <div className="relative px-8 py-4 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-2xl font-medium hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                      <span className="text-lg">Complete Wedding Details</span>
+                      <svg
+                        className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
+                      </svg>
+                    </div>
+                  </Link>
+                </div>
+
+                {/* Helper Text */}
+                <div className="pt-8 space-y-3">
+                  <p className="text-sm text-gray-500 font-light">Takes about 2 minutes</p>
+                  <div className="flex items-center justify-center gap-6 text-xs text-gray-400">
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span>Save anytime</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span>Edit later</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Existing Dashboard Content - Only show if wedding exists */}
+          {hasWedding && wedding && (
+            <>
+              {/* Wedding Summary Card */}
+              <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-white/50 mb-8 animate-fadeIn">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
               <h2 className="text-2xl font-serif font-medium text-gray-900">Your Wedding</h2>
@@ -552,6 +661,8 @@ export default async function DashboardPage() {
                 </div>
               </Link>
             </div>
+          )}
+            </>
           )}
         </div>
       </div>
