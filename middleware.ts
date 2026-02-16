@@ -8,7 +8,12 @@ export async function middleware(request: NextRequest) {
   let response = await updateSession(request)
 
   // Protected routes - require authentication
-  if (request.nextUrl.pathname.startsWith('/dashboard')) {
+  const protectedRoutes = ['/dashboard', '/chat']
+  const isProtectedRoute = protectedRoutes.some(route =>
+    request.nextUrl.pathname.startsWith(route)
+  )
+
+  if (isProtectedRoute) {
     const supabase = createServerClient(
       getEnvVar('NEXT_PUBLIC_SUPABASE_URL'),
       getEnvVar('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
