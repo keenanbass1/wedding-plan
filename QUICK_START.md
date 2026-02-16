@@ -1,215 +1,367 @@
 # 🚀 Quick Start Guide
 
-**Get up and running in 3 minutes!**
+**Get WeddingPlan AI running in 5 minutes!**
 
 ---
 
-## ✅ What's Already Done
+## Prerequisites
 
-- ✅ Next.js app configured
-- ✅ PostgreSQL database running (Docker)
-- ✅ Database tables created (7 tables)
-- ✅ Test data seeded (users, weddings, vendors)
-- ✅ Claude AI integration ready
+- Node.js 20+ installed
+- Supabase account (free tier works)
+- Claude API key from Anthropic
+- Resend API key (free tier works)
 
 ---
 
-## 🎯 To Start Using the App
+## 🎯 Setup Steps
 
-### **Step 1: Add Your Claude API Key** (Required)
-
-Edit `.env.local`:
+### **Step 1: Clone and Install**
 
 ```bash
-ANTHROPIC_API_KEY="sk-ant-your-key-here"
+git clone <your-repo-url>
+cd wedding-plan
+npm install
 ```
 
-Get your key from: https://console.anthropic.com/settings/keys
+### **Step 2: Set Up Environment Variables**
 
-### **Step 2: Start the App**
+Create `.env.local`:
+
+```bash
+# Database (Supabase)
+DATABASE_URL="postgresql://user:pass@host:port/db"
+
+# Authentication (Supabase)
+NEXT_PUBLIC_SUPABASE_URL="https://xxxxx.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="your-anon-key"
+
+# AI (Anthropic)
+ANTHROPIC_API_KEY="sk-ant-your-key-here"
+CLAUDE_MODEL="claude-sonnet-4-5-20250929"
+
+# Email (Resend)
+RESEND_API_KEY="re_your-key-here"
+EMAIL_FROM="noreply@yourdomain.com"
+```
+
+**Get your keys:**
+- **Supabase**: https://supabase.com → Create project → Settings → API
+- **Anthropic**: https://console.anthropic.com/settings/keys
+- **Resend**: https://resend.com/api-keys
+
+### **Step 3: Set Up Database**
+
+```bash
+# Push Prisma schema to Supabase
+npm run db:push
+
+# Seed vendor data (Newcastle + Hunter Valley)
+npm run db:seed:newcastle
+npm run db:seed:hunter-valley
+```
+
+### **Step 4: Configure Supabase Auth**
+
+1. Go to Supabase Dashboard → Authentication → Providers
+2. Enable **Google** OAuth (optional but recommended)
+3. Go to **URL Configuration**:
+   - Site URL: `http://localhost:3000` (dev) or your production URL
+   - Redirect URLs: Add:
+     ```
+     http://localhost:3000/auth/callback
+     http://localhost:3000/**
+     ```
+
+### **Step 5: Start Development Server**
 
 ```bash
 npm run dev
 ```
 
-### **Step 3: Open in Browser**
-
-- **Landing Page**: http://localhost:3000
-- **Chat Interface**: http://localhost:3000/chat 👈 **Try this!**
+Open http://localhost:3000 🎉
 
 ---
 
-## 🎨 What You Can Do Now
+## 🎨 Using the App
 
-### 1. Chat with the AI Wedding Planner
+### First Time User Flow:
 
-Visit `/chat` and have a conversation:
+1. **Visit http://localhost:3000**
+   - See landing page with "Sign In" button in header
 
-- It will ask about your wedding date
-- Location preferences (NSW)
-- Guest count
-- Budget
-- Style and requirements
+2. **Click "Sign In"**
+   - Sign up with email/password or Google OAuth
+   - Get redirected to dashboard
 
-### 2. View the Database
+3. **Complete Wedding Details**
+   - Dashboard shows empty state
+   - Click "Complete Wedding Details"
+   - Fill out 5-step form (Date, Location, Guests, Budget, Style)
+   - Saves automatically
 
+4. **View Dashboard**
+   - See your wedding summary
+   - Browse matched vendors
+   - Track outreach (when you contact vendors)
+
+5. **Edit Details**
+   - Click "Edit Details" on dashboard
+   - Form pre-fills with current data
+   - Update any answers
+
+---
+
+## 🧪 Test the Features
+
+### Test Authentication:
+```bash
+# Visit login page
+open http://localhost:3000/auth/login
+
+# Try Google OAuth or email/password
+# Should redirect to dashboard after login
+```
+
+### Test Questionnaire:
+```bash
+# Visit questionnaire
+open http://localhost:3000/questionnaire
+
+# Complete all 5 steps
+# Should save to database and redirect to dashboard
+```
+
+### Test Vendor Matching:
+```bash
+# After completing questionnaire, visit:
+open http://localhost:3000/vendors
+
+# Should see matched vendors based on your preferences
+```
+
+### View Database:
 ```bash
 npm run db:studio
-```
 
-Opens a visual database browser at http://localhost:5555
-
-You'll see:
-
-- 1 test user
-- 1 test wedding (Blue Mountains)
-- 3 test vendors (2 venues + 1 photographer)
-
-### 3. Test Database Connection
-
-```bash
-npm run db:test
-```
-
-Should output:
-
-```
-✅ Database connection successful!
-📊 Database Status:
-   Users: 1
-   Weddings: 1
-   Vendors: 3
+# Opens Prisma Studio at http://localhost:5555
+# You'll see:
+# - Your user account
+# - Your wedding details
+# - 45 vendors (Newcastle + Hunter Valley)
 ```
 
 ---
 
-## 📊 Database Info
-
-**Container**: `wedding-postgres`
-**Port**: 5433 (localhost)
-**Database**: weddingplan
-**Username**: weddinguser
-**Password**: weddingpass123
-
-**Connection String**:
-
-```
-postgresql://weddinguser:weddingpass123@localhost:5433/weddingplan
-```
-
----
-
-## 🛠️ Useful Commands
+## 🛠️ Development Commands
 
 ```bash
 # Development
-npm run dev              # Start dev server
-npm run build            # Production build
+npm run dev              # Start dev server (http://localhost:3000)
+npm run build            # Build for production
+npm run start            # Run production build
 npm run lint             # Check code quality
+npm run lint:fix         # Auto-fix linting issues
+npm run format           # Format code with Prettier
+
+# Testing
+npm test                 # Run Vitest tests
+npm run test:ui          # Run tests with UI
+npm run test:coverage    # Generate coverage report
 
 # Database
-npm run db:studio        # Visual database browser
-npm run db:test          # Test connection
-npm run db:seed          # Re-seed test data
-npm run db:push          # Push schema changes
-
-# Docker
-docker ps                # View running containers
-docker logs wedding-postgres    # View database logs
-docker stop wedding-postgres    # Stop database
-docker start wedding-postgres   # Start database
+npm run db:studio        # Open Prisma Studio (database browser)
+npm run db:push          # Push schema changes to database
+npm run db:generate      # Generate Prisma Client
+npm run db:seed:newcastle      # Seed Newcastle vendors
+npm run db:seed:hunter-valley  # Seed Hunter Valley vendors
+npm run db:test          # Test database connection
 ```
 
 ---
 
-## 📁 Key Files
+## 📁 Key Files to Know
 
+### Pages:
 ```
 app/
-├── page.tsx           # Landing page
-├── chat/page.tsx      # Chat interface
-└── api/chat/route.ts  # Claude API endpoint
-
-components/
-└── ChatInterface.tsx  # Chat UI component
-
-lib/
-├── claude.ts          # AI integration
-└── prisma.ts          # Database client
-
-prisma/
-└── schema.prisma      # Database schema
-
-.env.local             # YOUR API KEYS GO HERE
+├── page.tsx                    # Landing page
+├── auth/
+│   ├── login/page.tsx         # Login page
+│   └── signup/page.tsx        # Signup page
+├── questionnaire/page.tsx      # 5-step form ⭐
+├── dashboard/page.tsx          # User dashboard
+└── vendors/page.tsx            # Vendor browsing
 ```
 
----
+### Components:
+```
+components/
+├── Header.tsx                  # Global header with user menu
+├── UserMenu.tsx               # Dropdown with logout
+├── VendorCard.tsx             # Vendor display card
+└── VendorGrid.tsx             # Vendor selection UI
+```
 
-## 📚 Documentation
+### API Routes:
+```
+app/api/
+├── auth/
+│   ├── sync-user/route.ts     # Sync Supabase user to DB
+│   └── logout/route.ts        # Sign out
+├── wedding/route.ts           # Create/update wedding
+├── vendors/match/route.ts     # Vendor matching algorithm
+└── outreach/
+    ├── generate-emails/route.ts
+    └── send-batch/route.ts
+```
 
-- **PRD.md** - What we're building
-- **ARCHITECTURE.md** - How it's built
-- **IMPLEMENTATION_PLAN.md** - 10-week roadmap
-- **SETUP_CHECKLIST.md** - Detailed setup
-- **PROJECT_STATUS.md** - Current status
-- **REVIEW.md** - Comprehensive system audit
-- **README.md** - Project overview
+### Core Utilities:
+```
+lib/
+├── supabase/
+│   ├── client.ts              # Client-side Supabase
+│   ├── server.ts              # Server-side Supabase
+│   └── middleware.ts          # Auth middleware
+├── email/
+│   └── resend-client.ts       # Email service
+├── claude.ts                  # Claude AI integration
+├── vendor-matching.ts         # Matching algorithm
+└── prisma.ts                  # Database client
+```
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Chat doesn't work?
+### Auth Redirect Issues?
 
-→ Make sure `ANTHROPIC_API_KEY` is in `.env.local`
+**Problem:** After Google sign-in, redirects to localhost:3000
 
-### Database connection failed?
+**Solution:**
+1. Go to Supabase Dashboard → Authentication → URL Configuration
+2. Add your production URL to "Redirect URLs"
+3. Update "Site URL" to match your domain
+
+### Database Connection Failed?
 
 ```bash
-docker start wedding-postgres
+# Check your DATABASE_URL in .env.local
+# Make sure it matches your Supabase connection string
+
+# Test connection:
 npm run db:test
 ```
 
-### Port 3000 already in use?
+### Build Errors?
 
 ```bash
+# Regenerate Prisma Client:
+npm run db:generate
+
+# Check TypeScript:
+npm run build
+
+# Check linting:
+npm run lint
+```
+
+### Prisma Client Issues?
+
+```bash
+# If you get "Prisma Client not found" errors:
+npm run db:generate
+npm run postinstall
+```
+
+### Port 3000 Already in Use?
+
+```bash
+# Run on different port:
 PORT=3001 npm run dev
 ```
 
 ---
 
-## 🎯 Next Steps (Week 2)
+## ✨ What's Working Now
 
-See `IMPLEMENTATION_PLAN.md` for details:
+✅ **Authentication:**
+- Email/password signup & login
+- Google OAuth
+- Session management
+- User menu with logout
 
-1. Implement user authentication (NextAuth.js)
-2. Save chat conversations to database
-3. Build vendor matching algorithm
-4. Expand vendor database (50+ Sydney venues)
+✅ **Wedding Planning:**
+- 5-step form questionnaire
+- Edit wedding details anytime
+- Dashboard with wedding summary
+- Empty state guidance for new users
+
+✅ **Vendor Database:**
+- 17 Newcastle vendors
+- 28 Hunter Valley vendors
+- 45 total across 2 regions
+- AI-powered matching
+
+✅ **Email Outreach:**
+- Vendor selection UI
+- Personalized email generation
+- Batch sending via Resend
+- Response tracking dashboard
+
+✅ **Quality:**
+- 24 passing tests (Vitest)
+- ESLint + Prettier
+- TypeScript strict mode
+- Production deployment ready
 
 ---
 
-## ✨ Current Capabilities
+## 🚀 Deploy to Production
 
-✅ **Working Now:**
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for full instructions.
 
-- Beautiful landing page
-- AI chat interface (with Claude API key)
-- Real-time streaming responses
-- PostgreSQL database with test data
-- Prisma ORM for database queries
-- Docker container management
+**Quick deploy to Vercel:**
 
-❌ **Not Yet Built (Coming in Weeks 2-10):**
+```bash
+# Install Vercel CLI
+npm i -g vercel
 
-- User login/signup
-- Conversation persistence
-- Vendor search and matching
-- Email automation
-- Response dashboard
+# Deploy
+vercel
+
+# Set environment variables in Vercel dashboard
+# Push to main branch to trigger auto-deploy
+```
 
 ---
 
-**Status**: 🎉 **Ready to Start Coding!**
+## 📚 Next Steps
 
-**Just add your Claude API key and run `npm run dev`**
+1. **Complete the questionnaire** - Fill out your wedding details
+2. **Browse vendors** - See AI-matched recommendations
+3. **Read the docs** - Check out [README.md](./README.md) for full overview
+4. **Explore the code** - See [docs/architecture/ARCHITECTURE.md](./docs/architecture/ARCHITECTURE.md)
+
+---
+
+## 🎯 Current Status
+
+**Phase**: Production Ready ✅
+
+**Completed**:
+- Authentication system
+- Wedding questionnaire (form-based)
+- Vendor matching (45 vendors)
+- Dashboard with tracking
+- Email outreach system
+- Testing & linting
+
+**In Progress**:
+- Resend webhook integration
+- Blue Mountains vendor expansion
+
+---
+
+**Status**: 🎉 **Ready to Use!**
+
+**Just add your API keys to `.env.local` and run `npm run dev`**
