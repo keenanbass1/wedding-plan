@@ -367,7 +367,6 @@ export default function ChatInterface() {
             <span>for new line</span>
           </div>
         </div>
-      </div>
     </div>
   )
 }
