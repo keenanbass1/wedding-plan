@@ -1,4 +1,4 @@
-# WeddingPlan AI - Technical Architecture
+# StreamWedding - Technical Architecture
 
 **Version:** 0.1
 **Last Updated:** 2026-02-14
@@ -433,7 +433,7 @@ Best regards,
 ${wedding.user.name}
 
 ---
-This inquiry was sent via WeddingPlan AI
+This inquiry was sent via StreamWedding
 If you'd prefer not to receive inquiries through our platform, please click here: ${unsubscribeLink}
   `.trim()
 
@@ -632,7 +632,7 @@ git push origin main        # Auto-deploys to Vercel
 
 ## Questions & Decisions Needed
 
-1. **Domain name:** weddingplanai.com.au or something else?
+1. **Domain name:** streamwedding.com.au or something else?
 2. **Local LLM setup:** Do you want to test local inference on RTX 4080, or stick with Claude API?
 3. **Initial vendor data:** Should we scrape Google Maps or manually curate 50 venues first?
 4. **Email domain:** Use custom domain or Resend's shared domain for MVP?

@@ -6,7 +6,7 @@ async function main() {
   console.log('🔧 Updating test user wedding location to Newcastle...\n')
 
   const testUser = await prisma.user.findUnique({
-    where: { email: 'test@weddingplanai.com' },
+    where: { email: 'test@streamwedding.com' },
     include: { weddings: true },
   })
 

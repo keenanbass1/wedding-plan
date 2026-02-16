@@ -1,6 +1,6 @@
 # 🚀 Setup Checklist
 
-Follow these steps to get WeddingPlan AI running on your machine.
+Follow these steps to get StreamWedding running on your machine.
 
 ## ✅ Prerequisites (Already Installed)
 

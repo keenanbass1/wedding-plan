@@ -1,6 +1,6 @@
 # Documentation Index
 
-Complete guide to the WeddingPlan AI codebase.
+Complete guide to the StreamWedding codebase.
 
 ## 📖 Getting Started
 

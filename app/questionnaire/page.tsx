@@ -4,6 +4,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
+interface DateRange {
+  start: string
+  end: string
+}
+
 const STEPS = [
   {
     id: 'date',
@@ -12,8 +17,7 @@ const STEPS = [
     type: 'select' as const,
     options: [
       { value: 'specific', label: 'We have a specific date', needsDate: true },
-      { value: '2027', label: 'Flexible - sometime in 2027' },
-      { value: '2028', label: 'Flexible - sometime in 2028' },
+      { value: 'flexible', label: 'We have some dates in mind' },
       { value: 'deciding', label: "We're still deciding" },
     ],
   },
@@ -27,7 +31,7 @@ const STEPS = [
       { value: 'Blue Mountains', label: 'Blue Mountains' },
       { value: 'Hunter Valley', label: 'Hunter Valley' },
       { value: 'South Coast', label: 'South Coast' },
-      { value: 'Newcastle', label: 'Other region' },
+      { value: 'custom', label: 'Other area' },
     ],
   },
   {
@@ -77,6 +81,8 @@ export default function QuestionnairePage() {
   const [formData, setFormData] = useState<Record<string, string>>({})
   const [specificDate, setSpecificDate] = useState('')
   const [showDatePicker, setShowDatePicker] = useState(false)
+  const [showDateRanges, setShowDateRanges] = useState(false)
+  const [dateRanges, setDateRanges] = useState<DateRange[]>([{ start: '', end: '' }])
   const [showCustomInput, setShowCustomInput] = useState(false)
   const [customValue, setCustomValue] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -99,14 +105,24 @@ export default function QuestionnairePage() {
             const existingFormData: Record<string, string> = {}
 
             // Map database values to form option values
-            if (existing.weddingDate) {
+            if (existing.weddingDate && !existing.dateFlexible) {
               existingFormData.date = 'specific'
-              setSpecificDate(existing.weddingDate.split('T')[0]) // Format: YYYY-MM-DD
+              setSpecificDate(existing.weddingDate.split('T')[0])
+            } else if (existing.dateFlexible && existing.preferredDates) {
+              existingFormData.date = 'flexible'
+              setDateRanges(existing.preferredDates as DateRange[])
             } else {
               existingFormData.date = 'deciding'
             }
 
-            existingFormData.location = existing.location || ''
+            // Location - check if it's a preset value
+            const presetLocations = ['Sydney', 'Blue Mountains', 'Hunter Valley', 'South Coast']
+            if (existing.location && !presetLocations.includes(existing.location)) {
+              existingFormData.location = existing.location
+            } else {
+              existingFormData.location = existing.location || ''
+            }
+
             existingFormData.guestCount = existing.guestCount?.toString() || ''
             existingFormData.budget = (existing.budgetTotal / 100).toString() || ''
             existingFormData.style = existing.style || ''
@@ -127,8 +143,21 @@ export default function QuestionnairePage() {
   const handleOptionSelect = (value: string) => {
     // If selecting "custom", show custom input instead of moving to next step
     if (value === 'custom') {
-      setShowCustomInput(true)
-      setCustomValue('')
+      if (currentStepData.id === 'location') {
+        setShowCustomInput(true)
+        setCustomValue('')
+      } else {
+        setShowCustomInput(true)
+        setCustomValue('')
+      }
+      return
+    }
+
+    // If selecting "flexible", show date ranges
+    if (value === 'flexible' && currentStepData.id === 'date') {
+      const newData = { ...formData, [currentStepData.id]: value }
+      setFormData(newData)
+      setShowDateRanges(true)
       return
     }
 
@@ -153,25 +182,68 @@ export default function QuestionnairePage() {
   }
 
   const handleCustomConfirm = () => {
-    const num = parseInt(customValue)
-    if (!num || num <= 0) {
-      setError(currentStepData.id === 'budget' ? 'Please enter a valid amount' : 'Please enter a valid number')
+    if (currentStepData.id === 'location') {
+      // Text validation for location
+      if (!customValue.trim()) {
+        setError('Please enter your suburb or area')
+        return
+      }
+      setError(null)
+      setShowCustomInput(false)
+
+      const newData = { ...formData, [currentStepData.id]: customValue.trim() }
+      setFormData(newData)
+
+      if (currentStep === STEPS.length - 1) {
+        handleSubmit(newData)
+      } else {
+        setTimeout(() => {
+          setCurrentStep(currentStep + 1)
+        }, 300)
+      }
+    } else {
+      // Number validation for guestCount/budget
+      const num = parseInt(customValue)
+      if (!num || num <= 0) {
+        setError(currentStepData.id === 'budget' ? 'Please enter a valid amount' : 'Please enter a valid number')
+        return
+      }
+      setError(null)
+      setShowCustomInput(false)
+
+      const newData = { ...formData, [currentStepData.id]: num.toString() }
+      setFormData(newData)
+
+      if (currentStep === STEPS.length - 1) {
+        handleSubmit(newData)
+      } else {
+        setTimeout(() => {
+          setCurrentStep(currentStep + 1)
+        }, 300)
+      }
+    }
+  }
+
+  const handleDateRangesConfirm = () => {
+    // Validate: at least 1 range with both dates set, end >= start
+    const validRanges = dateRanges.filter(r => r.start && r.end)
+    if (validRanges.length === 0) {
+      setError('Please add at least one date range with both dates filled in')
       return
     }
-    setError(null)
-    setShowCustomInput(false)
-
-    const newData = { ...formData, [currentStepData.id]: num.toString() }
-    setFormData(newData)
-
-    // If this is the last step, submit
-    if (currentStep === STEPS.length - 1) {
-      handleSubmit(newData)
-    } else {
-      setTimeout(() => {
-        setCurrentStep(currentStep + 1)
-      }, 300)
+    for (const range of validRanges) {
+      if (range.end < range.start) {
+        setError('End date must be on or after start date')
+        return
+      }
     }
+    setError(null)
+    setShowDateRanges(false)
+    setDateRanges(validRanges)
+
+    setTimeout(() => {
+      setCurrentStep(currentStep + 1)
+    }, 300)
   }
 
   const handleDateConfirm = () => {
@@ -187,23 +259,43 @@ export default function QuestionnairePage() {
     }, 300)
   }
 
+  const addDateRange = () => {
+    setDateRanges([...dateRanges, { start: '', end: '' }])
+  }
+
+  const removeDateRange = (index: number) => {
+    setDateRanges(dateRanges.filter((_, i) => i !== index))
+  }
+
+  const updateDateRange = (index: number, field: 'start' | 'end', value: string) => {
+    const updated = [...dateRanges]
+    updated[index] = { ...updated[index], [field]: value }
+    setDateRanges(updated)
+  }
+
   const handleSubmit = async (data: Record<string, string>) => {
     setIsSubmitting(true)
     setError(null)
 
     try {
-      // Save to database
+      const payload: Record<string, unknown> = {
+        date: data.date,
+        specificDate: data.date === 'specific' ? specificDate : null,
+        location: data.location,
+        guestCount: data.guestCount,
+        budget: data.budget,
+        style: data.style,
+      }
+
+      // Include preferredDates for flexible mode
+      if (data.date === 'flexible') {
+        payload.preferredDates = dateRanges.filter(r => r.start && r.end)
+      }
+
       const response = await fetch('/api/wedding', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          date: data.date,
-          specificDate: data.date === 'specific' ? specificDate : null,
-          location: data.location,
-          guestCount: data.guestCount,
-          budget: data.budget,
-          style: data.style,
-        }),
+        body: JSON.stringify(payload),
       })
 
       if (!response.ok) {
@@ -341,24 +433,24 @@ export default function QuestionnairePage() {
                 })}
               </div>
 
-              {/* Custom Input - shown when "Enter exact number/amount" is selected */}
-              {showCustomInput && (currentStepData.id === 'guestCount' || currentStepData.id === 'budget') && (
+              {/* Custom Input - shown for guestCount, budget, or location */}
+              {showCustomInput && (currentStepData.id === 'guestCount' || currentStepData.id === 'budget' || currentStepData.id === 'location') && (
                 <div className="mt-6 p-6 bg-gradient-to-br from-rose-50 to-purple-50 dark:from-rose-950/40 dark:to-purple-950/40 border-2 border-rose-300 dark:border-rose-600 rounded-2xl animate-fadeIn">
                   <label htmlFor="customValue" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">
-                    {currentStepData.id === 'budget' ? 'Enter your budget (AUD)' : 'Enter your guest count'}
+                    {currentStepData.id === 'budget' ? 'Enter your budget (AUD)' : currentStepData.id === 'location' ? 'Enter your suburb or area' : 'Enter your guest count'}
                   </label>
                   <div className="relative">
                     {currentStepData.id === 'budget' && (
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 font-medium">$</span>
                     )}
                     <input
-                      type="number"
+                      type={currentStepData.id === 'location' ? 'text' : 'number'}
                       id="customValue"
                       value={customValue}
                       onChange={(e) => setCustomValue(e.target.value)}
-                      min={1}
-                      step={currentStepData.id === 'budget' ? 1000 : 1}
-                      placeholder={currentStepData.id === 'budget' ? '42000' : '87'}
+                      min={currentStepData.id === 'location' ? undefined : 1}
+                      step={currentStepData.id === 'budget' ? 1000 : currentStepData.id === 'location' ? undefined : 1}
+                      placeholder={currentStepData.id === 'budget' ? '42000' : currentStepData.id === 'location' ? 'e.g. Coogee, Wollongong, Central Coast' : '87'}
                       className={`w-full ${currentStepData.id === 'budget' ? 'pl-8' : 'pl-4'} pr-4 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 focus:border-transparent transition-all text-gray-900 dark:text-white`}
                     />
                   </div>
@@ -424,6 +516,81 @@ export default function QuestionnairePage() {
                       })}
                     </p>
                   )}
+                </div>
+              )}
+
+              {/* Date Ranges - shown when "flexible" is selected */}
+              {showDateRanges && currentStepData.id === 'date' && (
+                <div className="mt-6 p-6 bg-gradient-to-br from-rose-50 to-purple-50 dark:from-rose-950/40 dark:to-purple-950/40 border-2 border-rose-300 dark:border-rose-600 rounded-2xl animate-fadeIn">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-4">
+                    Add your preferred date ranges
+                  </label>
+                  <div className="space-y-3">
+                    {dateRanges.map((range, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <div className="flex-1 grid grid-cols-2 gap-2">
+                          <div>
+                            <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">From</label>
+                            <input
+                              type="date"
+                              value={range.start}
+                              onChange={(e) => updateDateRange(index, 'start', e.target.value)}
+                              min={new Date().toISOString().split('T')[0]}
+                              className="w-full px-3 py-2 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 focus:border-transparent text-sm text-gray-900 dark:text-white dark:[color-scheme:dark]"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">To</label>
+                            <input
+                              type="date"
+                              value={range.end}
+                              onChange={(e) => updateDateRange(index, 'end', e.target.value)}
+                              min={range.start || new Date().toISOString().split('T')[0]}
+                              className="w-full px-3 py-2 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 focus:border-transparent text-sm text-gray-900 dark:text-white dark:[color-scheme:dark]"
+                            />
+                          </div>
+                        </div>
+                        {dateRanges.length > 1 && (
+                          <button
+                            onClick={() => removeDateRange(index)}
+                            className="mt-5 p-1.5 text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                            title="Remove range"
+                          >
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <button
+                    onClick={addDateRange}
+                    className="mt-3 flex items-center gap-2 text-sm text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v12m6-6H6" />
+                    </svg>
+                    Add another date range
+                  </button>
+                  <div className="mt-4 flex gap-3">
+                    <button
+                      onClick={handleDateRangesConfirm}
+                      className="flex-1 px-6 py-3 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-[1.02] transition-all duration-300"
+                    >
+                      Confirm Dates
+                    </button>
+                    <button
+                      onClick={() => {
+                        setShowDateRanges(false)
+                        setFormData({ ...formData, date: '' })
+                        setDateRanges([{ start: '', end: '' }])
+                      }}
+                      className="px-6 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 rounded-xl font-medium hover:border-gray-300 dark:hover:border-gray-600 transition-all"
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               )}
 

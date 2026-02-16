@@ -21,7 +21,7 @@
 - Algorithm working perfectly with 100/100 match scores
 
 ### Test Now:
-1. Log in: test@weddingplanai.com / TestPassword123!
+1. Log in: test@streamwedding.com / TestPassword123!
 2. Go to chat or questionnaire
 3. Should see 17 Newcastle vendors with perfect matches
 

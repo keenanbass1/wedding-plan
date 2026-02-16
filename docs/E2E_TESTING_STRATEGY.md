@@ -39,17 +39,17 @@ Create test email accounts for different vendor roles:
 ```javascript
 const TEST_VENDORS = [
   {
-    email: 'test-venue-1@weddingplanai.com',
+    email: 'test-venue-1@streamwedding.com',
     name: 'Test Venue Newcastle',
     category: 'VENUE'
   },
   {
-    email: 'test-photographer-1@weddingplanai.com',
+    email: 'test-photographer-1@streamwedding.com',
     name: 'Test Photographer Hunter Valley',
     category: 'PHOTOGRAPHER'
   },
   {
-    email: 'test-caterer-1@weddingplanai.com',
+    email: 'test-caterer-1@streamwedding.com',
     name: 'Test Caterer Sydney',
     category: 'CATERING'
   }

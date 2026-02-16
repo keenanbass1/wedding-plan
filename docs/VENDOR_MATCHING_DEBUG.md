@@ -77,7 +77,7 @@ npm run tsx scripts/update-test-user-location.ts
 ## 🧪 How to Test
 
 1. **Log in** to https://wedding-plan-lime.vercel.app
-   - Email: test@weddingplanai.com
+   - Email: test@streamwedding.com
    - Password: TestPassword123!
 
 2. **Go to chat** or re-run the questionnaire

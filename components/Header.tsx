@@ -58,10 +58,10 @@ export default async function Header() {
                     Vendors
                   </Link>
                   <Link
-                    href="/questionnaire"
+                    href="/chat"
                     className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-pink-50 dark:hover:bg-pink-900/20 rounded-xl transition-colors"
                   >
-                    Questionnaire
+                    Assistant
                   </Link>
                 </nav>
 
