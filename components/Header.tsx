@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-import { createClient } from '@/lib/supabase/server'
 import { prisma } from '@/lib/prisma'
+import { createClient } from '@/lib/supabase/server'
 
 import UserMenu from './UserMenu'
 
