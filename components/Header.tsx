@@ -33,7 +33,7 @@ export default async function Header() {
             <div>
               <h1 className="text-xl font-serif font-medium">
                 <span className="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-                  WeddingPlan AI
+                  StreamWedding
                 </span>
               </h1>
             </div>

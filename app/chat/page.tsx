@@ -44,7 +44,7 @@ export default function ChatPage() {
 
             <div className="inline-block animate-fadeIn" style={{ animationDelay: '200ms' }}>
               <span className="text-sm font-medium tracking-[0.3em] text-rose-600 dark:text-rose-400 uppercase">
-                Wedding Planning Assistant
+                StreamWedding Assistant
               </span>
             </div>
 

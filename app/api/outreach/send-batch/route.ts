@@ -93,9 +93,16 @@ export async function POST(req: NextRequest) {
     for (const batch of batches) {
       try {
         const resend = getResendClient()
+        // Personalize "from" name and set reply-to user's email
+        const fromBase = getEnvVar('EMAIL_FROM')
+        const fromAddress = wedding.user.name
+          ? `${wedding.user.name} via StreamWedding <${fromBase}>`
+          : fromBase
+
         const batchResult = await resend.batch.send(
           batch.map(email => ({
-            from: getEnvVar('EMAIL_FROM'),
+            from: fromAddress,
+            replyTo: wedding.user.email,
             to: email.vendorEmail,
             subject: email.subject,
             text: email.body,

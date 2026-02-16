@@ -10,7 +10,7 @@ const cormorant = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
-  title: 'WeddingPlan - Find Your Perfect Wedding Vendors',
+  title: 'StreamWedding - Find Your Perfect Wedding Vendors',
   description: 'Discover and connect with NSW wedding vendors. Match with venues, photographers, caterers and more based on your preferences.',
 }
 

@@ -23,7 +23,7 @@ export default function ChatInterface() {
     {
       role: 'assistant',
       content:
-        "Hi! I'm your wedding planning assistant. 💍\n\nI can help you:\n• Understand your vendor recommendations\n• Answer wedding planning questions\n• Navigate the platform\n• Provide guidance on timelines and budgets\n\nWhat would you like to know?",
+        "Hi! I'm your StreamWedding assistant. 💍\n\nI can help you:\n• Understand your vendor recommendations\n• Answer wedding planning questions\n• Navigate the platform\n• Provide guidance on timelines and budgets\n\nWhat would you like to know?",
       options: QUICK_ACTIONS,
     },
   ])
@@ -129,7 +129,7 @@ export default function ChatInterface() {
             </div>
             <div>
               <h2 className="text-2xl font-serif font-medium text-gray-900 dark:text-white mb-0.5">
-                Wedding Planning Assistant
+                StreamWedding Assistant
               </h2>
               <p className="text-sm text-gray-600 dark:text-gray-300 font-light">
                 Here to help with your questions
