@@ -162,22 +162,22 @@ export default async function OutreachTrackingPage() {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-gray-100/50 dark:border-gray-700/50">
-                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      <th className="px-3 sm:px-6 py-4 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                         Vendor
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      <th className="px-3 sm:px-6 py-4 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                         Category
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      <th className="px-3 sm:px-6 py-4 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                         Status
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      <th className="hidden md:table-cell px-3 sm:px-6 py-4 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                         Sent Date
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      <th className="hidden lg:table-cell px-3 sm:px-6 py-4 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                         Response
                       </th>
-                      <th className="px-6 py-4 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      <th className="px-3 sm:px-6 py-4 text-right text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                         Actions
                       </th>
                     </tr>
@@ -200,34 +200,34 @@ export default async function OutreachTrackingPage() {
                           className="hover:bg-rose-50/30 dark:hover:bg-rose-900/10 transition-colors animate-fadeIn"
                           style={{ animationDelay: `${idx * 50}ms` }}
                         >
-                          <td className="px-6 py-4">
+                          <td className="px-3 sm:px-6 py-4">
                             <div className="flex items-center gap-3">
                               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/40 dark:to-pink-900/40 flex items-center justify-center flex-shrink-0 text-rose-600 dark:text-rose-400">
                                 {getCategoryIcon(o.vendor.category)}
                               </div>
-                              <div>
-                                <div className="text-sm font-medium text-gray-900 dark:text-white">
+                              <div className="min-w-0">
+                                <div className="text-sm font-medium text-gray-900 dark:text-white truncate">
                                   {o.vendor.name}
                                 </div>
-                                <div className="text-xs text-gray-500 dark:text-gray-400 font-light">
+                                <div className="text-xs text-gray-500 dark:text-gray-400 font-light truncate">
                                   {o.vendor.location}
                                 </div>
                               </div>
                             </div>
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="px-3 sm:px-6 py-4">
                             <span className="text-sm text-gray-700 dark:text-gray-200 font-light">
                               {o.vendor.category.replace('_', ' ')}
                             </span>
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="px-3 sm:px-6 py-4">
                             <span
-                              className={`inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium border ${colorClasses[status.color]}`}
+                              className={`inline-flex items-center px-2.5 py-1 rounded-lg text-xs sm:text-sm font-medium border ${colorClasses[status.color]}`}
                             >
                               {status.label}
                             </span>
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="hidden md:table-cell px-3 sm:px-6 py-4">
                             <span className="text-sm text-gray-700 dark:text-gray-200 font-light">
                               {o.sentAt
                                 ? new Date(o.sentAt).toLocaleDateString('en-AU', {
@@ -238,7 +238,7 @@ export default async function OutreachTrackingPage() {
                                 : '-'}
                             </span>
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="hidden lg:table-cell px-3 sm:px-6 py-4">
                             {o.repliedAt ? (
                               <span className="text-sm text-green-700 dark:text-green-400 font-medium">
                                 {new Date(o.repliedAt).toLocaleDateString('en-AU', {
@@ -250,12 +250,13 @@ export default async function OutreachTrackingPage() {
                               <span className="text-sm text-gray-400 dark:text-gray-500 font-light">-</span>
                             )}
                           </td>
-                          <td className="px-6 py-4 text-right">
+                          <td className="px-3 sm:px-6 py-4 text-right">
                             <Link
                               href={`/dashboard/vendor/${o.vendorId}`}
                               className="inline-flex items-center gap-1 text-sm font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
                             >
-                              View Details
+                              <span className="hidden sm:inline">View Details</span>
+                              <span className="sm:hidden">View</span>
                               <svg
                                 className="w-4 h-4"
                                 fill="none"

@@ -246,9 +246,9 @@ export default async function DashboardPage() {
               />
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
               style={{ animationDelay: '100ms' }}
             >
               <div className="flex items-center justify-between mb-4">
@@ -275,7 +275,7 @@ export default async function DashboardPage() {
             </div>
 
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
               style={{ animationDelay: '200ms' }}
             >
               <div className="flex items-center justify-between mb-4">
@@ -302,7 +302,7 @@ export default async function DashboardPage() {
             </div>
 
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
               style={{ animationDelay: '300ms' }}
             >
               <div className="flex items-center justify-between mb-4">
@@ -335,7 +335,7 @@ export default async function DashboardPage() {
             </div>
 
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
               style={{ animationDelay: '400ms' }}
             >
               <div className="flex items-center justify-between mb-4">
@@ -366,7 +366,7 @@ export default async function DashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <Link
               href="/dashboard/outreach"
-              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 hover:shadow-2xl dark:hover:shadow-gray-900/40 hover:border-rose-200 dark:hover:border-rose-700 transition-all duration-300 animate-fadeIn"
+              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 hover:shadow-2xl dark:hover:shadow-gray-900/40 hover:border-rose-200 dark:hover:border-rose-700 transition-all duration-300 animate-fadeIn"
               style={{ animationDelay: '500ms' }}
             >
               <div className="flex items-center gap-4">
@@ -411,7 +411,7 @@ export default async function DashboardPage() {
 
             <Link
               href="/dashboard/responses"
-              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 hover:shadow-2xl dark:hover:shadow-gray-900/40 hover:border-purple-200 dark:hover:border-purple-700 transition-all duration-300 animate-fadeIn"
+              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 hover:shadow-2xl dark:hover:shadow-gray-900/40 hover:border-purple-200 dark:hover:border-purple-700 transition-all duration-300 animate-fadeIn"
               style={{ animationDelay: '600ms' }}
             >
               <div className="flex items-center gap-4">
@@ -456,7 +456,7 @@ export default async function DashboardPage() {
           {/* Recent Activity */}
           {recentOutreach.length > 0 && (
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
               style={{ animationDelay: '700ms' }}
             >
               <div className="flex items-center justify-between mb-6">
