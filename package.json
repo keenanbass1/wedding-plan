@@ -26,6 +26,7 @@
     "db:seed:hunter-valley": "tsx scripts/seed-hunter-valley-vendors.ts",
     "db:test": "tsx scripts/test-db.ts",
     "db:create-test-user": "tsx scripts/create-test-user.ts",
+    "db:create-auth-user": "tsx scripts/create-auth-user.ts",
     "setup": "npm install && npm run db:push && npm run db:seed"
   },
   "dependencies": {
