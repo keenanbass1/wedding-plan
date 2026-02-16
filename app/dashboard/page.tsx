@@ -34,8 +34,18 @@ export default async function DashboardPage() {
     },
   })
 
+  // If user not in database, sync them
+  if (!dbUser) {
+    // User authenticated but not in our database - sync them
+    await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/auth/sync-user`, {
+      method: 'POST',
+    })
+    // Refresh the page to load the synced user
+    redirect('/dashboard')
+  }
+
   // Check if user has wedding data
-  const hasWedding = dbUser && dbUser.weddings.length > 0
+  const hasWedding = dbUser.weddings.length > 0
   const wedding = hasWedding ? dbUser.weddings[0] : null
 
   // Get outreach statistics (only if wedding exists)
