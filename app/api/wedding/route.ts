@@ -35,25 +35,26 @@ export async function POST(req: NextRequest) {
       weddingDate.setFullYear(weddingDate.getFullYear() + 1)
     }
 
-    // Parse guest count
+    // Parse guest count - handle both direct numbers and descriptive strings
     const guestMap: Record<string, number> = {
       'Intimate (under 50)': 40,
       'Medium (50-100)': 75,
       'Large (100-150)': 125,
       'Grand (150+)': 200,
     }
-    const parsedGuestCount = guestMap[guestCount] || 75
+    const parsedGuestCount = guestMap[guestCount] || parseInt(guestCount) || 75
 
-    // Parse budget (in cents)
+    // Parse budget (in cents) - handle both direct numbers and descriptive strings
     const budgetMap: Record<string, number> = {
       'Under $30,000': 2500000, // $25,000 in cents
       '$30,000 - $50,000': 4000000,
       '$50,000 - $80,000': 6500000,
       'Above $80,000': 10000000,
     }
-    const parsedBudget = budgetMap[budget] || 5000000
+    // If budget is a number string, convert to cents; otherwise use map
+    const parsedBudget = budgetMap[budget] || parseInt(budget) * 100 || 5000000
 
-    // Parse location
+    // Parse location - handle both mapped values and direct values
     const locationMap: Record<string, string> = {
       'Sydney & surrounds': 'Sydney',
       'Blue Mountains': 'Blue Mountains',
@@ -61,7 +62,7 @@ export async function POST(req: NextRequest) {
       'South Coast': 'South Coast',
       'Other region': 'Newcastle',
     }
-    const parsedLocation = locationMap[location] || 'Newcastle'
+    const parsedLocation = locationMap[location] || location || 'Newcastle'
 
     // Check if user already has a wedding (update instead of create)
     const existingWedding = await prisma.wedding.findFirst({
