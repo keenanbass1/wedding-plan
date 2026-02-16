@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { resend, validateEmailConfig } from '@/lib/email/resend-client'
+import { getResendClient, validateEmailConfig } from '@/lib/email/resend-client'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/lib/supabase/server'
 
@@ -77,6 +77,7 @@ export async function POST(req: NextRequest) {
 
     for (const batch of batches) {
       try {
+        const resend = getResendClient()
         const batchResult = await resend.batch.send(
           batch.map(email => ({
             from: process.env.EMAIL_FROM!,
