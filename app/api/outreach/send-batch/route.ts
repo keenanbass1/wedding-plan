@@ -1,10 +1,8 @@
-import { PrismaClient } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { resend, validateEmailConfig } from '@/lib/email/resend-client'
+import { prisma } from '@/lib/prisma'
 import { createClient } from '@/lib/supabase/server'
-
-const prisma = new PrismaClient()
 
 interface EmailToSend {
   vendorId: string

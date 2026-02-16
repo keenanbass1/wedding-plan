@@ -1,9 +1,7 @@
-import { PrismaClient } from '@prisma/client'
 import { NextResponse } from 'next/server'
 
+import { prisma } from '@/lib/prisma'
 import { createClient } from '@/lib/supabase/server'
-
-const prisma = new PrismaClient()
 
 export async function POST() {
   try {

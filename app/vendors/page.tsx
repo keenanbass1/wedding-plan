@@ -1,13 +1,10 @@
-import { PrismaClient } from '@prisma/client'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 import { VendorGrid } from '@/components/VendorGrid'
+import { prisma } from '@/lib/prisma'
 import { createClient } from '@/lib/supabase/server'
 import { findMatchingVendors } from '@/lib/vendor-matching'
-
-
-const prisma = new PrismaClient()
 
 export default async function VendorsPage() {
   // Check authentication

@@ -1,10 +1,8 @@
-import { PrismaClient } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { generateVendorEmail } from '@/lib/email/generate-vendor-email'
+import { prisma } from '@/lib/prisma'
 import { createClient } from '@/lib/supabase/server'
-
-const prisma = new PrismaClient()
 
 export async function POST(req: NextRequest) {
   try {

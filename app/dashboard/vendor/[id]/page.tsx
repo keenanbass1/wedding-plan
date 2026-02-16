@@ -1,11 +1,9 @@
-import { PrismaClient } from '@prisma/client'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 import { VendorResponseForm } from '@/components/VendorResponseForm'
+import { prisma } from '@/lib/prisma'
 import { createClient } from '@/lib/supabase/server'
-
-const prisma = new PrismaClient()
 
 export default async function VendorDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params

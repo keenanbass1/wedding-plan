@@ -1,6 +1,6 @@
-import { PrismaClient, Vendor } from '@prisma/client'
+import { Vendor } from '@prisma/client'
 
-const prisma = new PrismaClient()
+import { prisma } from './prisma'
 
 export interface WeddingRequirements {
   location: string

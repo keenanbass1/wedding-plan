@@ -1,10 +1,9 @@
-import { PrismaClient, VendorCategory } from '@prisma/client'
+import { VendorCategory } from '@prisma/client'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
+import { prisma } from '@/lib/prisma'
 import { createClient } from '@/lib/supabase/server'
-
-const prisma = new PrismaClient()
 
 export default async function OutreachTrackingPage() {
   // Check authentication
