@@ -111,7 +111,7 @@ export default function ChatInterface() {
 
   return (
     <div
-      className="flex flex-col h-[700px] max-w-5xl mx-auto rounded-3xl shadow-2xl dark:shadow-gray-900/30 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-white/50 dark:border-gray-700/50 overflow-hidden animate-fadeIn"
+      className="flex flex-col min-h-[500px] max-h-[90vh] sm:h-[700px] max-w-5xl mx-auto rounded-3xl shadow-2xl dark:shadow-gray-900/30 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-white/50 dark:border-gray-700/50 overflow-hidden animate-fadeIn"
       style={{ animationDelay: '500ms' }}
     >
       {/* Enhanced Elegant Header */}

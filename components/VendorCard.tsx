@@ -111,7 +111,7 @@ export function VendorCard({
       <div className="absolute top-4 left-4 z-10">
         <button
           onClick={() => onToggleSelect(vendor.id)}
-          className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all duration-300 ${
+          className={`w-11 h-11 rounded-lg border-2 flex items-center justify-center transition-all duration-300 ${
             isSelected
               ? 'bg-gradient-to-br from-rose-400 to-pink-400 border-rose-400 scale-110'
               : 'bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-gray-300 hover:border-rose-400'
@@ -119,7 +119,7 @@ export function VendorCard({
         >
           {isSelected && (
             <svg
-              className="w-4 h-4 text-white"
+              className="w-5 h-5 text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -136,7 +136,7 @@ export function VendorCard({
       </div>
 
       {/* Placeholder image area */}
-      <div className="relative h-48 bg-gradient-to-br from-rose-100 dark:from-rose-900/30 via-pink-50 to-purple-100 dark:to-pink-900/30 overflow-hidden">
+      <div className="relative h-40 sm:h-48 bg-gradient-to-br from-rose-100 dark:from-rose-900/30 via-pink-50 to-purple-100 dark:to-pink-900/30 overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center text-rose-300">
           {getCategoryIcon(vendor.category)}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -239,7 +239,7 @@ export function VendorCard({
         {/* View Details Button */}
         <button
           onClick={() => setShowDetails(!showDetails)}
-          className="w-full py-2 text-sm font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition-colors flex items-center justify-center gap-2 group/btn"
+          className="w-full py-3 text-sm font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition-colors flex items-center justify-center gap-2 group/btn"
         >
           <span>{showDetails ? 'Hide Details' : 'View Details'}</span>
           <svg

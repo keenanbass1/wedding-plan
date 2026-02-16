@@ -56,7 +56,7 @@ export default function Home() {
             </div>
 
             <h1
-              className="text-7xl md:text-8xl lg:text-9xl font-serif font-light tracking-tight leading-[0.95] animate-fadeIn"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-light tracking-tight leading-[0.95] animate-fadeIn"
               style={{ animationDelay: '300ms' }}
             >
               <span className="block text-gray-900 dark:text-white mb-2">Find Your Perfect</span>
@@ -109,7 +109,7 @@ export default function Home() {
 
             {/* Trust indicators */}
             <div
-              className="flex items-center justify-center gap-6 mt-10 text-sm text-gray-500 dark:text-gray-400 font-light animate-fadeIn"
+              className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-10 text-sm text-gray-500 dark:text-gray-400 font-light animate-fadeIn"
               style={{ animationDelay: '600ms' }}
             >
               <div className="flex items-center gap-2">

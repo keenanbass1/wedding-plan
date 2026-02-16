@@ -257,7 +257,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
               <select
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value as SortOption)}
-                className="px-3 py-1.5 text-xs font-medium bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500"
+                className="px-3 py-2 text-sm font-medium bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500"
               >
                 <option value="score">Best Match</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -277,7 +277,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
                   <button
                     key={cat}
                     onClick={() => toggleSet(setCategoryFilter, cat)}
-                    className={`px-2.5 py-1 text-xs font-medium rounded-lg border transition-all ${
+                    className={`px-4 py-2 text-sm font-medium rounded-lg border transition-all ${
                       categoryFilter.has(cat)
                         ? 'bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300'
                         : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-rose-300 dark:hover:border-rose-600'
@@ -302,7 +302,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
                   <button
                     key={style}
                     onClick={() => toggleSet(setStyleFilter, style)}
-                    className={`px-2.5 py-1 text-xs font-medium rounded-lg border transition-all ${
+                    className={`px-4 py-2 text-sm font-medium rounded-lg border transition-all ${
                       styleFilter.has(style)
                         ? 'bg-purple-50 dark:bg-purple-900/30 border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-300'
                         : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-purple-300 dark:hover:border-purple-600'
@@ -327,7 +327,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
                   <button
                     key={pr}
                     onClick={() => toggleSet(setPriceFilter, pr)}
-                    className={`px-2.5 py-1 text-xs font-medium rounded-lg border transition-all ${
+                    className={`px-4 py-2 text-sm font-medium rounded-lg border transition-all ${
                       priceFilter.has(pr)
                         ? 'bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-600 text-green-700 dark:text-green-300'
                         : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-green-300 dark:hover:border-green-600'
