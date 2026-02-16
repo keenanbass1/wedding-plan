@@ -223,10 +223,31 @@ export default async function DashboardPage() {
             <>
               {/* Wedding Summary Card */}
               <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-white/50 mb-8 animate-fadeIn">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
-              <h2 className="text-2xl font-serif font-medium text-gray-900">Your Wedding</h2>
-            </div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
+                    <h2 className="text-2xl font-serif font-medium text-gray-900">Your Wedding</h2>
+                  </div>
+                  <Link
+                    href="/questionnaire"
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-purple-600 hover:text-purple-700 hover:bg-purple-50 rounded-xl transition-colors"
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      />
+                    </svg>
+                    <span>Edit Details</span>
+                  </Link>
+                </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="flex items-start gap-3">

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const STEPS = [
   {
@@ -74,10 +74,48 @@ export default function QuestionnairePage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [formData, setFormData] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   const currentStepData = STEPS[currentStep]
   const progress = ((currentStep + 1) / STEPS.length) * 100
+
+  // Fetch existing wedding data on mount
+  useEffect(() => {
+    const fetchExistingData = async () => {
+      try {
+        const response = await fetch('/api/wedding')
+        if (response.ok) {
+          const data = await response.json()
+          if (data.wedding) {
+            // Convert database values back to form values
+            const existing = data.wedding
+            const existingFormData: Record<string, string> = {}
+
+            // Map database values to form option values
+            if (existing.weddingDate) {
+              existingFormData.date = 'specific'
+            } else {
+              existingFormData.date = 'deciding'
+            }
+
+            existingFormData.location = existing.location || ''
+            existingFormData.guestCount = existing.guestCount?.toString() || ''
+            existingFormData.budget = (existing.budgetTotal / 100).toString() || ''
+            existingFormData.style = existing.style || ''
+
+            setFormData(existingFormData)
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching wedding data:', err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchExistingData()
+  }, [])
 
   const handleOptionSelect = (value: string) => {
     const newData = { ...formData, [currentStepData.id]: value }
@@ -167,6 +205,12 @@ export default function QuestionnairePage() {
 
         {/* Main Content */}
         <div className="flex-1 flex items-center justify-center px-6 py-12">
+          {isLoading ? (
+            <div className="flex items-center gap-3 text-gray-600">
+              <div className="w-6 h-6 border-2 border-rose-400 border-t-transparent rounded-full animate-spin" />
+              <span className="font-light">Loading your details...</span>
+            </div>
+          ) : (
           <div className="max-w-2xl w-full space-y-8">
             {/* Progress Bar */}
             <div className="space-y-3 animate-fadeIn">
@@ -204,12 +248,18 @@ export default function QuestionnairePage() {
 
               {/* Options */}
               <div className="space-y-3">
-                {currentStepData.options.map((option, index) => (
+                {currentStepData.options.map((option, index) => {
+                  const isSelected = formData[currentStepData.id] === option.value
+                  return (
                   <button
                     key={option.value}
                     onClick={() => handleOptionSelect(option.value)}
                     disabled={isSubmitting}
-                    className="group w-full text-left px-6 py-5 bg-white/80 backdrop-blur-sm border-2 border-gray-200/50 hover:border-rose-300 rounded-2xl transition-all duration-300 hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed animate-fadeIn"
+                    className={`group w-full text-left px-6 py-5 backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed animate-fadeIn ${
+                      isSelected
+                        ? 'bg-gradient-to-br from-rose-50 to-purple-50 border-rose-300'
+                        : 'bg-white/80 border-gray-200/50 hover:border-rose-300'
+                    }`}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="flex items-center justify-between">
@@ -231,7 +281,8 @@ export default function QuestionnairePage() {
                       </svg>
                     </div>
                   </button>
-                ))}
+                  )
+                })}
               </div>
 
               {/* Error Message */}
@@ -296,6 +347,7 @@ export default function QuestionnairePage() {
               </div>
             </div>
           </div>
+          )}
         </div>
       </div>
     </div>
