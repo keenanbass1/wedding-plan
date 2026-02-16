@@ -18,7 +18,7 @@
 - ✅ Claude API key
 - ✅ Claude model
 - ❌ RESEND_API_KEY (empty - needs your API key)
-- ✅ EMAIL_FROM (set to noreply@weddingplanai.com)
+- ✅ EMAIL_FROM (set to noreply@streamwedding.com)
 
 ## 🔧 Required Setup Steps
 
@@ -65,14 +65,14 @@ npx vercel env add RESEND_API_KEY production
 1. Same page as above
 2. Click "Add New"
 3. Key: `EMAIL_FROM`
-4. Value: `noreply@weddingplanai.com` (or your verified domain)
+4. Value: `noreply@streamwedding.com` (or your verified domain)
 5. Environments: Check all
 6. Click "Save"
 
 **Using CLI:**
 
 ```bash
-echo "noreply@weddingplanai.com" | npx vercel env add EMAIL_FROM production
+echo "noreply@streamwedding.com" | npx vercel env add EMAIL_FROM production
 ```
 
 ### 5. Remove Old NextAuth Variables (Optional but Recommended)
@@ -102,7 +102,7 @@ Or via dashboard:
 
 1. Go to: https://resend.com/domains
 2. Click "Add Domain"
-3. Enter your domain: `weddingplanai.com`
+3. Enter your domain: `streamwedding.com`
 4. Add DNS records to your domain registrar:
 
    ```
@@ -116,7 +116,7 @@ Or via dashboard:
    ```
 
 5. Wait for verification (can take up to 48 hours)
-6. Once verified, update EMAIL_FROM to: `noreply@weddingplanai.com`
+6. Once verified, update EMAIL_FROM to: `noreply@streamwedding.com`
 
 ## 🧪 Testing Checklist
 
@@ -206,7 +206,7 @@ POSTGRES_* (all credentials)
 
 ```
 RESEND_API_KEY (get from resend.com)
-EMAIL_FROM (set to noreply@weddingplanai.com or onboarding@resend.dev)
+EMAIL_FROM (set to noreply@streamwedding.com or onboarding@resend.dev)
 ```
 
 ### 🗑️ Can Remove (old NextAuth)

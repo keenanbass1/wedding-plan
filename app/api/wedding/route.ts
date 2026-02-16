@@ -14,15 +14,23 @@ export async function POST(req: NextRequest) {
     const dbUser = user.dbUser
 
     const body = await req.json()
-    const { date, specificDate, location, guestCount, budget, style } = body
+    const { date, specificDate, preferredDates, location, guestCount, budget, style } = body
 
-    // Parse date
+    // Parse date based on mode: specific, flexible, deciding
     let weddingDate: Date | null = null
-    if (specificDate) {
+    let dateFlexible = false
+    let parsedPreferredDates: Array<{ start: string; end: string }> | null = null
+
+    if (date === 'specific' && specificDate) {
       weddingDate = new Date(specificDate + 'T00:00:00')
-    } else if (date && date !== 'deciding' && date !== "We're still deciding") {
-      weddingDate = new Date()
-      weddingDate.setFullYear(weddingDate.getFullYear() + 1)
+      dateFlexible = false
+    } else if (date === 'flexible' && Array.isArray(preferredDates) && preferredDates.length > 0) {
+      parsedPreferredDates = preferredDates
+      weddingDate = new Date(preferredDates[0].start + 'T00:00:00')
+      dateFlexible = true
+    } else {
+      // deciding or fallback
+      dateFlexible = true
     }
 
     // Parse guest count - handle both direct numbers and descriptive strings
@@ -44,19 +52,20 @@ export async function POST(req: NextRequest) {
     // If budget is a number string, convert to cents; otherwise use map
     const parsedBudget = budgetMap[budget] || parseInt(budget) * 100 || 5000000
 
-    // Parse location - handle both mapped values and direct values
+    // Parse location - store custom values as-is
     const locationMap: Record<string, string> = {
       'Sydney & surrounds': 'Sydney',
       'Blue Mountains': 'Blue Mountains',
       'Hunter Valley': 'Hunter Valley',
       'South Coast': 'South Coast',
-      'Other region': 'Newcastle',
     }
-    const parsedLocation = locationMap[location] || location || 'Newcastle'
+    const parsedLocation = locationMap[location] || location || 'Sydney'
 
     // Upsert wedding (create or update)
     const weddingData = {
       weddingDate,
+      dateFlexible,
+      preferredDates: parsedPreferredDates as unknown as undefined,
       location: parsedLocation,
       guestCount: parsedGuestCount,
       budgetTotal: parsedBudget,

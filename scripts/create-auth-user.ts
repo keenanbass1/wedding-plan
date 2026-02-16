@@ -25,7 +25,7 @@ async function main() {
     },
   })
 
-  const testEmail = 'test@weddingplanai.com'
+  const testEmail = 'test@streamwedding.com'
   const testPassword = 'TestPassword123!'
 
   console.log('Creating user in Supabase Auth...')
@@ -95,7 +95,7 @@ async function main() {
   console.log('\n' + '='.repeat(60))
   console.log('🎉 TEST USER READY!')
   console.log('='.repeat(60))
-  console.log('\n📧 Email:    test@weddingplanai.com')
+  console.log('\n📧 Email:    test@streamwedding.com')
   console.log('🔑 Password: TestPassword123!')
   console.log('\n📝 To use:')
   console.log('   1. Go to: https://wedding-plan-lime.vercel.app/auth/login')

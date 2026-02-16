@@ -236,6 +236,8 @@ export default async function DashboardPage() {
               <WeddingSummaryCard
                 wedding={{
                   weddingDate: wedding.weddingDate ? wedding.weddingDate.toISOString() : null,
+                  dateFlexible: wedding.dateFlexible,
+                  preferredDates: wedding.preferredDates as Array<{ start: string; end: string }> | null,
                   location: wedding.location,
                   guestCount: wedding.guestCount,
                   budgetTotal: wedding.budgetTotal ?? 0,

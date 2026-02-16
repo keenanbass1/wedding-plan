@@ -36,7 +36,7 @@ Your automated vendor outreach system is **100% complete**:
 
 3. **Verify a domain (optional for testing):**
    - For testing: Use `onboarding@resend.dev` (no verification needed)
-   - For production: Verify your own domain (e.g., `noreply@weddingplanai.com`)
+   - For production: Verify your own domain (e.g., `noreply@streamwedding.com`)
    - Guide: https://resend.com/docs/dashboard/domains/introduction
 
 ---

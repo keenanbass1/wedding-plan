@@ -1,4 +1,4 @@
-# WeddingPlan AI - Product Requirements Document
+# StreamWedding - Product Requirements Document
 
 **Version:** 0.1
 **Last Updated:** 2026-02-14
@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-WeddingPlan AI is an automated wedding planning assistant that uses conversational AI to gather requirements from couples and automatically discovers and contacts wedding vendors on their behalf. Unlike existing platforms that require manual vendor outreach, we automate the entire discovery-to-contact workflow.
+StreamWedding is an automated wedding planning assistant that uses conversational AI to gather requirements from couples and automatically discovers and contacts wedding vendors on their behalf. Unlike existing platforms that require manual vendor outreach, we automate the entire discovery-to-contact workflow.
 
 **Key Differentiator:** Automated vendor outreach with response aggregation and intelligent matching.
 

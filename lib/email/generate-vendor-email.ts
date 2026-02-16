@@ -32,7 +32,7 @@ VENDOR DETAILS:
 - Services: ${vendor.servicesOffered.join(', ')}
 
 WEDDING DETAILS:
-- Date: ${wedding.weddingDate ? new Date(wedding.weddingDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Flexible'}
+- Date: ${formatWeddingDateForEmail(wedding)}
 - Location: ${sanitizedLocation}
 - Guest Count: ${wedding.guestCount || 'To be determined'}
 - Style: ${sanitizedStyle}
@@ -44,7 +44,7 @@ Generate a professional email with:
 2. An email body that:
    - Opens warmly and mentions how you found them
    - Briefly describes the wedding vision and key details
-   - Asks about availability for the date
+   - Asks about availability for the date (if flexible dates, mention the couple is flexible and list the date ranges they're considering)
    - Requests pricing/packages information
    - Mentions 1-2 specific things about their services that appeal to the couple
    - Ends with a clear call-to-action
@@ -95,6 +95,33 @@ Do not include any other text before or after.`
 }
 
 /**
+ * Format wedding date for email content
+ */
+function formatWeddingDateForEmail(wedding: Wedding): string {
+  if (wedding.weddingDate && !wedding.dateFlexible) {
+    return new Date(wedding.weddingDate).toLocaleDateString('en-AU', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    })
+  }
+
+  if (wedding.dateFlexible && wedding.preferredDates) {
+    const ranges = wedding.preferredDates as Array<{ start: string; end: string }>
+    if (ranges.length > 0) {
+      const formatted = ranges.map(r => {
+        const start = new Date(r.start + 'T00:00:00').toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })
+        const end = new Date(r.end + 'T00:00:00').toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })
+        return `${start} to ${end}`
+      })
+      return `Flexible - considering: ${formatted.join('; ')}`
+    }
+  }
+
+  return 'Flexible'
+}
+
+/**
  * Fallback email template if AI generation fails
  */
 function generateFallbackEmail(
@@ -102,13 +129,7 @@ function generateFallbackEmail(
   wedding: Wedding,
   userEmail: string
 ): GeneratedEmail {
-  const dateStr = wedding.weddingDate
-    ? new Date(wedding.weddingDate).toLocaleDateString('en-AU', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })
-    : "a date we're still finalising"
+  const dateStr = formatWeddingDateForEmail(wedding)
 
   const subject = `Wedding Inquiry - ${vendor.category} for ${new Date(wedding.weddingDate || Date.now()).toLocaleDateString('en-AU', { month: 'long', year: 'numeric' })}`
 

@@ -1,4 +1,4 @@
-# WeddingPlan AI - Implementation Plan
+# StreamWedding - Implementation Plan
 
 **Target:** MVP in 8-10 weeks
 **Start Date:** 2026-02-14
@@ -271,7 +271,7 @@ ANTHROPIC_API_KEY="sk-ant-your-key-here"
 
 # Email (Resend)
 RESEND_API_KEY="re_your-key-here"
-EMAIL_FROM="noreply@weddingplanai.com"
+EMAIL_FROM="noreply@streamwedding.com"
 
 # Optional: Local LLM
 OLLAMA_URL="http://localhost:11434"  # If using local Llama

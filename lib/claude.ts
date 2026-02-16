@@ -26,7 +26,7 @@ export async function* streamChatResponse(
   options: ChatOptions = {}
 ): AsyncGenerator<string> {
   const {
-    systemPrompt = 'You are a helpful wedding planning assistant.',
+    systemPrompt = 'You are a helpful StreamWedding assistant.',
     maxTokens = 1024,
     temperature = 0.7,
   } = options
@@ -57,7 +57,7 @@ export async function getChatResponse(
   options: ChatOptions = {}
 ): Promise<string> {
   const {
-    systemPrompt = 'You are a helpful wedding planning assistant.',
+    systemPrompt = 'You are a helpful StreamWedding assistant.',
     maxTokens = 1024,
     temperature = 0.7,
   } = options
@@ -77,9 +77,9 @@ export async function getChatResponse(
   return textContent && textContent.type === 'text' ? textContent.text : ''
 }
 
-// Wedding planning specific system prompt
+// StreamWedding specific system prompt
 export const WEDDING_PLANNER_PROMPT = `
-You are a friendly, empathetic wedding planning assistant helping couples plan their dream wedding in New South Wales, Australia.
+You are a friendly, empathetic StreamWedding assistant helping couples plan their dream wedding in New South Wales, Australia.
 
 Your goal is to gather the following information through natural conversation:
 1. Wedding date (or preferred month/season if flexible)

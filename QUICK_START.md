@@ -1,6 +1,6 @@
 # 🚀 Quick Start Guide
 
-**Get WeddingPlan AI running in 5 minutes!**
+**Get StreamWedding running in 5 minutes!**
 
 ---
 

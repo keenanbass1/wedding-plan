@@ -38,7 +38,7 @@ async function main() {
 
   // 3. Check test user's wedding data
   const testUser = await prisma.user.findUnique({
-    where: { email: 'test@weddingplanai.com' },
+    where: { email: 'test@streamwedding.com' },
     include: {
       weddings: true,
     },

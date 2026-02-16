@@ -1,6 +1,6 @@
 # Testing Guide
 
-This directory contains all test files for the WeddingPlan AI application.
+This directory contains all test files for the StreamWedding application.
 
 ## Test Setup
 

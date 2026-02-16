@@ -299,7 +299,7 @@ For each selected vendor:
 3. Send email via Resend API
 4. Generate unique tracking token
 5. Set reply-to: user@email.com
-6. Set BCC: track-{token}@weddingplan.app
+6. Set BCC: track-{token}@streamwedding.app
    ↓
 Return: { sent: 15, failed: 0 }
 ```
@@ -350,7 +350,7 @@ enum OutreachStatus {
 
 **How it works**:
 
-1. User's vendor emails have BCC: `track-{token}@weddingplan.app`
+1. User's vendor emails have BCC: `track-{token}@streamwedding.app`
 2. When vendor replies, Resend forwards to our webhook
 3. Webhook receives email, parses it, extracts:
    - Quote amount
@@ -471,13 +471,13 @@ export async function sendNotification({
   // Email notification
   if (user.notificationSettings.emailEnabled) {
     await resend.emails.send({
-      from: 'Wedding Planning <updates@weddingplan.app>',
+      from: 'Wedding Planning <updates@streamwedding.app>',
       to: user.email,
       subject: `🎉 ${vendor} responded to your inquiry!`,
       html: renderEmailTemplate({
         vendor,
         quote,
-        dashboardLink: `https://weddingplan.app/dashboard`,
+        dashboardLink: `https://streamwedding.app/dashboard`,
       }),
     })
   }
@@ -487,7 +487,7 @@ export async function sendNotification({
     await twilioClient.messages.create({
       to: user.phone,
       from: '+61412345678',
-      body: `🎊 ${vendor} replied! Quote: $${quote?.toLocaleString()}. View: weddingplan.app/r/${userId}`,
+      body: `🎊 ${vendor} replied! Quote: $${quote?.toLocaleString()}. View: streamwedding.app/r/${userId}`,
     })
   }
 

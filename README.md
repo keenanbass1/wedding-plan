@@ -1,4 +1,4 @@
-# WeddingPlan AI 💍
+# StreamWedding 💍
 
 AI-powered wedding planning assistant that automates vendor discovery and outreach for couples planning weddings in New South Wales, Australia.
 

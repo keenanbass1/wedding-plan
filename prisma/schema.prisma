@@ -29,6 +29,7 @@ model Wedding {
   // Wedding Details
   weddingDate       DateTime?
   dateFlexible      Boolean       @default(false)
+  preferredDates    Json?         // [{start: "YYYY-MM-DD", end: "YYYY-MM-DD"}, ...]
   location          String?       // "Sydney, NSW" or specific suburb
   guestCount        Int?
   budgetTotal       Int?          // In cents (AUD)
