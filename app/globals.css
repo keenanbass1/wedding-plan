@@ -77,3 +77,31 @@ body {
   background-size: 200% 200%;
   animation: gradient 8s ease infinite;
 }
+
+/* Fix input text visibility - make sure text is always dark and visible */
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='date'],
+input[type='number'],
+textarea {
+  color: #1f2937 !important; /* Dark gray text */
+}
+
+input[type='text']::placeholder,
+input[type='email']::placeholder,
+input[type='password']::placeholder,
+input[type='date']::placeholder,
+input[type='number']::placeholder,
+textarea::placeholder {
+  color: #9ca3af !important; /* Light gray placeholder */
+  opacity: 0.6;
+}
+
+/* Ensure autofill text is also visible */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #1f2937 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

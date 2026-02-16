@@ -73,6 +73,8 @@ export default function QuestionnairePage() {
   const router = useRouter()
   const [currentStep, setCurrentStep] = useState(0)
   const [formData, setFormData] = useState<Record<string, string>>({})
+  const [specificDate, setSpecificDate] = useState('')
+  const [showDatePicker, setShowDatePicker] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -95,6 +97,7 @@ export default function QuestionnairePage() {
             // Map database values to form option values
             if (existing.weddingDate) {
               existingFormData.date = 'specific'
+              setSpecificDate(existing.weddingDate.split('T')[0]) // Format: YYYY-MM-DD
             } else {
               existingFormData.date = 'deciding'
             }
@@ -121,6 +124,12 @@ export default function QuestionnairePage() {
     const newData = { ...formData, [currentStepData.id]: value }
     setFormData(newData)
 
+    // If selecting "specific date", show date picker instead of moving to next step
+    if (value === 'specific' && currentStepData.id === 'date') {
+      setShowDatePicker(true)
+      return
+    }
+
     // If this is the last step, submit
     if (currentStep === STEPS.length - 1) {
       handleSubmit(newData)
@@ -130,6 +139,19 @@ export default function QuestionnairePage() {
         setCurrentStep(currentStep + 1)
       }, 300)
     }
+  }
+
+  const handleDateConfirm = () => {
+    if (!specificDate) {
+      setError('Please select a date')
+      return
+    }
+    setShowDatePicker(false)
+    setError(null)
+    // Move to next step after date is confirmed
+    setTimeout(() => {
+      setCurrentStep(currentStep + 1)
+    }, 300)
   }
 
   const handleSubmit = async (data: Record<string, string>) => {
@@ -143,6 +165,7 @@ export default function QuestionnairePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           date: data.date,
+          specificDate: data.date === 'specific' ? specificDate : null,
           location: data.location,
           guestCount: data.guestCount,
           budget: data.budget,
@@ -284,6 +307,51 @@ export default function QuestionnairePage() {
                   )
                 })}
               </div>
+
+              {/* Date Picker - shown when "specific date" is selected */}
+              {showDatePicker && currentStepData.id === 'date' && (
+                <div className="mt-6 p-6 bg-gradient-to-br from-rose-50 to-purple-50 border-2 border-rose-300 rounded-2xl animate-fadeIn">
+                  <label htmlFor="specificDate" className="block text-sm font-medium text-gray-700 mb-3">
+                    Select your wedding date
+                  </label>
+                  <input
+                    type="date"
+                    id="specificDate"
+                    value={specificDate}
+                    onChange={(e) => setSpecificDate(e.target.value)}
+                    min={new Date().toISOString().split('T')[0]} // Can't select past dates
+                    className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all text-gray-900"
+                  />
+                  <div className="mt-4 flex gap-3">
+                    <button
+                      onClick={handleDateConfirm}
+                      className="flex-1 px-6 py-3 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+                    >
+                      Confirm Date
+                    </button>
+                    <button
+                      onClick={() => {
+                        setShowDatePicker(false)
+                        setFormData({ ...formData, date: '' })
+                        setSpecificDate('')
+                      }}
+                      className="px-6 py-3 bg-white border-2 border-gray-200 text-gray-700 rounded-xl font-medium hover:border-gray-300 transition-all"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  {specificDate && (
+                    <p className="mt-3 text-sm text-gray-600 text-center">
+                      Selected: {new Date(specificDate + 'T00:00:00').toLocaleDateString('en-AU', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Error Message */}
               {error && (
