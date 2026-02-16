@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { getResendClient, validateEmailConfig } from '@/lib/email/resend-client'
-import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth-helpers'
-import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+import { getResendClient, validateEmailConfig } from '@/lib/email/resend-client'
+import { getEnvVar } from '@/lib/env-validation'
 import { validateArray } from '@/lib/input-validation'
+import { prisma } from '@/lib/prisma'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 interface EmailToSend {
   vendorId: string
@@ -17,7 +18,7 @@ interface EmailToSend {
 
 interface ResendEmailResult {
   id: string
-  [key: string]: any
+  [key: string]: unknown
 }
 
 export async function POST(req: NextRequest) {
@@ -87,14 +88,14 @@ export async function POST(req: NextRequest) {
     }
 
     const results: ResendEmailResult[] = []
-    const errors: any[] = []
+    const errors: unknown[] = []
 
     for (const batch of batches) {
       try {
         const resend = getResendClient()
         const batchResult = await resend.batch.send(
           batch.map(email => ({
-            from: process.env.EMAIL_FROM!,
+            from: getEnvVar('EMAIL_FROM'),
             to: email.vendorEmail,
             subject: email.subject,
             text: email.body,
@@ -108,7 +109,7 @@ export async function POST(req: NextRequest) {
 
         if (batchResult.data) {
           // Type assertion needed due to Resend SDK type definitions
-          const batchData = batchResult.data as any
+          const batchData = batchResult.data as unknown as ResendEmailResult | ResendEmailResult[]
           if (Array.isArray(batchData)) {
             results.push(...batchData)
           } else {

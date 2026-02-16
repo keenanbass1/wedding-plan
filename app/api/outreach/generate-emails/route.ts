@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { generateVendorEmail } from '@/lib/email/generate-vendor-email'
-import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth-helpers'
-import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+import { generateVendorEmail } from '@/lib/email/generate-vendor-email'
 import { validateArray } from '@/lib/input-validation'
+import { prisma } from '@/lib/prisma'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 export async function POST(req: NextRequest) {
   try {

@@ -226,17 +226,17 @@ export default function SignupPage() {
 
           {/* Glass morphism card */}
           <div
-            className="relative bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/50 overflow-hidden animate-fadeIn"
+            className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 overflow-hidden animate-fadeIn"
             style={{ animationDelay: '200ms' }}
           >
             {/* Subtle gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-rose-50/30 via-transparent to-purple-50/30 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-rose-50/30 via-transparent to-purple-50/30 dark:from-rose-950/20 dark:to-purple-950/20 pointer-events-none" />
 
             <div className="relative">
               {/* Error message */}
               {error && (
-                <div className="mb-6 p-4 bg-red-50/80 backdrop-blur-sm border border-red-200/50 rounded-2xl animate-fadeIn">
-                  <p className="text-sm text-red-600 font-light text-center">{error}</p>
+                <div className="mb-6 p-4 bg-red-50/80 dark:bg-red-900/30 backdrop-blur-sm border border-red-200/50 dark:border-red-800/50 rounded-2xl animate-fadeIn">
+                  <p className="text-sm text-red-600 dark:text-red-400 font-light text-center">{error}</p>
                 </div>
               )}
 
@@ -245,7 +245,7 @@ export default function SignupPage() {
                 type="button"
                 onClick={handleGoogleSignup}
                 disabled={loading}
-                className="w-full px-6 py-3 mb-6 bg-white backdrop-blur-sm border border-gray-200/50 rounded-xl hover:bg-white hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
+                className="w-full px-6 py-3 mb-6 bg-white dark:bg-gray-800 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl hover:bg-white dark:hover:bg-gray-700 hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
@@ -265,7 +265,7 @@ export default function SignupPage() {
                     d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                   />
                 </svg>
-                <span className="font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
+                <span className="font-medium text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
                   Continue with Google
                 </span>
               </button>
@@ -273,10 +273,10 @@ export default function SignupPage() {
               {/* Divider */}
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200/50" />
+                  <div className="w-full border-t border-gray-200/50 dark:border-gray-700/50" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white/80 text-gray-500 font-light">
+                  <span className="px-4 bg-white/80 dark:bg-gray-800/80 text-gray-500 dark:text-gray-400 font-light">
                     or create with email
                   </span>
                 </div>
@@ -287,7 +287,7 @@ export default function SignupPage() {
                 <div>
                   <label
                     htmlFor="fullName"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2"
                   >
                     Full Name
                   </label>
@@ -298,13 +298,13 @@ export default function SignupPage() {
                     onChange={e => setFullName(e.target.value)}
                     required
                     disabled={loading}
-                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full px-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Jane & John"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
                     Email Address
                   </label>
                   <input
@@ -314,7 +314,7 @@ export default function SignupPage() {
                     onChange={e => setEmail(e.target.value)}
                     required
                     disabled={loading}
-                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full px-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -322,7 +322,7 @@ export default function SignupPage() {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2"
                   >
                     Password
                   </label>
@@ -333,7 +333,7 @@ export default function SignupPage() {
                     onChange={e => setPassword(e.target.value)}
                     required
                     disabled={loading}
-                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full px-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="At least 8 characters"
                     minLength={8}
                   />
@@ -342,7 +342,7 @@ export default function SignupPage() {
                 <div>
                   <label
                     htmlFor="confirmPassword"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2"
                   >
                     Confirm Password
                   </label>
@@ -353,7 +353,7 @@ export default function SignupPage() {
                     onChange={e => setConfirmPassword(e.target.value)}
                     required
                     disabled={loading}
-                    className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full px-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Repeat your password"
                   />
                 </div>
@@ -408,24 +408,24 @@ export default function SignupPage() {
               </form>
 
               {/* Login link */}
-              <p className="mt-6 text-center text-sm text-gray-600 font-light">
+              <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-300 font-light">
                 Already have an account?{' '}
                 <Link
                   href="/auth/login"
-                  className="text-rose-600 hover:text-rose-700 font-medium hover:underline transition-colors"
+                  className="text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-medium hover:underline transition-colors"
                 >
                   Sign in
                 </Link>
               </p>
 
               {/* Terms */}
-              <p className="mt-6 text-center text-xs text-gray-500 font-light leading-relaxed">
+              <p className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400 font-light leading-relaxed">
                 By creating an account, you agree to our{' '}
-                <a href="#" className="text-purple-600 hover:underline">
+                <a href="#" className="text-purple-600 dark:text-purple-400 hover:underline">
                   Terms of Service
                 </a>{' '}
                 and{' '}
-                <a href="#" className="text-purple-600 hover:underline">
+                <a href="#" className="text-purple-600 dark:text-purple-400 hover:underline">
                   Privacy Policy
                 </a>
               </p>
@@ -434,10 +434,10 @@ export default function SignupPage() {
 
           {/* Footer decoration */}
           <div
-            className="mt-8 flex items-center justify-center gap-2 text-xs text-gray-400 font-light animate-fadeIn"
+            className="mt-8 flex items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500 font-light animate-fadeIn"
             style={{ animationDelay: '300ms' }}
           >
-            <svg className="w-3 h-3 text-rose-300" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-3 h-3 text-rose-300 dark:text-rose-700" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
                 d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"

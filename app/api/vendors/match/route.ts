@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { findMatchingVendors, formatVendorMatchesForChat } from '@/lib/vendor-matching'
 import { sanitizeString, validateGuestCount, validateBudget, validateArray } from '@/lib/input-validation'
+import { findMatchingVendors, formatVendorMatchesForChat } from '@/lib/vendor-matching'
 
 export async function POST(req: NextRequest) {
   try {

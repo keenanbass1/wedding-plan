@@ -1,4 +1,5 @@
 import { createBrowserClient } from '@supabase/ssr'
+
 import { getEnvVar } from '@/lib/env-validation'
 
 export function createClient() {

@@ -1,10 +1,7 @@
-import Anthropic from '@anthropic-ai/sdk'
 import { Vendor, Wedding } from '@prisma/client'
-import { sanitizeForAIPrompt } from '@/lib/input-validation'
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY || '',
-})
+import { anthropic } from '@/lib/claude'
+import { sanitizeForAIPrompt } from '@/lib/input-validation'
 
 export interface GeneratedEmail {
   subject: string
@@ -21,7 +18,7 @@ export async function generateVendorEmail(
 ): Promise<GeneratedEmail> {
   // Sanitize all user inputs to prevent prompt injection
   const sanitizedVendorName = sanitizeForAIPrompt(vendor.name)
-  const sanitizedLocation = sanitizeForAIPrompt(wedding.location)
+  const sanitizedLocation = sanitizeForAIPrompt(wedding.location || 'Not specified')
   const sanitizedStyle = sanitizeForAIPrompt(wedding.style || 'Not specified')
   const sanitizedMustHaves = wedding.mustHaves.map(h => sanitizeForAIPrompt(h)).join(', ')
   const sanitizedDietaryNeeds = wedding.dietaryNeeds.map(d => sanitizeForAIPrompt(d)).join(', ')

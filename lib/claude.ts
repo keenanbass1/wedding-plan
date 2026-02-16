@@ -1,8 +1,9 @@
 import Anthropic from '@anthropic-ai/sdk'
+
 import { getEnvVar } from '@/lib/env-validation'
 
-// Initialize Claude API client
-const anthropic = new Anthropic({
+// Initialize Claude API client (shared singleton)
+export const anthropic = new Anthropic({
   apiKey: getEnvVar('ANTHROPIC_API_KEY'),
 })
 

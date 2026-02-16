@@ -79,7 +79,8 @@ export function requireValidEnv(): void {
   }
 
   if (process.env.NODE_ENV === 'development') {
-    console.log('✅ Environment variables validated successfully')
+    // eslint-disable-next-line no-console
+    console.log('Environment variables validated successfully')
   }
 }
 

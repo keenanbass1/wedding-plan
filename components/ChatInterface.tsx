@@ -40,23 +40,18 @@ export default function ChatInterface() {
   }, [messages])
 
   const handleOptionClick = (option: string) => {
-    // Add user's selection as a message
-    const userMessage: Message = {
-      role: 'user',
-      content: option,
-      isQuickReply: true,
-    }
-    setMessages(prev => [...prev, userMessage])
-
-    // Send to AI for response
-    setInput(option)
-    setTimeout(() => handleSend(), 100)
+    sendMessage(option, true)
   }
 
-  const handleSend = async () => {
+  const handleSend = () => {
     if (!input.trim() || isLoading) return
+    sendMessage(input)
+  }
 
-    const userMessage: Message = { role: 'user', content: input }
+  const sendMessage = async (text: string, isQuickReply = false) => {
+    if (isLoading) return
+
+    const userMessage: Message = { role: 'user', content: text, isQuickReply }
     const updatedMessages = [...messages, userMessage]
     setMessages(updatedMessages)
     setInput('')
@@ -319,7 +314,7 @@ export default function ChatInterface() {
                 type="text"
                 value={input}
                 onChange={e => setInput(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyPress}
                 placeholder="Share your thoughts, dreams, and preferences..."
                 className="w-full px-6 py-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-2 border-gray-200/50 dark:border-gray-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-rose-300/50 dark:focus:ring-rose-500/50 focus:border-rose-300 dark:focus:border-rose-500 transition-all duration-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 text-gray-900 dark:text-white font-light shadow-md dark:shadow-gray-900/30 hover:shadow-lg focus:shadow-xl"
                 disabled={isLoading}

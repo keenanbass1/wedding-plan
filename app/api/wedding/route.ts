@@ -1,7 +1,8 @@
+import { WeddingStatus } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth-helpers'
+import { prisma } from '@/lib/prisma'
 
 export async function POST(req: NextRequest) {
   try {
@@ -60,7 +61,7 @@ export async function POST(req: NextRequest) {
       budgetTotal: parsedBudget,
       style: style?.split(' & ')[0] || 'Modern',
       chatCompleted: true,
-      status: 'MATCHING',
+      status: WeddingStatus.MATCHING,
     }
 
     const existingWedding = await prisma.wedding.findFirst({

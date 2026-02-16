@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-import { createClient } from '@/lib/supabase/server'
 import { validateRedirectUrl } from '@/lib/auth-helpers'
+import { createClient } from '@/lib/supabase/server'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -15,14 +15,6 @@ export async function GET(request: NextRequest) {
 
   // Validate and sanitize redirect URL to prevent open redirect attacks
   const redirect = validateRedirectUrl(redirectParam, '/dashboard')
-
-  // Only log in development
-  if (isDevelopment) {
-    console.log('=== OAUTH CALLBACK DEBUG ===')
-    console.log('Code present:', !!code)
-    console.log('Error code:', error_code)
-    console.log('Validated redirect:', redirect)
-  }
 
   // Handle OAuth errors from provider
   if (error_code) {

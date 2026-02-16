@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+
 import { getEnvVar } from '@/lib/env-validation'
 
 export async function createClient() {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { streamChatResponse, WEDDING_PLANNER_PROMPT, Message } from '@/lib/claude'
 import { requireAuth } from '@/lib/auth-helpers'
+import { streamChatResponse, WEDDING_PLANNER_PROMPT, Message } from '@/lib/claude'
 import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 export const runtime = 'edge'

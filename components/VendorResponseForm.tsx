@@ -107,7 +107,7 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
           onChange={e => setNotes(e.target.value)}
           disabled={loading}
           rows={3}
-          className="w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-light"
+          className="w-full px-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-light text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
           placeholder="Add any additional notes about this vendor..."
         />
       </div>
