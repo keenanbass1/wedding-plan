@@ -17,11 +17,13 @@ An intelligent wedding planning platform that:
 - **Frontend**: Next.js 15 (App Router), TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes, Prisma ORM
 - **Database**: PostgreSQL (Supabase)
-- **Authentication**: Supabase Auth (@supabase/ssr)
-- **AI**: Claude Sonnet 4.5 (claude-sonnet-4-5-20250929)
-- **Email**: Resend API (batch sending, webhooks)
+- **Authentication**: Supabase Auth (@supabase/ssr) - email/password, Google OAuth, magic links, password reset
+- **AI**: Claude (Anthropic SDK) for vendor email generation and matching
+- **Email**: Resend API (batch sending, webhook delivery tracking)
+- **Rate Limiting**: Upstash Redis (with in-memory dev fallback)
+- **Error Monitoring**: Sentry (@sentry/nextjs v10)
 - **Hosting**: Vercel
-- **Testing**: Vitest + React Testing Library
+- **Testing**: Vitest (121 unit tests) + Playwright (16 E2E tests)
 - **Linting**: ESLint + Prettier + auto-formatting
 
 ## 📋 Project Status
@@ -29,15 +31,20 @@ An intelligent wedding planning platform that:
 **Current Phase**: Production Ready ✅
 
 **Completed Features:**
-- ✅ **Authentication** (Supabase Auth with Google OAuth)
-- ✅ **User Interface** (Header, user menu, login/logout)
+- ✅ **Authentication** (Supabase Auth — email/password, Google OAuth, magic links, password reset)
+- ✅ **User Interface** (Header, user menu, dark mode, login/logout)
 - ✅ **Multi-step form questionnaire** (TypeForm-style UI)
 - ✅ **Edit wedding details** (update anytime from dashboard)
-- ✅ **AI-powered vendor matching** (45+ vendors across 2 regions)
-- ✅ **Email outreach system** (generate & send personalized emails)
+- ✅ **AI-powered vendor matching** (88+ vendors across 5 regions)
+- ✅ **Email outreach system** (generate & send personalized emails with retry logic)
 - ✅ **Dashboard** (empty state, wedding summary, response tracking)
-- ✅ **Vendor database** (Newcastle + Hunter Valley)
-- ✅ **Testing suite** (Vitest with 24 passing tests)
+- ✅ **Vendor database** (Newcastle, Hunter Valley, Sydney, Blue Mountains, South Coast)
+- ✅ **Resend webhook tracking** (delivery, open, bounce events)
+- ✅ **Rate limiting** (Upstash Redis with in-memory dev fallback)
+- ✅ **Error monitoring** (Sentry with per-page error boundaries)
+- ✅ **Security headers** (HSTS, X-Frame-Options, CSP, Referrer-Policy)
+- ✅ **Input validation** (server-side date/budget/email validation, prompt injection protection)
+- ✅ **Testing suite** (121 unit tests + 16 E2E tests)
 - ✅ **Production deployment** (Vercel + Supabase)
 
 ## 🛠️ Setup Instructions
@@ -65,11 +72,17 @@ An intelligent wedding planning platform that:
    Edit `.env.local` and add:
    - `DATABASE_URL`: Your PostgreSQL connection string (Supabase)
    - `ANTHROPIC_API_KEY`: Your Claude API key
-   - `CLAUDE_MODEL`: claude-sonnet-4-5-20250929
    - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anon key
    - `RESEND_API_KEY`: Your Resend API key (for email)
    - `EMAIL_FROM`: Your verified sender email
+   - `RESEND_WEBHOOK_SECRET`: Your Resend webhook signing secret
+   - `UPSTASH_REDIS_REST_URL`: Upstash Redis URL (optional in dev)
+   - `UPSTASH_REDIS_REST_TOKEN`: Upstash Redis token (optional in dev)
+   - `NEXT_PUBLIC_SENTRY_DSN`: Sentry DSN (optional in dev)
+   - `SENTRY_ORG`: Sentry organization slug
+   - `SENTRY_PROJECT`: Sentry project name
+   - `SENTRY_AUTH_TOKEN`: Sentry auth token for source maps
 
 3. **Set up database**
 
@@ -80,8 +93,16 @@ An intelligent wedding planning platform that:
 4. **Seed vendor data**
 
    ```bash
+   npm run db:seed:all-vendors
+   ```
+
+   Or seed individual regions:
+   ```bash
    npm run db:seed:newcastle
    npm run db:seed:hunter-valley
+   npm run db:seed:sydney
+   npm run db:seed:blue-mountains
+   npm run db:seed:south-coast
    ```
 
 5. **Run development server**
@@ -99,41 +120,41 @@ wedding-plan/
 ├── app/                       # Next.js 15 App Router
 │   ├── api/                  # API routes
 │   │   ├── auth/            # Auth sync & logout
-│   │   ├── chat/            # Claude AI (legacy)
+│   │   ├── chat/            # Claude AI chat
 │   │   ├── outreach/        # Email generation & sending
 │   │   ├── vendors/         # Vendor matching
+│   │   ├── webhooks/resend/ # Resend delivery webhooks
 │   │   └── wedding/         # Wedding CRUD
-│   ├── auth/                # Login, signup, callback
+│   ├── auth/                # Login, signup, reset-password, update-password
 │   ├── dashboard/           # User dashboard pages
-│   ├── questionnaire/       # 5-step form (NEW)
-│   └── vendors/             # Vendor browsing
+│   ├── questionnaire/       # 5-step form
+│   ├── outreach/            # Email preview & sending
+│   ├── vendors/             # Vendor browsing
+│   ├── global-error.tsx     # Global Sentry error boundary
+│   └── */error.tsx          # Per-route error boundaries (auth, dashboard, chat, questionnaire, outreach)
 ├── components/              # React components
-│   ├── Header.tsx          # Global header with user menu (NEW)
-│   ├── UserMenu.tsx        # Dropdown menu with logout (NEW)
-│   ├── VendorCard.tsx      # Vendor display
-│   └── VendorGrid.tsx      # Vendor selection UI
 ├── lib/                     # Core utilities
 │   ├── supabase/           # Supabase Auth clients
-│   ├── email/              # Resend integration
+│   ├── email/              # Resend integration + email generation
+│   ├── auth-helpers.ts     # Auth utilities + redirect validation
 │   ├── claude.ts           # Claude API
+│   ├── env-validation.ts   # Environment variable validation
+│   ├── input-validation.ts # Input sanitization + prompt injection protection
+│   ├── rate-limit.ts       # Upstash Redis rate limiting
+│   ├── retry.ts            # Exponential backoff retry utility
 │   ├── vendor-matching.ts  # Matching algorithm
 │   └── prisma.ts           # Database client
 ├── prisma/
-│   └── schema.prisma       # Database schema (7 tables)
-├── scripts/                 # Database seeding
-│   ├── seed-newcastle-vendors.ts
-│   ├── seed-hunter-valley-vendors.ts
-│   └── validate-vendor-data.ts
-├── test/                    # Vitest test suite
-├── docs/                    # Documentation (see docs/README.md)
-│   ├── PRODUCT_STRATEGY.md  # Product planning & decisions
-│   ├── USER_JOURNEY.md      # Complete user flow (CRITICAL)
-│   ├── VENDOR_OUTREACH_RESEARCH.md  # Research plan
-│   ├── TESTING_PLAN.md      # Testing strategy
-│   └── ... (see docs/README.md for full index)
-├── ROADMAP.md              # Future features & Phase 1-4 planning
-├── QUICK_START.md          # Getting started guide
-└── USER_JOURNEY.md         # ⭐ Critical: complete user flow reference
+│   └── schema.prisma       # Database schema
+├── scripts/                 # Database seeding (5 regions)
+├── e2e/                     # Playwright E2E tests
+├── test/                    # Vitest unit tests
+│   ├── lib/                # Utility tests (input-validation, retry, rate-limit, etc.)
+│   ├── api/                # API route logic tests
+│   └── components/         # Component tests
+├── instrumentation*.ts     # Sentry instrumentation
+├── sentry.*.config.ts      # Sentry server/edge config
+└── playwright.config.ts    # Playwright E2E config
 ```
 
 ## 🎨 Features
@@ -141,57 +162,67 @@ wedding-plan/
 ### ✅ Implemented
 
 **Authentication & User Management:**
-- [x] Supabase Auth (email/password + Google OAuth)
+- [x] Supabase Auth (email/password, Google OAuth, magic links)
+- [x] Password reset flow (request + update pages)
 - [x] User menu with avatar/initials
 - [x] Login/logout UI with dropdown
 - [x] Session management across pages
+- [x] Open redirect protection
 
 **Wedding Planning Flow:**
 - [x] 5-step form questionnaire (Date, Location, Guests, Budget, Style)
 - [x] Edit wedding details anytime
+- [x] Server-side input validation (past dates, budget floors, guest count clamping)
 - [x] Dashboard empty state with clear CTAs
 - [x] Wedding summary card on dashboard
 - [x] AI-powered vendor matching
 
 **Vendor Database:**
-- [x] 17 Newcastle vendors (venues, photographers, caterers, florists)
-- [x] 28 Hunter Valley vendors (full coverage all categories)
-- [x] Validation utilities for data quality
-- [x] Standardized seeding strategy
+- [x] 17 Newcastle vendors
+- [x] 28 Hunter Valley vendors
+- [x] 17 Sydney vendors
+- [x] 12 Blue Mountains vendors
+- [x] 14 South Coast vendors
+- [x] Total: 88+ vendors across 5 regions
 
 **Email Outreach:**
 - [x] Vendor selection UI with checkboxes
-- [x] AI-powered personalized email generation
-- [x] Batch email sending via Resend API
+- [x] AI-powered personalized email generation (with retry logic)
+- [x] Batch email sending via Resend API (with retry logic)
 - [x] Email preview & editing before sending
+- [x] Email validation before sending
+- [x] Only creates outreach records for successful sends
 
 **Dashboard & Tracking:**
 - [x] Outreach statistics (contacted, delivered, opened, responded)
+- [x] Resend webhook integration (delivery, open, bounce, complaint tracking)
 - [x] Response tracking table
 - [x] Manual response entry
 - [x] Individual vendor detail pages
 
+**Reliability & Security:**
+- [x] Upstash Redis rate limiting (with in-memory dev fallback)
+- [x] Sentry error monitoring (client, server, edge)
+- [x] Per-page error boundaries (auth, dashboard, chat, questionnaire, outreach)
+- [x] Global error boundary
+- [x] Retry with exponential backoff (Claude API, Resend API)
+- [x] Security headers (HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy)
+- [x] Input sanitization and prompt injection protection
+
 **Quality & Testing:**
-- [x] Vitest testing framework (24 passing tests)
+- [x] 121 unit tests (Vitest + React Testing Library)
+- [x] 16 E2E tests (Playwright — homepage, auth, navigation, security headers)
 - [x] ESLint + Prettier with auto-formatting
 - [x] TypeScript strict mode
 - [x] Production deployment (Vercel + Supabase)
 
-### 🚧 In Progress
-
-- [ ] Resend webhook integration (for automatic email tracking)
-- [ ] Email notifications to users when vendors respond
-- [ ] Blue Mountains vendor expansion
-
 ### 📅 Planned
 
+- [ ] Loading states (`loading.tsx` for key routes)
+- [ ] Content Security Policy header
 - [ ] Quote comparison tools
-- [ ] Payment integration (Stripe subscription model)
-- [ ] SMS notifications (Twilio)
-- [ ] Wedding timeline planner
 - [ ] Budget tracker
 - [ ] Guest list management
-- [ ] Vendor self-service portal
 
 ## 🧪 Using the App
 
@@ -237,40 +268,42 @@ wedding-plan/
 
 ## 🎯 Launch Status
 
-**Status**: ✅ Production Ready (February 2026)
+**Status**: ✅ Production Ready (March 2026)
 
 **Live URL**: [wedding-plan-lime.vercel.app](https://wedding-plan-lime.vercel.app)
 
 **Coverage**:
-- **Newcastle, NSW** - 17 vendors (venues, photographers, caterers, florists)
-- **Hunter Valley, NSW** - 28 vendors (full category coverage)
-- **Total**: 45 vendors across 2 regions
-
-**Next Launch**: Blue Mountains (March 2026) - 20-25 vendors
+- **Newcastle, NSW** - 17 vendors
+- **Hunter Valley, NSW** - 28 vendors
+- **Sydney, NSW** - 17 vendors
+- **Blue Mountains, NSW** - 12 vendors
+- **South Coast, NSW** - 14 vendors
+- **Total**: 88+ vendors across 5 regions
 
 ## 🧪 Testing
 
 ```bash
-# Run all tests
+# Run unit tests
 npm test
-
-# Run tests in UI mode
-npm run test:ui
 
 # Run tests with coverage
 npm run test:coverage
 
+# Run E2E tests (starts dev server automatically)
+npm run test:e2e
+
+# Run E2E tests with UI
+npm run test:e2e:ui
+
 # Lint code
 npm run lint
-
-# Format code
-npm run format
 ```
 
-**Test Coverage:**
-- ✅ Component tests (VendorCard, formatting utilities)
-- ✅ 24 passing tests
-- ✅ Vitest + React Testing Library
+**Test Coverage (137 total tests):**
+- ✅ 121 unit tests (Vitest) — input validation, retry logic, rate limiting, env validation, auth helpers, vendor matching, API route logic
+- ✅ 16 E2E tests (Playwright) — homepage, auth pages, navigation redirects, security headers
+- ✅ Component tests (VendorCard)
+- ✅ API logic tests (webhook events, wedding data transformations, email generation)
 
 ## 🚀 Development Workflow
 
@@ -306,11 +339,15 @@ npm run db:push
 # Open Prisma Studio
 npm run db:studio
 
-# Seed Newcastle vendors
-npm run db:seed:newcastle
+# Seed all vendors (5 regions)
+npm run db:seed:all-vendors
 
-# Seed Hunter Valley vendors
+# Seed individual regions
+npm run db:seed:newcastle
 npm run db:seed:hunter-valley
+npm run db:seed:sydney
+npm run db:seed:blue-mountains
+npm run db:seed:south-coast
 
 # Test database connection
 npm run db:test
@@ -324,22 +361,27 @@ This is currently a solo project. Contributions welcome after MVP launch.
 
 Private - Not yet open source
 
-## 🏆 Recent Improvements (February 2026)
+## 🏆 Recent Improvements (March 2026)
 
-### UX Overhaul:
-- **Replaced chatbot with professional form** - Users now have confidence their data is saved
-- **Added edit functionality** - Can update wedding details anytime
-- **Dashboard empty state** - Clear guidance for new users (no confusing auto-redirects)
-- **Header with user menu** - Professional navigation with avatar, dropdown, logout
-- **Visual feedback** - Progress bars, loading states, highlighted selections
+### Reliability & Security:
+- **Password reset flow** — full reset-password and update-password pages
+- **Silent email failure fix** — only tracks successfully sent emails
+- **Upstash Redis rate limiting** — persistent across serverless cold starts (in-memory dev fallback)
+- **Sentry error monitoring** — client, server, and edge runtime with per-page error boundaries
+- **Security headers** — HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
+- **Input validation** — server-side date/budget/guest validation, email format checking, prompt injection protection
+- **Retry logic** — exponential backoff with jitter for Claude API and Resend API calls
+- **Resend webhooks** — automatic delivery, open, bounce, and complaint tracking
 
-### Technical:
-- **Testing suite** - Vitest with 24 tests
-- **Linting** - ESLint + Prettier with auto-fix
-- **Documentation cleanup** - 25 → 6 root files
-- **Vendor expansion** - Hunter Valley added (28 vendors)
-- **Build optimizations** - Lazy Resend client, proper TypeScript checks
+### Content:
+- **Vendor expansion** — 3 new regions (Sydney 17, Blue Mountains 12, South Coast 14) = 88+ total vendors
+- **All questionnaire locations covered** — every location option now has matching vendors
+
+### Testing:
+- **121 unit tests** (Vitest) — input validation, retry, rate limiting, env validation, auth helpers, vendor matching, API logic
+- **16 E2E tests** (Playwright) — homepage, auth pages, navigation redirects, security headers
+- **Total: 137 tests, all passing**
 
 ---
 
-**Built with ❤️ for couples planning their dream wedding in Australia**
+**Built with care for couples planning their dream wedding in Australia**

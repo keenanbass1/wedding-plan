@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     const { user } = authResult
 
     // Rate limiting for AI generation
-    const rateLimitResult = checkRateLimit(user.dbUser.id, RATE_LIMITS.AI_GENERATION)
+    const rateLimitResult = await checkRateLimit(user.dbUser.id, RATE_LIMITS.AI_GENERATION, 'ai')
     if (!rateLimitResult.allowed) {
       return NextResponse.json(
         { error: 'Rate limit exceeded. Please wait before generating more emails.' },

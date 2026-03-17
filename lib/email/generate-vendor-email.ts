@@ -2,6 +2,7 @@ import { Vendor, Wedding } from '@prisma/client'
 
 import { anthropic } from '@/lib/claude'
 import { sanitizeForAIPrompt } from '@/lib/input-validation'
+import { withRetry, isTransientError } from '@/lib/retry'
 
 export interface GeneratedEmail {
   subject: string
@@ -61,17 +62,16 @@ BODY:
 Do not include any other text before or after.`
 
   try {
-    const response = await anthropic.messages.create({
-      model: process.env.CLAUDE_MODEL || 'claude-sonnet-4-5-20250929',
-      max_tokens: 1000,
-      temperature: 0.7,
-      messages: [
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-    })
+    const response = await withRetry(
+      () =>
+        anthropic.messages.create({
+          model: process.env.CLAUDE_MODEL || 'claude-sonnet-4-5-20250929',
+          max_tokens: 1000,
+          temperature: 0.7,
+          messages: [{ role: 'user', content: prompt }],
+        }),
+      { maxAttempts: 3, initialDelayMs: 1000, shouldRetry: isTransientError }
+    )
 
     const textContent = response.content.find(block => block.type === 'text')
     const generatedText = textContent && textContent.type === 'text' ? textContent.text : ''

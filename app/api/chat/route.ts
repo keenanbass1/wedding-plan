@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     const { user } = authResult
 
     // Rate limiting
-    const rateLimitResult = checkRateLimit(user.dbUser.id, RATE_LIMITS.CHAT)
+    const rateLimitResult = await checkRateLimit(user.dbUser.id, RATE_LIMITS.CHAT, 'chat')
     if (!rateLimitResult.allowed) {
       return NextResponse.json(
         { error: 'Rate limit exceeded. Please try again later.' },

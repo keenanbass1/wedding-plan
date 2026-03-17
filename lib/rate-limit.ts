@@ -1,14 +1,12 @@
 /**
- * Simple in-memory rate limiter
- * For production, consider using Redis or a proper rate limiting service
+ * Rate limiter with Upstash Redis for production and in-memory fallback for development.
+ *
+ * Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN env vars to enable
+ * persistent rate limiting that works across serverless invocations.
  */
 
-interface RateLimitEntry {
-  count: number
-  resetAt: number
-}
-
-const rateLimitStore = new Map<string, RateLimitEntry>()
+import { Ratelimit } from '@upstash/ratelimit'
+import { Redis } from '@upstash/redis'
 
 export interface RateLimitConfig {
   maxRequests: number
@@ -22,77 +20,95 @@ export interface RateLimitResult {
   resetAt: number
 }
 
-/**
- * Check if a request should be rate limited
- * @param identifier - Unique identifier (e.g., user ID, IP address)
- * @param config - Rate limit configuration
- * @returns Result indicating if request is allowed
- */
-export function checkRateLimit(
-  identifier: string,
-  config: RateLimitConfig
-): RateLimitResult {
-  const now = Date.now()
-  const entry = rateLimitStore.get(identifier)
+// --- In-memory fallback (development / missing Redis config) ---
 
-  // Clean up expired entries periodically
-  if (Math.random() < 0.01) {
-    cleanupExpiredEntries()
-  }
-
-  // No existing entry or expired - create new one
-  if (!entry || entry.resetAt <= now) {
-    const newEntry: RateLimitEntry = {
-      count: 1,
-      resetAt: now + config.windowMs,
-    }
-    rateLimitStore.set(identifier, newEntry)
-
-    return {
-      allowed: true,
-      limit: config.maxRequests,
-      remaining: config.maxRequests - 1,
-      resetAt: newEntry.resetAt,
-    }
-  }
-
-  // Entry exists and not expired
-  if (entry.count >= config.maxRequests) {
-    return {
-      allowed: false,
-      limit: config.maxRequests,
-      remaining: 0,
-      resetAt: entry.resetAt,
-    }
-  }
-
-  // Increment count
-  entry.count++
-  rateLimitStore.set(identifier, entry)
-
-  return {
-    allowed: true,
-    limit: config.maxRequests,
-    remaining: config.maxRequests - entry.count,
-    resetAt: entry.resetAt,
-  }
+interface RateLimitEntry {
+  count: number
+  resetAt: number
 }
 
-/**
- * Clean up expired entries from the rate limit store
- */
-function cleanupExpiredEntries() {
-  const now = Date.now()
-  const keysToDelete: string[] = []
+const memoryStore = new Map<string, RateLimitEntry>()
 
-  for (const [key, entry] of rateLimitStore.entries()) {
-    if (entry.resetAt <= now) {
-      keysToDelete.push(key)
+function checkMemoryRateLimit(identifier: string, config: RateLimitConfig): RateLimitResult {
+  const now = Date.now()
+  const entry = memoryStore.get(identifier)
+
+  if (Math.random() < 0.01) {
+    for (const [key, e] of memoryStore.entries()) {
+      if (e.resetAt <= now) memoryStore.delete(key)
     }
   }
 
-  for (const key of keysToDelete) {
-    rateLimitStore.delete(key)
+  if (!entry || entry.resetAt <= now) {
+    const newEntry: RateLimitEntry = { count: 1, resetAt: now + config.windowMs }
+    memoryStore.set(identifier, newEntry)
+    return { allowed: true, limit: config.maxRequests, remaining: config.maxRequests - 1, resetAt: newEntry.resetAt }
+  }
+
+  if (entry.count >= config.maxRequests) {
+    return { allowed: false, limit: config.maxRequests, remaining: 0, resetAt: entry.resetAt }
+  }
+
+  entry.count++
+  return { allowed: true, limit: config.maxRequests, remaining: config.maxRequests - entry.count, resetAt: entry.resetAt }
+}
+
+// --- Upstash Redis rate limiter ---
+
+function getRedisClient(): Redis | null {
+  const url = process.env.UPSTASH_REDIS_REST_URL
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN
+
+  if (!url || !token) return null
+
+  return new Redis({ url, token })
+}
+
+// Cache Ratelimit instances per config key to avoid re-creation
+const ratelimitInstances = new Map<string, Ratelimit>()
+
+function getUpstashRatelimit(configKey: string, config: RateLimitConfig): Ratelimit | null {
+  const existing = ratelimitInstances.get(configKey)
+  if (existing) return existing
+
+  const redis = getRedisClient()
+  if (!redis) return null
+
+  const windowSec = Math.ceil(config.windowMs / 1000)
+  const instance = new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(config.maxRequests, `${windowSec} s`),
+    prefix: `ratelimit:${configKey}`,
+  })
+
+  ratelimitInstances.set(configKey, instance)
+  return instance
+}
+
+// --- Public API (unchanged interface) ---
+
+/**
+ * Check if a request should be rate limited.
+ * Uses Upstash Redis when configured, falls back to in-memory.
+ */
+export async function checkRateLimit(
+  identifier: string,
+  config: RateLimitConfig,
+  configKey = 'default'
+): Promise<RateLimitResult> {
+  const upstash = getUpstashRatelimit(configKey, config)
+
+  if (!upstash) {
+    return checkMemoryRateLimit(identifier, config)
+  }
+
+  const result = await upstash.limit(identifier)
+
+  return {
+    allowed: result.success,
+    limit: result.limit,
+    remaining: result.remaining,
+    resetAt: result.reset,
   }
 }
 
@@ -100,22 +116,18 @@ function cleanupExpiredEntries() {
  * Rate limit configurations for different endpoints
  */
 export const RATE_LIMITS = {
-  // AI endpoints - expensive operations
   AI_GENERATION: {
     maxRequests: 10,
     windowMs: 60 * 1000, // 10 requests per minute
   },
-  // Email sending - prevent spam
   EMAIL_SEND: {
     maxRequests: 50,
     windowMs: 60 * 60 * 1000, // 50 emails per hour
   },
-  // Chat - moderate limits
   CHAT: {
     maxRequests: 30,
     windowMs: 60 * 1000, // 30 requests per minute
   },
-  // General API - generous limits
   API_GENERAL: {
     maxRequests: 100,
     windowMs: 60 * 1000, // 100 requests per minute

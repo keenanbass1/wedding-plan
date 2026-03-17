@@ -6,23 +6,29 @@ This document tracks future features and enhancements planned for post-MVP relea
 
 ---
 
-## 🎯 MVP Status (Current)
+## 🎯 MVP Status (Current — March 2026)
 
 **Core Features Completed:**
 - ✅ AI-powered wedding questionnaire
-- ✅ Vendor matching algorithm (42 vendors: Newcastle + Hunter Valley)
-- ✅ Authentication (email/password + Google OAuth)
+- ✅ Vendor matching algorithm (88+ vendors: Newcastle, Hunter Valley, Sydney, Blue Mountains, South Coast)
+- ✅ Authentication (email/password, Google OAuth, magic links, password reset)
 - ✅ Chat interface for wedding planning
 - ✅ Vendor browsing and selection
-- ✅ Email outreach system (Resend API integration)
+- ✅ Email outreach system (Resend API with retry logic)
 - ✅ Dashboard for tracking outreach
 - ✅ Response tracking and management
+- ✅ Resend webhook integration (delivery, open, bounce tracking)
+- ✅ End-to-end testing (16 Playwright tests)
+- ✅ Unit testing (121 Vitest tests)
+- ✅ Sentry error monitoring with per-page error boundaries
+- ✅ Upstash Redis rate limiting
+- ✅ Security headers (HSTS, X-Frame-Options, etc.)
+- ✅ Input validation and prompt injection protection
 
-**Pending for MVP:**
-- ⏳ Google OAuth debugging (redirects to home page)
-- ⏳ Resend webhook configuration (email delivery tracking)
-- ⏳ End-to-end testing
-- ⏳ Logout button on dashboard
+**Pending for production polish:**
+- ⏳ Loading states (`loading.tsx` for key routes)
+- ⏳ Content Security Policy header
+- ⏳ Missing Vercel env vars (UPSTASH_*, SENTRY_*, RESEND_WEBHOOK_SECRET)
 
 ---
 
@@ -770,16 +776,16 @@ React Native mobile app (iOS + Android).
 **Priority:** High | **Effort:** Ongoing
 
 **Plan:**
-| Region | Vendor Target | Timeline |
-|--------|---------------|----------|
-| ✅ Hunter Valley | 25 vendors | Done |
+| Region | Vendor Target | Status |
+|--------|---------------|--------|
 | ✅ Newcastle | 17 vendors | Done |
-| 🔄 Blue Mountains | 30 vendors | Month 1 |
-| 🔄 South Coast | 25 vendors | Month 2 |
-| 🔄 Sydney Metro | 50 vendors | Month 3 |
-| 🔄 Byron Bay | 20 vendors | Month 4 |
-| 🔄 Brisbane | 40 vendors | Month 5 |
-| 🔄 Melbourne | 60 vendors | Month 6 |
+| ✅ Hunter Valley | 28 vendors | Done |
+| ✅ Sydney | 17 vendors | Done |
+| ✅ Blue Mountains | 12 vendors | Done |
+| ✅ South Coast | 14 vendors | Done |
+| 🔄 Byron Bay | 20 vendors | Planned |
+| 🔄 Brisbane | 40 vendors | Planned |
+| 🔄 Melbourne | 60 vendors | Planned |
 
 **See:** PRODUCT_STRATEGY.md for data collection strategy
 
@@ -838,17 +844,18 @@ Analyze weddings in the database to provide trend insights.
 - [ ] Lazy loading for vendor galleries
 
 #### Security
-- [ ] Rate limiting on API routes
-- [ ] Input sanitization audit
-- [ ] SQL injection prevention review
+- [x] Rate limiting on API routes (Upstash Redis)
+- [x] Input sanitization audit (lib/input-validation.ts)
+- [x] SQL injection prevention review (Prisma parameterized queries)
 - [ ] CSRF protection
-- [ ] Security headers (CSP, HSTS)
+- [x] Security headers (HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy)
+- [ ] Content Security Policy header
 
 #### DevOps
 - [ ] Staging environment (separate Supabase project)
-- [ ] CI/CD pipeline (GitHub Actions)
-- [ ] Automated tests (unit + integration)
-- [ ] Error tracking (Sentry)
+- [x] CI/CD pipeline (GitHub Actions for Claude Code Review)
+- [x] Automated tests — 121 unit tests (Vitest) + 16 E2E tests (Playwright)
+- [x] Error tracking (Sentry @sentry/nextjs v10)
 - [ ] Analytics (PostHog or Plausible)
 
 ---

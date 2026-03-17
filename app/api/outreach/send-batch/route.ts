@@ -3,9 +3,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/auth-helpers'
 import { getResendClient, validateEmailConfig } from '@/lib/email/resend-client'
 import { getEnvVar } from '@/lib/env-validation'
-import { validateArray } from '@/lib/input-validation'
+import { isValidEmail, validateArray } from '@/lib/input-validation'
 import { prisma } from '@/lib/prisma'
 import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+import { withRetry, isTransientError } from '@/lib/retry'
 
 interface EmailToSend {
   vendorId: string
@@ -31,7 +32,7 @@ export async function POST(req: NextRequest) {
     const { user } = authResult
 
     // Rate limiting for email sending
-    const rateLimitResult = checkRateLimit(user.dbUser.id, RATE_LIMITS.EMAIL_SEND)
+    const rateLimitResult = await checkRateLimit(user.dbUser.id, RATE_LIMITS.EMAIL_SEND, 'email')
     if (!rateLimitResult.allowed) {
       return NextResponse.json(
         { error: 'Email rate limit exceeded. You can send more emails in an hour.' },
@@ -77,18 +78,41 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Wedding not found or access denied' }, { status: 404 })
     }
 
+    // Validate vendor emails before attempting to send
+    const validEmails: EmailToSend[] = []
+    const invalidEmails: { vendorId: string; error: string }[] = []
+
+    for (const email of emails) {
+      if (!isValidEmail(email.vendorEmail)) {
+        invalidEmails.push({ vendorId: email.vendorId, error: `Invalid email: ${email.vendorEmail}` })
+      } else {
+        validEmails.push(email)
+      }
+    }
+
+    if (validEmails.length === 0) {
+      return NextResponse.json({
+        success: false,
+        sent: 0,
+        failed: invalidEmails.length,
+        total: emails.length,
+        failedVendors: invalidEmails,
+        outreachRecords: [],
+      }, { status: 400 })
+    }
+
     // Send batch emails via Resend
     // Note: Resend batch API accepts up to 100 emails at once
     const batchSize = 100
     const batches = []
 
-    for (let i = 0; i < emails.length; i += batchSize) {
-      const batch = emails.slice(i, i + batchSize)
+    for (let i = 0; i < validEmails.length; i += batchSize) {
+      const batch = validEmails.slice(i, i + batchSize)
       batches.push(batch)
     }
 
-    const results: ResendEmailResult[] = []
-    const errors: unknown[] = []
+    // Map each email to its send result: { emailId, vendorId, success }
+    const sendResults: { vendorId: string; emailId: string | null; error?: string }[] = []
 
     for (const batch of batches) {
       try {
@@ -99,48 +123,72 @@ export async function POST(req: NextRequest) {
           ? `${wedding.user.name} via StreamWedding <${fromBase}>`
           : fromBase
 
-        const batchResult = await resend.batch.send(
-          batch.map(email => ({
-            from: fromAddress,
-            replyTo: wedding.user.email,
-            to: email.vendorEmail,
-            subject: email.subject,
-            text: email.body,
-            tags: [
-              { name: 'wedding_id', value: weddingId },
-              { name: 'vendor_id', value: email.vendorId },
-              { name: 'category', value: email.vendorCategory },
-            ],
-          }))
+        const batchResult = await withRetry(
+          () =>
+            resend.batch.send(
+              batch.map(email => ({
+                from: fromAddress,
+                replyTo: wedding.user.email,
+                to: email.vendorEmail,
+                subject: email.subject,
+                text: email.body,
+                tags: [
+                  { name: 'wedding_id', value: weddingId },
+                  { name: 'vendor_id', value: email.vendorId },
+                  { name: 'category', value: email.vendorCategory },
+                ],
+              }))
+            ),
+          { maxAttempts: 3, initialDelayMs: 1000, shouldRetry: isTransientError }
         )
 
         if (batchResult.data) {
-          // Type assertion needed due to Resend SDK type definitions
           const batchData = batchResult.data as unknown as ResendEmailResult | ResendEmailResult[]
-          if (Array.isArray(batchData)) {
-            results.push(...batchData)
-          } else {
-            results.push(batchData)
-          }
+          const dataArray = Array.isArray(batchData) ? batchData : [batchData]
+          batch.forEach((email, i) => {
+            sendResults.push({
+              vendorId: email.vendorId,
+              emailId: dataArray[i]?.id || null,
+            })
+          })
+        } else {
+          // API returned no data — mark all in this batch as failed
+          batch.forEach(email => {
+            sendResults.push({
+              vendorId: email.vendorId,
+              emailId: null,
+              error: 'No response from email service',
+            })
+          })
         }
       } catch (error) {
         console.error('Batch send error:', error)
-        errors.push(error)
+        // Mark all emails in this failed batch
+        batch.forEach(email => {
+          sendResults.push({
+            vendorId: email.vendorId,
+            emailId: null,
+            error: error instanceof Error ? error.message : 'Unknown send error',
+          })
+        })
       }
     }
 
-    // Store outreach records in database
-    const outreachRecords = await Promise.all(
-      emails.map(async (email, index) => {
-        const emailId = results[index]?.id || null
+    // Only create outreach records for emails that were actually sent
+    const successfulSends = sendResults.filter(r => r.emailId !== null)
+    const failedSends = sendResults.filter(r => r.emailId === null)
 
+    const outreachRecords = await Promise.all(
+      successfulSends.map(async result => {
+        const email = emails.find(e => e.vendorId === result.vendorId)!
         return prisma.vendorOutreach.create({
           data: {
             weddingId,
-            vendorId: email.vendorId,
+            vendorId: result.vendorId,
             emailSubject: email.subject,
             emailBody: email.body,
-            sentAt: emailId ? new Date() : null,
+            emailId: result.emailId,
+            sentAt: new Date(),
             delivered: false,
             opened: false,
             replied: false,
@@ -150,17 +198,25 @@ export async function POST(req: NextRequest) {
       })
     )
 
-    // Update wedding status to OUTREACH
-    await prisma.wedding.update({
-      where: { id: weddingId },
-      data: { status: 'OUTREACH' },
-    })
+    // Update wedding status to OUTREACH if at least one email was sent
+    if (successfulSends.length > 0) {
+      await prisma.wedding.update({
+        where: { id: weddingId },
+        data: { status: 'OUTREACH' },
+      })
+    }
+
+    const allFailures = [
+      ...invalidEmails,
+      ...failedSends.map(r => ({ vendorId: r.vendorId, error: r.error || 'Send failed' })),
+    ]
 
     return NextResponse.json({
-      success: true,
-      sent: results.length,
+      success: successfulSends.length > 0,
+      sent: successfulSends.length,
+      failed: allFailures.length,
       total: emails.length,
-      errors: errors.length,
+      failedVendors: allFailures,
       outreachRecords: outreachRecords.map(r => r.id),
     })
   } catch (error) {

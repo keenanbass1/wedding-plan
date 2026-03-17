@@ -22,7 +22,14 @@ export async function POST(req: NextRequest) {
     let parsedPreferredDates: Array<{ start: string; end: string }> | null = null
 
     if (date === 'specific' && specificDate) {
-      weddingDate = new Date(specificDate + 'T00:00:00')
+      const parsed = new Date(specificDate + 'T00:00:00')
+      // Server-side: reject dates in the past
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+      if (parsed < today) {
+        return NextResponse.json({ error: 'Wedding date cannot be in the past' }, { status: 400 })
+      }
+      weddingDate = parsed
       dateFlexible = false
     } else if (date === 'flexible' && Array.isArray(preferredDates) && preferredDates.length > 0) {
       parsedPreferredDates = preferredDates
@@ -40,7 +47,8 @@ export async function POST(req: NextRequest) {
       'Large (100-150)': 125,
       'Grand (150+)': 200,
     }
-    const parsedGuestCount = guestMap[guestCount] || parseInt(guestCount) || 75
+    const rawGuestCount = guestMap[guestCount] || parseInt(guestCount) || 75
+    const parsedGuestCount = Math.max(1, Math.min(rawGuestCount, 10000))
 
     // Parse budget (in cents) - handle both direct numbers and descriptive strings
     const budgetMap: Record<string, number> = {
@@ -50,7 +58,8 @@ export async function POST(req: NextRequest) {
       'Above $80,000': 10000000,
     }
     // If budget is a number string, convert to cents; otherwise use map
-    const parsedBudget = budgetMap[budget] || parseInt(budget) * 100 || 5000000
+    const rawBudget = budgetMap[budget] || parseInt(budget) * 100 || 5000000
+    const parsedBudget = Math.max(100000, rawBudget) // Minimum $1,000 in cents
 
     // Parse location - store custom values as-is
     const locationMap: Record<string, string> = {

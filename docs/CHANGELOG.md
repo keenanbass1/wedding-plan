@@ -7,10 +7,51 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Pending
-- Resend webhook integration (waiting for Resend service restoration)
-- Automated email notifications when vendors respond
-- Expand vendor database to Hunter Valley, Blue Mountains, Sydney
-- Vitest testing suite implementation
+- Loading states (loading.tsx for key routes)
+- Content Security Policy header
+- Custom domain configuration
+
+## [0.5.0] - 2026-03-18
+
+### Added — Week 1: Auth & Reliability
+- Password reset flow: `/auth/reset-password` (request) and `/auth/update-password` (set new password)
+- Upstash Redis rate limiting with in-memory development fallback (`lib/rate-limit.ts` rewritten)
+- Rate limit configs for AI generation, email send, chat, and general API
+
+### Fixed — Week 1
+- Silent email failures: outreach records now only created for successfully sent emails
+- `emailId` stored on outreach records for webhook correlation
+- `checkRateLimit()` now async — all 3 callers updated
+
+### Added — Week 2: Content & Monitoring
+- Sydney vendor seed script (17 vendors)
+- Blue Mountains vendor seed script (12 vendors)
+- South Coast vendor seed script (14 vendors)
+- Sentry error monitoring (@sentry/nextjs v10) — client, server, edge
+- Global error boundary (`app/global-error.tsx`)
+- Instrumentation files for Sentry (`instrumentation.ts`, `instrumentation-client.ts`, `sentry.server.config.ts`, `sentry.edge.config.ts`)
+- npm scripts: `db:seed:sydney`, `db:seed:blue-mountains`, `db:seed:south-coast`, `db:seed:all-vendors`
+
+### Added — Week 3: Resilience & Validation
+- Retry utility with exponential backoff and jitter (`lib/retry.ts`)
+- `isTransientError()` helper for identifying retryable errors
+- Resend webhook endpoint (`/api/webhooks/resend`) — handles delivery, open, bounce, complaint events
+- Retry logic for Claude email generation and Resend batch sending
+- Email format validation before sending
+- Server-side input validation in wedding API: past date rejection, budget minimum ($1,000), guest count clamping (1-10,000)
+
+### Added — Week 4: Testing & Security
+- Security headers in `next.config.ts`: HSTS, X-Frame-Options, X-Content-Type-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy
+- Per-page error boundaries: `app/auth/error.tsx`, `app/dashboard/error.tsx`, `app/chat/error.tsx`, `app/questionnaire/error.tsx`, `app/outreach/error.tsx`
+- Playwright E2E testing (16 tests): homepage, auth pages, navigation redirects, security headers
+- Unit tests (97 new, 121 total): input-validation, retry, env-validation, rate-limit, auth-helpers, vendor-matching, wedding-route, webhook-resend
+- `vitest.config.ts` updated to exclude e2e directory
+- `playwright.config.ts` for E2E configuration
+
+### Changed — Week 4
+- `.env.example` updated with Upstash, Sentry, and Resend webhook vars
+- `next.config.ts` wrapped with `withSentryConfig`
+- `package.json`: new scripts and dependencies (@upstash/ratelimit, @upstash/redis, @sentry/nextjs, @playwright/test, @vitest/coverage-v8)
 
 ## [0.4.0] - 2026-02-16
 
