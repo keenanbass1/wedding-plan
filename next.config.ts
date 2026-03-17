@@ -41,22 +41,21 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withSentryConfig(nextConfig, {
-  org: process.env.SENTRY_ORG,
-  project: process.env.SENTRY_PROJECT,
+// Only wrap with Sentry when auth token is available (prevents build failures)
+const sentryConfig = process.env.SENTRY_AUTH_TOKEN
+  ? withSentryConfig(nextConfig, {
+      org: process.env.SENTRY_ORG,
+      project: process.env.SENTRY_PROJECT,
+      silent: !process.env.CI,
+      sourcemaps: {
+        deleteSourcemapsAfterUpload: true,
+      },
+      webpack: {
+        treeshake: {
+          removeDebugLogging: true,
+        },
+      },
+    })
+  : nextConfig
 
-  // Only print logs for uploading source maps in CI
-  silent: !process.env.CI,
-
-  // Upload source maps to Sentry for readable stack traces
-  sourcemaps: {
-    deleteSourcemapsAfterUpload: true,
-  },
-
-  // Tree-shake Sentry debug logging
-  webpack: {
-    treeshake: {
-      removeDebugLogging: true,
-    },
-  },
-})
+export default sentryConfig
