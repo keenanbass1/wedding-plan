@@ -53,19 +53,25 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL('/auth/login?error=Failed to create session', request.url))
   }
 
-  // Sync user to database
+  // Sync user to database directly (avoid HTTP call that can't forward cookies)
   try {
-    await fetch(`${requestUrl.origin}/api/auth/sync-user`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const { prisma } = await import('@/lib/prisma')
+    const existingUser = await prisma.user.findUnique({
+      where: { authId: data.session.user.id },
     })
+    if (!existingUser) {
+      await prisma.user.create({
+        data: {
+          authId: data.session.user.id,
+          email: data.session.user.email!,
+          name: data.session.user.user_metadata?.full_name || null,
+        },
+      })
+    }
   } catch (err) {
     if (isDevelopment) {
       console.error('Failed to sync user:', err)
     }
-    // Don't fail the login just because sync failed
   }
 
   // Redirect to the validated URL

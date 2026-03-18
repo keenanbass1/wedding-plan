@@ -35,13 +35,16 @@ export default async function DashboardPage() {
     },
   })
 
-  // If user not in database, sync them
+  // If user not in database, create them directly
   if (!dbUser) {
-    // User authenticated but not in our database - sync them
-    await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/auth/sync-user`, {
-      method: 'POST',
+    const newUser = await prisma.user.create({
+      data: {
+        authId: user.id,
+        email: user.email!,
+        name: user.user_metadata?.full_name || null,
+      },
     })
-    // Refresh the page to load the synced user
+    // Reload with the new user
     redirect('/dashboard')
   }
 
