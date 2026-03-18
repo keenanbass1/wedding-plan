@@ -41,3 +41,8 @@ next-env.d.ts
 # Prisma
 prisma/migrations/
 .env.production
+
+playwright-report/
+test-results/
+.env.vercel-backup
+.env.production

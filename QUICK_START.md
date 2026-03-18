@@ -1,6 +1,6 @@
 # 🚀 Quick Start Guide
 
-**Get StreamWedding running in 5 minutes!**
+**Get Bower running in 5 minutes!**
 
 ---
 

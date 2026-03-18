@@ -212,7 +212,7 @@ export default function Home() {
       <footer className="relative py-12 px-6 border-t border-stone-200 dark:border-stone-800">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="font-display text-lg text-stone-900 dark:text-stone-100">
-            StreamWedding
+            Bower
           </div>
           <div className="text-xs text-stone-400 dark:text-stone-600">
             Built for couples planning weddings in Australia

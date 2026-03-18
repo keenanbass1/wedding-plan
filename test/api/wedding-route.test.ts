@@ -27,7 +27,10 @@ describe('Wedding route data transformations', () => {
 
     it('accepts today as valid', () => {
       const now = new Date()
-      const todayStr = now.toISOString().split('T')[0]
+      const y = now.getFullYear()
+      const m = String(now.getMonth() + 1).padStart(2, '0')
+      const d = String(now.getDate()).padStart(2, '0')
+      const todayStr = `${y}-${m}-${d}`
       const parsed = new Date(todayStr + 'T00:00:00')
       const today = new Date()
       today.setHours(0, 0, 0, 0)

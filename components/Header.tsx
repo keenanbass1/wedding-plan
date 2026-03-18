@@ -25,9 +25,9 @@ export default async function Header() {
       <div className="max-w-5xl mx-auto px-6 py-3.5">
         <div className="flex items-center justify-between">
           {/* Logo / Brand */}
-          <Link href="/" className="flex items-center gap-2.5 group" aria-label="StreamWedding home">
+          <Link href="/" className="flex items-center gap-2.5 group" aria-label="Bower home">
             <span className="font-display text-xl text-stone-900 dark:text-stone-100 group-hover:text-amber-800 dark:group-hover:text-amber-400 transition-colors duration-200">
-              StreamWedding
+              Bower
             </span>
           </Link>
 

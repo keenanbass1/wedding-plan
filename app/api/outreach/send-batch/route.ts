@@ -120,7 +120,7 @@ export async function POST(req: NextRequest) {
         // Personalize "from" name and set reply-to user's email
         const fromBase = getEnvVar('EMAIL_FROM')
         const fromAddress = wedding.user.name
-          ? `${wedding.user.name} via StreamWedding <${fromBase}>`
+          ? `${wedding.user.name} via Bower <${fromBase}>`
           : fromBase
 
         const batchResult = await withRetry(
