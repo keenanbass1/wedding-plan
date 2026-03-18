@@ -121,9 +121,9 @@ function OutreachPreviewContent() {
 
   if (loading) {
     return (
-      <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950 flex items-center justify-center">
+      <main className="relative min-h-screen bg-stone-50 dark:bg-gray-950 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 mx-auto mb-4 border-4 border-rose-400 border-t-transparent rounded-full animate-spin" />
+          <div className="w-16 h-16 mx-auto mb-4 border-4 border-amber-400 border-t-transparent rounded-full animate-spin" />
           <p className="text-gray-600 dark:text-gray-300 font-light">Generating personalized emails...</p>
         </div>
       </main>
@@ -131,21 +131,21 @@ function OutreachPreviewContent() {
   }
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
+    <main className="relative min-h-screen bg-stone-50 dark:bg-gray-950">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
       </div>
 
       <div className="relative">
         {/* Header */}
-        <div className="border-b border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl">
+        <div className="border-b border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900">
           <div className="max-w-5xl mx-auto px-6 py-8">
             <Link
               href="/vendors"
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-rose-500 dark:hover:text-rose-400 transition-colors duration-300 group mb-6"
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-amber-700 dark:hover:text-amber-700 transition-colors duration-300 group mb-6"
             >
               <svg
                 className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -164,15 +164,15 @@ function OutreachPreviewContent() {
             </Link>
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
-              <svg className="w-5 h-5 text-rose-400" viewBox="0 0 24 24" fill="currentColor">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-300" />
+              <svg className="w-5 h-5 text-amber-700" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-300" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-stone-300" />
             </div>
 
             <h1 className="text-5xl font-serif font-light tracking-tight mb-4 dark:text-white">
-              <span className="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="bg-stone-900 dark:bg-stone-100 bg-clip-text text-transparent">
                 Review & Send
               </span>
             </h1>
@@ -182,7 +182,7 @@ function OutreachPreviewContent() {
             </p>
 
             {error && (
-              <div className="p-4 bg-red-50/80 dark:bg-red-950/40 backdrop-blur-sm border border-red-200/50 dark:border-red-800/50 rounded-2xl animate-fadeIn">
+              <div className="p-4 bg-red-50/80 dark:bg-red-950/40 border border-red-200/50 dark:border-red-800/50 rounded-2xl animate-fadeIn">
                 <p className="text-sm text-red-600 dark:text-red-400 font-light">{error}</p>
               </div>
             )}
@@ -194,15 +194,15 @@ function OutreachPreviewContent() {
           {emails.map((email, idx) => (
             <div
               key={email.vendorId}
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 overflow-hidden animate-fadeIn"
+              className="bg-white dark:bg-stone-900 rounded-xl shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 overflow-hidden animate-fadeIn"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
               {/* Email Header */}
-              <div className="p-6 border-b border-gray-100/50 dark:border-gray-700/50">
+              <div className="p-6 border-b border-stone-100 dark:border-stone-800">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/40 dark:to-pink-900/40 flex items-center justify-center text-rose-600 dark:text-rose-400">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/30 dark:to-amber-900/20 flex items-center justify-center text-amber-800 dark:text-amber-400">
                         <svg
                           className="w-5 h-5"
                           fill="none"
@@ -222,7 +222,7 @@ function OutreachPreviewContent() {
                           {email.vendorName}
                         </h3>
                         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1">
-                          <span className="px-2 py-0.5 bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 rounded-lg text-xs font-medium">
+                          <span className="px-2 py-0.5 bg-amber-50 dark:bg-amber-950/20 text-amber-900 dark:text-amber-300 rounded-lg text-xs font-medium">
                             {email.vendorCategory}
                           </span>
                           <span className="font-light">{email.vendorEmail}</span>
@@ -234,7 +234,7 @@ function OutreachPreviewContent() {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => toggleExpanded(email.vendorId)}
-                      className="px-3 py-2 text-sm font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors"
+                      className="px-3 py-2 text-sm font-medium text-amber-800 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/20 rounded-lg transition-colors"
                     >
                       {expandedEmails.has(email.vendorId) ? 'Collapse' : 'Expand'}
                     </button>
@@ -260,7 +260,7 @@ function OutreachPreviewContent() {
                       type="text"
                       value={email.subject}
                       onChange={e => updateEmail(email.vendorId, 'subject', e.target.value)}
-                      className="w-full px-4 py-3 bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                      className="w-full px-4 py-3 bg-white/60 dark:bg-gray-700/60 border border-gray-200/50 dark:border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-700/20 focus:border-amber-700/40 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
                     />
                   </div>
 
@@ -273,7 +273,7 @@ function OutreachPreviewContent() {
                       value={email.body}
                       onChange={e => updateEmail(email.vendorId, 'body', e.target.value)}
                       rows={12}
-                      className="w-full px-4 py-3 bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 font-light leading-relaxed text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                      className="w-full px-4 py-3 bg-white/60 dark:bg-gray-700/60 border border-gray-200/50 dark:border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-700/20 focus:border-amber-700/40 focus:border-transparent transition-all duration-300 font-light leading-relaxed text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500"
                     />
                   </div>
                 </div>
@@ -283,9 +283,9 @@ function OutreachPreviewContent() {
 
           {emails.length === 0 && (
             <div className="text-center py-16">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/40 dark:to-pink-900/40 rounded-full flex items-center justify-center">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/30 dark:to-amber-900/20 rounded-full flex items-center justify-center">
                 <svg
-                  className="w-10 h-10 text-rose-400"
+                  className="w-10 h-10 text-amber-700"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -304,7 +304,7 @@ function OutreachPreviewContent() {
               <p className="text-gray-600 dark:text-gray-300 font-light mb-6">All emails have been removed</p>
               <Link
                 href="/vendors"
-                className="inline-flex items-center gap-2 text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-medium hover:underline transition-colors"
+                className="inline-flex items-center gap-2 text-amber-800 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 font-medium hover:underline transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
@@ -322,7 +322,7 @@ function OutreachPreviewContent() {
 
         {/* Sticky Send Button */}
         {emails.length > 0 && (
-          <div className="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-700/50 py-6 z-20">
+          <div className="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 border-t border-stone-200 dark:border-stone-700 py-6 z-20">
             <div className="max-w-5xl mx-auto px-6 flex items-center justify-between">
               <div>
                 <div className="text-sm font-medium text-gray-900 dark:text-white">
@@ -338,8 +338,8 @@ function OutreachPreviewContent() {
                 disabled={sending}
                 className="group relative disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 to-purple-400 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-                <div className="relative px-8 py-4 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                <div className="absolute -inset-1 bg-stone-900 dark:bg-stone-100 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                <div className="relative px-8 py-4 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-105 transition-all duration-300 flex items-center gap-2">
                   {sending ? (
                     <>
                       <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
@@ -399,12 +399,12 @@ function OutreachPreviewContent() {
 
         {/* Confirmation Dialog */}
         {showConfirmDialog && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6 animate-fadeIn">
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-6 animate-fadeIn">
             <div
-              className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-3xl shadow-2xl dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 p-8 max-w-md w-full animate-fadeIn"
+              className="bg-white/95 dark:bg-gray-800/95 rounded-xl shadow-2xl dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 p-8 max-w-md w-full animate-fadeIn"
               style={{ animationDelay: '100ms' }}
             >
-              <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-rose-400 to-purple-400 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-stone-900 dark:bg-stone-100 rounded-full flex items-center justify-center">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -440,7 +440,7 @@ function OutreachPreviewContent() {
                 <button
                   onClick={handleSendAll}
                   disabled={sending}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 transition-all disabled:opacity-50"
+                  className="flex-1 px-6 py-3 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 transition-all disabled:opacity-50"
                 >
                   {sending ? 'Sending...' : 'Confirm & Send'}
                 </button>
@@ -457,8 +457,8 @@ export default function OutreachPreviewPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
-          <div className="animate-pulse text-rose-400">Loading...</div>
+        <div className="min-h-screen flex items-center justify-center bg-stone-50 dark:bg-gray-950">
+          <div className="animate-pulse text-amber-700">Loading...</div>
         </div>
       }
     >

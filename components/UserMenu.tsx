@@ -41,10 +41,10 @@ export default function UserMenu({ user }: UserMenuProps) {
       {/* User Avatar Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-rose-300 hover:shadow-lg dark:shadow-gray-900/30 transition-all duration-300 group"
+        className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 hover:border-amber-300 hover:shadow-lg dark:shadow-gray-900/30 transition-all duration-300 group"
       >
         {/* Avatar */}
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-400 to-purple-400 flex items-center justify-center text-white font-medium shadow-md group-hover:scale-105 transition-transform">
+        <div className="w-10 h-10 rounded-xl bg-stone-900 dark:bg-stone-100 flex items-center justify-center text-white font-medium shadow-md group-hover:scale-105 transition-transform">
           {initials}
         </div>
 
@@ -72,11 +72,11 @@ export default function UserMenu({ user }: UserMenuProps) {
           <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
 
           {/* Menu */}
-          <div className="absolute right-0 mt-2 w-64 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-2xl dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 overflow-hidden z-20 animate-fadeIn">
+          <div className="absolute right-0 mt-2 w-64 bg-white/95 dark:bg-gray-800/95 rounded-2xl shadow-2xl dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 overflow-hidden z-20 animate-fadeIn">
             {/* User Info */}
-            <div className="p-4 border-b border-gray-100/50 dark:border-gray-700/50 bg-gradient-to-br from-rose-50/50 to-purple-50/50 dark:from-rose-900/30 dark:to-purple-900/30">
+            <div className="p-4 border-b border-stone-100 dark:border-stone-800 bg-gradient-to-br from-amber-50/50 to-stone-100/50 dark:from-amber-950/20 dark:to-stone-800/20">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-400 to-purple-400 flex items-center justify-center text-white font-medium text-lg shadow-md">
+                <div className="w-12 h-12 rounded-xl bg-stone-900 dark:bg-stone-100 flex items-center justify-center text-white font-medium text-lg shadow-md">
                   {initials}
                 </div>
                 <div className="flex-1 min-w-0">

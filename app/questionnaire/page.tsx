@@ -319,11 +319,11 @@ export default function QuestionnairePage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
+    <div className="relative min-h-screen overflow-hidden bg-stone-50 dark:bg-gray-950">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-rose-200/20 to-pink-200/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-purple-200/20 to-pink-200/10 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-stone-200/15 to-stone-100/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-stone-200/15 to-stone-100/10 rounded-full blur-3xl animate-float-delayed" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.02)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
       </div>
 
@@ -332,7 +332,7 @@ export default function QuestionnairePage() {
         <div className="p-6">
           <Link
             href="/dashboard"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-white/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-gray-800/80 hover:shadow-md dark:hover:shadow-gray-900/30 transition-all duration-300 group"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-gray-800/80 hover:shadow-md dark:hover:shadow-gray-900/30 transition-all duration-300 group"
           >
             <svg
               className="w-4 h-4 group-hover:-translate-x-1 transition-transform"
@@ -355,7 +355,7 @@ export default function QuestionnairePage() {
         <div className="flex-1 flex items-center justify-center px-6 py-12">
           {isLoading ? (
             <div className="flex items-center gap-3 text-gray-600 dark:text-gray-300">
-              <div className="w-6 h-6 border-2 border-rose-400 border-t-transparent rounded-full animate-spin" />
+              <div className="w-6 h-6 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
               <span className="font-light">Loading your details...</span>
             </div>
           ) : (
@@ -370,7 +370,7 @@ export default function QuestionnairePage() {
               </div>
               <div className="w-full bg-gray-200/50 dark:bg-gray-700/50 rounded-full h-2 overflow-hidden">
                 <div
-                  className="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 h-2 rounded-full transition-all duration-700 shadow-sm shadow-rose-400/30"
+                  className="bg-stone-900 dark:bg-stone-100 h-2 rounded-full transition-all duration-700 shadow-sm shadow-amber-600/30"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -378,13 +378,13 @@ export default function QuestionnairePage() {
 
             {/* Question Card */}
             <div
-              className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-2xl dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white dark:bg-stone-900 rounded-xl p-8 md:p-12 shadow-2xl dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 animate-fadeIn"
               key={currentStep}
             >
               {/* Step Title */}
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
-                <span className="text-sm font-medium tracking-wide text-rose-600 dark:text-rose-400 uppercase">
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-300" />
+                <span className="text-sm font-medium tracking-wide text-amber-800 dark:text-amber-400 uppercase">
                   {currentStepData.title}
                 </span>
               </div>
@@ -403,19 +403,19 @@ export default function QuestionnairePage() {
                     key={option.value}
                     onClick={() => handleOptionSelect(option.value)}
                     disabled={isSubmitting}
-                    className={`group w-full text-left px-6 py-5 backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 hover:shadow-xl dark:hover:shadow-gray-900/30 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed animate-fadeIn ${
+                    className={`group w-full text-left px-6 py-5 border-2 rounded-2xl transition-all duration-300 hover:shadow-xl dark:hover:shadow-gray-900/30 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed animate-fadeIn ${
                       isSelected
-                        ? 'bg-gradient-to-br from-rose-50 to-purple-50 dark:from-rose-950/40 dark:to-purple-950/40 border-rose-300 dark:border-rose-600'
-                        : 'bg-white/80 dark:bg-gray-800/80 border-gray-200/50 dark:border-gray-700/50 hover:border-rose-300 dark:hover:border-rose-600'
+                        ? 'bg-gradient-to-br from-amber-50 to-stone-100 dark:from-amber-950/30 dark:to-stone-900/30 border-amber-300 dark:border-amber-800'
+                        : 'bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 hover:border-amber-300 dark:hover:border-amber-800'
                     }`}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-lg font-medium text-gray-700 dark:text-gray-200 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                      <span className="text-lg font-medium text-gray-700 dark:text-gray-200 group-hover:text-amber-800 dark:group-hover:text-amber-700 transition-colors">
                         {option.label}
                       </span>
                       <svg
-                        className="w-5 h-5 text-gray-400 dark:text-gray-500 group-hover:text-rose-600 dark:group-hover:text-rose-400 group-hover:translate-x-1 transition-all"
+                        className="w-5 h-5 text-gray-400 dark:text-gray-500 group-hover:text-amber-800 dark:group-hover:text-amber-700 group-hover:translate-x-1 transition-all"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -435,7 +435,7 @@ export default function QuestionnairePage() {
 
               {/* Custom Input - shown for guestCount, budget, or location */}
               {showCustomInput && (currentStepData.id === 'guestCount' || currentStepData.id === 'budget' || currentStepData.id === 'location') && (
-                <div className="mt-6 p-6 bg-gradient-to-br from-rose-50 to-purple-50 dark:from-rose-950/40 dark:to-purple-950/40 border-2 border-rose-300 dark:border-rose-600 rounded-2xl animate-fadeIn">
+                <div className="mt-6 p-6 bg-gradient-to-br from-amber-50 to-stone-100 dark:from-amber-950/30 dark:to-stone-900/30 border-2 border-amber-300 dark:border-amber-800 rounded-2xl animate-fadeIn">
                   <label htmlFor="customValue" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">
                     {currentStepData.id === 'budget' ? 'Enter your budget (AUD)' : currentStepData.id === 'location' ? 'Enter your suburb or area' : 'Enter your guest count'}
                   </label>
@@ -451,13 +451,13 @@ export default function QuestionnairePage() {
                       min={currentStepData.id === 'location' ? undefined : 1}
                       step={currentStepData.id === 'budget' ? 1000 : currentStepData.id === 'location' ? undefined : 1}
                       placeholder={currentStepData.id === 'budget' ? '42000' : currentStepData.id === 'location' ? 'e.g. Coogee, Wollongong, Central Coast' : '87'}
-                      className={`w-full ${currentStepData.id === 'budget' ? 'pl-8' : 'pl-4'} pr-4 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 focus:border-transparent transition-all text-gray-900 dark:text-white`}
+                      className={`w-full ${currentStepData.id === 'budget' ? 'pl-8' : 'pl-4'} pr-4 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 focus:border-transparent transition-all text-gray-900 dark:text-white`}
                     />
                   </div>
                   <div className="mt-4 flex gap-3">
                     <button
                       onClick={handleCustomConfirm}
-                      className="flex-1 px-6 py-3 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-[1.02] transition-all duration-300"
+                      className="flex-1 px-6 py-3 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-[1.02] transition-all duration-300"
                     >
                       Confirm
                     </button>
@@ -476,7 +476,7 @@ export default function QuestionnairePage() {
 
               {/* Date Picker - shown when "specific date" is selected */}
               {showDatePicker && currentStepData.id === 'date' && (
-                <div className="mt-6 p-6 bg-gradient-to-br from-rose-50 to-purple-50 dark:from-rose-950/40 dark:to-purple-950/40 border-2 border-rose-300 dark:border-rose-600 rounded-2xl animate-fadeIn">
+                <div className="mt-6 p-6 bg-gradient-to-br from-amber-50 to-stone-100 dark:from-amber-950/30 dark:to-stone-900/30 border-2 border-amber-300 dark:border-amber-800 rounded-2xl animate-fadeIn">
                   <label htmlFor="specificDate" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">
                     Select your wedding date
                   </label>
@@ -486,12 +486,12 @@ export default function QuestionnairePage() {
                     value={specificDate}
                     onChange={(e) => setSpecificDate(e.target.value)}
                     min={new Date().toISOString().split('T')[0]} // Can't select past dates
-                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 focus:border-transparent transition-all text-gray-900 dark:text-white dark:[color-scheme:dark]"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 focus:border-transparent transition-all text-gray-900 dark:text-white dark:[color-scheme:dark]"
                   />
                   <div className="mt-4 flex gap-3">
                     <button
                       onClick={handleDateConfirm}
-                      className="flex-1 px-6 py-3 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-[1.02] transition-all duration-300"
+                      className="flex-1 px-6 py-3 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-[1.02] transition-all duration-300"
                     >
                       Confirm Date
                     </button>
@@ -521,7 +521,7 @@ export default function QuestionnairePage() {
 
               {/* Date Ranges - shown when "flexible" is selected */}
               {showDateRanges && currentStepData.id === 'date' && (
-                <div className="mt-6 p-6 bg-gradient-to-br from-rose-50 to-purple-50 dark:from-rose-950/40 dark:to-purple-950/40 border-2 border-rose-300 dark:border-rose-600 rounded-2xl animate-fadeIn">
+                <div className="mt-6 p-6 bg-gradient-to-br from-amber-50 to-stone-100 dark:from-amber-950/30 dark:to-stone-900/30 border-2 border-amber-300 dark:border-amber-800 rounded-2xl animate-fadeIn">
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-4">
                     Add your preferred date ranges
                   </label>
@@ -536,7 +536,7 @@ export default function QuestionnairePage() {
                               value={range.start}
                               onChange={(e) => updateDateRange(index, 'start', e.target.value)}
                               min={new Date().toISOString().split('T')[0]}
-                              className="w-full px-3 py-2 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 focus:border-transparent text-sm text-gray-900 dark:text-white dark:[color-scheme:dark]"
+                              className="w-full px-3 py-2 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 focus:border-transparent text-sm text-gray-900 dark:text-white dark:[color-scheme:dark]"
                             />
                           </div>
                           <div>
@@ -546,7 +546,7 @@ export default function QuestionnairePage() {
                               value={range.end}
                               onChange={(e) => updateDateRange(index, 'end', e.target.value)}
                               min={range.start || new Date().toISOString().split('T')[0]}
-                              className="w-full px-3 py-2 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 focus:border-transparent text-sm text-gray-900 dark:text-white dark:[color-scheme:dark]"
+                              className="w-full px-3 py-2 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 focus:border-transparent text-sm text-gray-900 dark:text-white dark:[color-scheme:dark]"
                             />
                           </div>
                         </div>
@@ -566,7 +566,7 @@ export default function QuestionnairePage() {
                   </div>
                   <button
                     onClick={addDateRange}
-                    className="mt-3 flex items-center gap-2 text-sm text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
+                    className="mt-3 flex items-center gap-2 text-sm text-amber-800 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 transition-colors"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v12m6-6H6" />
@@ -576,7 +576,7 @@ export default function QuestionnairePage() {
                   <div className="mt-4 flex gap-3">
                     <button
                       onClick={handleDateRangesConfirm}
-                      className="flex-1 px-6 py-3 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-[1.02] transition-all duration-300"
+                      className="flex-1 px-6 py-3 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-[1.02] transition-all duration-300"
                     >
                       Confirm Dates
                     </button>
@@ -624,7 +624,7 @@ export default function QuestionnairePage() {
               {/* Loading State */}
               {isSubmitting && (
                 <div className="mt-8 flex items-center justify-center gap-3 text-gray-600 dark:text-gray-300">
-                  <div className="w-5 h-5 border-2 border-rose-400 border-t-transparent rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
                   <span className="font-light">Saving your details...</span>
                 </div>
               )}

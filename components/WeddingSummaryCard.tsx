@@ -39,7 +39,7 @@ const BUDGET_PRESETS = [
 
 function EditIcon() {
   return (
-    <svg className="w-3.5 h-3.5 text-gray-300 dark:text-gray-600 group-hover:text-rose-400 transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg className="w-3.5 h-3.5 text-gray-300 dark:text-gray-600 group-hover:text-amber-700 transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
     </svg>
   )
@@ -59,7 +59,7 @@ function SaveCancelButtons({
       <button
         onClick={onSave}
         disabled={saving}
-        className="px-3 py-1.5 text-xs font-medium bg-gradient-to-r from-rose-400 to-purple-400 text-white rounded-lg hover:shadow-md transition-all disabled:opacity-50"
+        className="px-3 py-1.5 text-xs font-medium bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-lg hover:shadow-md transition-all disabled:opacity-50"
       >
         {saving ? 'Saving...' : 'Save'}
       </button>
@@ -258,10 +258,10 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
   }
 
   return (
-    <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 mb-8 animate-fadeIn">
+    <div className="bg-white dark:bg-stone-900 rounded-xl p-8 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 mb-8 animate-fadeIn">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-3">
-          <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
+          <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-300" />
           <h2 className="text-2xl font-serif font-medium text-gray-900 dark:text-white">Your Wedding</h2>
         </div>
       </div>
@@ -270,8 +270,8 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Date */}
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5 text-rose-600 dark:text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/20 dark:to-amber-950/20 flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-amber-800 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </div>
@@ -292,8 +292,8 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                       }}
                       className={`px-2.5 py-1 text-xs rounded-lg border transition-colors ${
                         dateMode === mode
-                          ? 'bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300'
-                          : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-rose-300 dark:hover:border-rose-600'
+                          ? 'bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-300'
+                          : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-amber-300 dark:hover:border-amber-800'
                       }`}
                     >
                       {mode === 'specific' ? 'Specific' : mode === 'flexible' ? 'Flexible' : 'Undecided'}
@@ -306,7 +306,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                     value={editDate}
                     onChange={e => setEditDate(e.target.value)}
                     min={new Date().toISOString().split('T')[0]}
-                    className="w-full px-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 text-gray-900 dark:text-white dark:[color-scheme:dark]"
+                    className="w-full px-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 text-gray-900 dark:text-white dark:[color-scheme:dark]"
                   />
                 )}
                 {dateMode === 'flexible' && (
@@ -320,7 +320,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                             onChange={(e) => updateEditDateRange(index, 'start', e.target.value)}
                             min={new Date().toISOString().split('T')[0]}
                             placeholder="From"
-                            className="w-full px-2 py-1 text-xs bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 text-gray-900 dark:text-white dark:[color-scheme:dark]"
+                            className="w-full px-2 py-1 text-xs bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 text-gray-900 dark:text-white dark:[color-scheme:dark]"
                           />
                           <input
                             type="date"
@@ -328,7 +328,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                             onChange={(e) => updateEditDateRange(index, 'end', e.target.value)}
                             min={range.start || new Date().toISOString().split('T')[0]}
                             placeholder="To"
-                            className="w-full px-2 py-1 text-xs bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 text-gray-900 dark:text-white dark:[color-scheme:dark]"
+                            className="w-full px-2 py-1 text-xs bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 text-gray-900 dark:text-white dark:[color-scheme:dark]"
                           />
                         </div>
                         {editDateRanges.length > 1 && (
@@ -345,7 +345,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                     ))}
                     <button
                       onClick={addEditDateRange}
-                      className="flex items-center gap-1 text-xs text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
+                      className="flex items-center gap-1 text-xs text-amber-800 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 transition-colors"
                     >
                       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v12m6-6H6" />
@@ -362,7 +362,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
             ) : (
               <button
                 onClick={() => startEditing('date')}
-                className="group flex items-center gap-2 text-base text-gray-900 dark:text-white font-light hover:text-rose-600 dark:hover:text-rose-400 transition-colors text-left cursor-pointer"
+                className="group flex items-center gap-2 text-base text-gray-900 dark:text-white font-light hover:text-amber-800 dark:hover:text-amber-700 transition-colors text-left cursor-pointer"
               >
                 <span>{formatDate(localWedding)}</span>
                 <EditIcon />
@@ -373,8 +373,8 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
 
         {/* Location */}
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-stone-100 to-stone-200 dark:from-stone-800/20 dark:to-indigo-900/30 flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-stone-700 dark:text-stone-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
@@ -392,8 +392,8 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                     }}
                     className={`px-2.5 py-1 text-xs rounded-lg border transition-colors ${
                       locationMode === 'preset'
-                        ? 'bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300'
-                        : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-rose-300 dark:hover:border-rose-600'
+                        ? 'bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-300'
+                        : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-amber-300 dark:hover:border-amber-800'
                     }`}
                   >
                     Region
@@ -405,8 +405,8 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                     }}
                     className={`px-2.5 py-1 text-xs rounded-lg border transition-colors ${
                       locationMode === 'custom'
-                        ? 'bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300'
-                        : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-rose-300 dark:hover:border-rose-600'
+                        ? 'bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-300'
+                        : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-amber-300 dark:hover:border-amber-800'
                     }`}
                   >
                     Custom
@@ -416,7 +416,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                   <select
                     value={editLocation}
                     onChange={e => setEditLocation(e.target.value)}
-                    className="w-full px-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 text-gray-900 dark:text-white"
                   >
                     <option value="">Select...</option>
                     {LOCATION_OPTIONS.map(loc => (
@@ -429,7 +429,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                     value={editLocation}
                     onChange={e => setEditLocation(e.target.value)}
                     placeholder="e.g. Coogee, Wollongong"
-                    className="w-full px-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 text-gray-900 dark:text-white"
                   />
                 )}
                 <SaveCancelButtons onSave={saveField} onCancel={cancelEditing} saving={saving} />
@@ -437,7 +437,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
             ) : (
               <button
                 onClick={() => startEditing('location')}
-                className="group flex items-center gap-2 text-base text-gray-900 dark:text-white font-light hover:text-rose-600 dark:hover:text-rose-400 transition-colors text-left cursor-pointer"
+                className="group flex items-center gap-2 text-base text-gray-900 dark:text-white font-light hover:text-amber-800 dark:hover:text-amber-700 transition-colors text-left cursor-pointer"
               >
                 <span>{localWedding.location || 'Not set'}</span>
                 <EditIcon />
@@ -448,8 +448,8 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
 
         {/* Guest Count */}
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-100 to-rose-100 dark:from-pink-900/30 dark:to-rose-900/30 flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5 text-pink-600 dark:text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100 dark:from-stone-800/20 dark:to-amber-950/20 flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-amber-700 dark:text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           </div>
@@ -464,7 +464,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                   min={1}
                   max={1000}
                   placeholder="Enter guest count"
-                  className="w-full px-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 text-gray-900 dark:text-white"
                 />
                 <div className="flex flex-wrap gap-1.5 mt-2">
                   {GUEST_PRESETS.map(p => (
@@ -473,8 +473,8 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                       onClick={() => setEditGuestCount(p.value.toString())}
                       className={`px-2 py-1 text-xs rounded-md border transition-colors ${
                         editGuestCount === p.value.toString()
-                          ? 'bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300'
-                          : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-rose-300 dark:hover:border-rose-600'
+                          ? 'bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-300'
+                          : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-amber-300 dark:hover:border-amber-800'
                       }`}
                     >
                       {p.label}
@@ -486,7 +486,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
             ) : (
               <button
                 onClick={() => startEditing('guestCount')}
-                className="group flex items-center gap-2 text-base text-gray-900 dark:text-white font-light hover:text-rose-600 dark:hover:text-rose-400 transition-colors text-left cursor-pointer"
+                className="group flex items-center gap-2 text-base text-gray-900 dark:text-white font-light hover:text-amber-800 dark:hover:text-amber-700 transition-colors text-left cursor-pointer"
               >
                 <span>{localWedding.guestCount || 'Not set'}</span>
                 <EditIcon />
@@ -515,7 +515,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                     min={0}
                     step={1000}
                     placeholder="Enter budget"
-                    className="w-full pl-7 pr-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 text-gray-900 dark:text-white"
+                    className="w-full pl-7 pr-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 text-gray-900 dark:text-white"
                   />
                 </div>
                 <div className="flex flex-wrap gap-1.5 mt-2">
@@ -525,8 +525,8 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                       onClick={() => setEditBudget(p.value.toString())}
                       className={`px-2 py-1 text-xs rounded-md border transition-colors ${
                         editBudget === p.value.toString()
-                          ? 'bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300'
-                          : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-rose-300 dark:hover:border-rose-600'
+                          ? 'bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-300'
+                          : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-amber-300 dark:hover:border-amber-800'
                       }`}
                     >
                       {p.label}
@@ -538,7 +538,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
             ) : (
               <button
                 onClick={() => startEditing('budget')}
-                className="group flex items-center gap-2 text-base text-gray-900 dark:text-white font-light hover:text-rose-600 dark:hover:text-rose-400 transition-colors text-left cursor-pointer"
+                className="group flex items-center gap-2 text-base text-gray-900 dark:text-white font-light hover:text-amber-800 dark:hover:text-amber-700 transition-colors text-left cursor-pointer"
               >
                 <span>{formatBudget(localWedding.budgetTotal)}</span>
                 <EditIcon />
@@ -561,7 +561,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
                 <select
                   value={editStyle}
                   onChange={e => setEditStyle(e.target.value)}
-                  className="w-full px-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500 text-gray-900 dark:text-white"
+                  className="w-full px-3 py-1.5 text-sm bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30 text-gray-900 dark:text-white"
                 >
                   <option value="">Select...</option>
                   {STYLE_OPTIONS.map(s => (
@@ -573,7 +573,7 @@ export default function WeddingSummaryCard({ wedding }: { wedding: WeddingData }
             ) : (
               <button
                 onClick={() => startEditing('style')}
-                className="group flex items-center gap-2 text-base text-gray-900 dark:text-white font-light hover:text-rose-600 dark:hover:text-rose-400 transition-colors text-left cursor-pointer"
+                className="group flex items-center gap-2 text-base text-gray-900 dark:text-white font-light hover:text-amber-800 dark:hover:text-amber-700 transition-colors text-left cursor-pointer"
               >
                 <span>{localWedding.style || 'Not set'}</span>
                 <EditIcon />

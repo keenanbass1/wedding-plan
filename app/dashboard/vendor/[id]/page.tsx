@@ -71,22 +71,22 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
   const status = getStatusInfo()
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
+    <main className="relative min-h-screen bg-stone-50 dark:bg-gray-950">
       <Header />
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
       </div>
 
       <div className="relative">
         {/* Header */}
-        <div className="border-b border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl">
+        <div className="border-b border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900">
           <div className="max-w-5xl mx-auto px-6 py-8">
             <Link
               href="/dashboard/outreach"
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-rose-500 transition-colors duration-300 group mb-6"
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-amber-700 transition-colors duration-300 group mb-6"
             >
               <svg
                 className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -107,12 +107,12 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
             <div className="flex items-start justify-between mb-6">
               <div>
                 <h1 className="text-4xl font-serif font-light tracking-tight mb-3">
-                  <span className="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+                  <span className="bg-stone-900 dark:bg-stone-100 bg-clip-text text-transparent">
                     {vendor.name}
                   </span>
                 </h1>
                 <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
-                  <span className="px-3 py-1 bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 rounded-lg font-medium">
+                  <span className="px-3 py-1 bg-amber-50 dark:bg-amber-950/20 text-amber-900 dark:text-amber-300 rounded-lg font-medium">
                     {vendor.category}
                   </span>
                   <div className="flex items-center gap-1.5">
@@ -142,7 +142,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                       href={vendor.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 hover:underline"
+                      className="flex items-center gap-1.5 text-stone-700 dark:text-stone-300 hover:text-purple-700 dark:hover:text-stone-400 hover:underline"
                     >
                       <svg
                         className="w-4 h-4"
@@ -163,7 +163,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                 </div>
               </div>
 
-              <div className="px-4 py-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50">
+              <div className="px-4 py-2 bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-700">
                 <div className="text-2xl mb-1">{status.icon}</div>
                 <div className="text-xs text-gray-600 dark:text-gray-300 font-medium">{status.label}</div>
               </div>
@@ -173,9 +173,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
 
         <div className="max-w-5xl mx-auto px-6 py-12 space-y-8">
           {/* Email Sent */}
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn">
+          <div className="bg-white dark:bg-stone-900 rounded-xl p-8 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 animate-fadeIn">
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-300" />
               <h2 className="text-2xl font-serif font-medium text-gray-900 dark:text-white">Email Sent</h2>
             </div>
 
@@ -266,7 +266,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
           {/* Response Section */}
           {outreach.replied && outreach.responseEmail ? (
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white dark:bg-stone-900 rounded-xl p-8 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 animate-fadeIn"
               style={{ animationDelay: '100ms' }}
             >
               <div className="flex items-center gap-3 mb-6">
@@ -285,8 +285,8 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                 </div>
 
                 {outreach.quote && (
-                  <div className="flex items-center gap-3 p-4 bg-purple-50/50 dark:bg-purple-900/30 rounded-xl border border-purple-200/50 dark:border-purple-700/50">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white flex-shrink-0">
+                  <div className="flex items-center gap-3 p-4 bg-stone-100/50 dark:bg-stone-800/30 rounded-xl border border-stone-200/50 dark:border-stone-700">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-stone-600 to-amber-600 flex items-center justify-center text-white flex-shrink-0">
                       <svg
                         className="w-5 h-5"
                         fill="none"
@@ -342,11 +342,11 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
             </div>
           ) : (
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white dark:bg-stone-900 rounded-xl p-8 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 animate-fadeIn"
               style={{ animationDelay: '100ms' }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-purple-300" />
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-stone-300" />
                 <h2 className="text-2xl font-serif font-medium text-gray-900 dark:text-white">Add Response</h2>
               </div>
 
@@ -362,11 +362,11 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
           {/* Notes */}
           {outreach.notes && (
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white dark:bg-stone-900 rounded-xl p-8 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 animate-fadeIn"
               style={{ animationDelay: '200ms' }}
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-300" />
                 <h2 className="text-2xl font-serif font-medium text-gray-900 dark:text-white">Notes</h2>
               </div>
               <p className="text-gray-700 dark:text-gray-200 font-light leading-relaxed">{outreach.notes}</p>

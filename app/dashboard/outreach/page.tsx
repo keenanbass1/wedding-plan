@@ -101,22 +101,22 @@ export default async function OutreachTrackingPage() {
   }
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
+    <main className="relative min-h-screen bg-stone-50 dark:bg-gray-950">
       <Header />
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
       </div>
 
       <div className="relative">
         {/* Header */}
-        <div className="border-b border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl">
+        <div className="border-b border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900">
           <div className="max-w-7xl mx-auto px-6 py-8">
             <Link
               href="/dashboard"
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-rose-500 transition-colors duration-300 group mb-6"
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-amber-700 transition-colors duration-300 group mb-6"
             >
               <svg
                 className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -135,15 +135,15 @@ export default async function OutreachTrackingPage() {
             </Link>
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
-              <svg className="w-5 h-5 text-rose-400" viewBox="0 0 24 24" fill="currentColor">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-300" />
+              <svg className="w-5 h-5 text-amber-700" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-300" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-stone-300" />
             </div>
 
             <h1 className="text-5xl font-serif font-light tracking-tight mb-4">
-              <span className="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="bg-stone-900 dark:bg-stone-100 bg-clip-text text-transparent">
                 Vendor Outreach
               </span>
             </h1>
@@ -157,11 +157,11 @@ export default async function OutreachTrackingPage() {
         {/* Outreach Table */}
         <div className="max-w-7xl mx-auto px-6 py-12">
           {outreach.length > 0 ? (
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 overflow-hidden">
+            <div className="bg-white dark:bg-stone-900 rounded-xl shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-100/50 dark:border-gray-700/50">
+                    <tr className="border-b border-stone-100 dark:border-stone-800">
                       <th className="px-3 sm:px-6 py-4 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                         Vendor
                       </th>
@@ -189,7 +189,7 @@ export default async function OutreachTrackingPage() {
                         red: 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800',
                         green: 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800',
                         blue: 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800',
-                        purple: 'bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 border-purple-200 dark:border-purple-800',
+                        purple: 'bg-stone-100 dark:bg-stone-800/30 text-purple-700 dark:text-stone-500 border-stone-200 dark:border-purple-800',
                         gray: 'bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-600',
                         yellow: 'bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800',
                       }
@@ -197,12 +197,12 @@ export default async function OutreachTrackingPage() {
                       return (
                         <tr
                           key={o.id}
-                          className="hover:bg-rose-50/30 dark:hover:bg-rose-900/10 transition-colors animate-fadeIn"
+                          className="hover:bg-amber-50/30 dark:hover:bg-stone-800/30 transition-colors animate-fadeIn"
                           style={{ animationDelay: `${idx * 50}ms` }}
                         >
                           <td className="px-3 sm:px-6 py-4">
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/40 dark:to-pink-900/40 flex items-center justify-center flex-shrink-0 text-rose-600 dark:text-rose-400">
+                              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/30 dark:to-amber-900/20 flex items-center justify-center flex-shrink-0 text-amber-800 dark:text-amber-400">
                                 {getCategoryIcon(o.vendor.category)}
                               </div>
                               <div className="min-w-0">
@@ -254,7 +254,7 @@ export default async function OutreachTrackingPage() {
                           <td className="px-3 sm:px-6 py-4 text-right">
                             <Link
                               href={`/dashboard/vendor/${o.vendorId}`}
-                              className="inline-flex items-center gap-1 text-sm font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 transition-colors"
+                              className="inline-flex items-center gap-1 text-sm font-medium text-amber-800 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 transition-colors"
                             >
                               <span className="hidden sm:inline">View Details</span>
                               <span className="sm:hidden">View</span>
@@ -282,9 +282,9 @@ export default async function OutreachTrackingPage() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/40 dark:to-pink-900/40 rounded-full flex items-center justify-center">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/30 dark:to-amber-900/20 rounded-full flex items-center justify-center">
                 <svg
-                  className="w-10 h-10 text-rose-400"
+                  className="w-10 h-10 text-amber-700"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -304,8 +304,8 @@ export default async function OutreachTrackingPage() {
                 Start by browsing vendors and sending your first inquiry
               </p>
               <Link href="/vendors" className="group relative inline-block">
-                <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 to-purple-400 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-                <div className="relative px-8 py-4 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                <div className="absolute -inset-1 bg-stone-900 dark:bg-stone-100 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                <div className="relative px-8 py-4 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-xl font-medium hover:shadow-lg dark:hover:shadow-gray-900/30 hover:scale-105 transition-all duration-300 flex items-center gap-2">
                   <span>Browse Vendors</span>
                   <svg
                     className="w-5 h-5 group-hover:translate-x-1 transition-transform"

@@ -3,15 +3,15 @@ import Header from '@/components/Header'
 
 export default function ChatPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
+    <div className="relative min-h-screen overflow-hidden bg-stone-50 dark:bg-gray-950">
       {/* Enhanced decorative background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-rose-200/20 to-pink-200/10 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-purple-200/20 to-pink-200/10 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl animate-float-delayed" />
-        <div className="absolute top-1/3 left-1/3 w-64 h-64 bg-pink-100/10 dark:bg-pink-900/10 rounded-full blur-2xl" />
+        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-stone-200/15 to-stone-100/10 dark:from-stone-800/15 dark:to-stone-900/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-stone-200/15 to-stone-100/10 dark:from-stone-800/15 dark:to-stone-800/10 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute top-1/3 left-1/3 w-64 h-64 bg-stone-100/10 dark:bg-stone-800/10 rounded-full blur-2xl" />
 
         {/* Delicate floral accent */}
-        <div className="absolute top-32 right-1/4 text-rose-200/20 dark:text-rose-800/20 animate-float">
+        <div className="absolute top-32 right-1/4 text-stone-200/15 dark:text-stone-700/15 animate-float">
           <svg className="w-24 h-24" viewBox="0 0 200 200" fill="currentColor">
             <path d="M100 40c-8 0-15 7-15 15 0-8-7-15-15-15s-15 7-15 15c0 15 15 30 30 45 15-15 30-30 30-45 0-8-7-15-15-15z" />
             <circle cx="100" cy="100" r="6" opacity="0.5" />
@@ -35,15 +35,15 @@ export default function ChatPage() {
               className="flex items-center justify-center gap-3 animate-fadeIn"
               style={{ animationDelay: '100ms' }}
             >
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
-              <svg className="w-4 h-4 text-rose-400" viewBox="0 0 24 24" fill="currentColor">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-300" />
+              <svg className="w-4 h-4 text-amber-700" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-300" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-stone-300" />
             </div>
 
             <div className="inline-block animate-fadeIn" style={{ animationDelay: '200ms' }}>
-              <span className="text-sm font-medium tracking-[0.3em] text-rose-600 dark:text-rose-400 uppercase">
+              <span className="text-sm font-medium tracking-[0.3em] text-amber-800 dark:text-amber-400 uppercase">
                 Bower Assistant
               </span>
             </div>
@@ -53,7 +53,7 @@ export default function ChatPage() {
               style={{ animationDelay: '300ms' }}
             >
               <span className="block text-gray-900 dark:text-white mb-2">Let&apos;s Create</span>
-              <span className="block bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
+              <span className="block bg-stone-900 dark:bg-stone-100 bg-clip-text text-transparent animate-gradient">
                 Your Perfect Day
               </span>
             </h1>
@@ -77,16 +77,16 @@ export default function ChatPage() {
           >
             {/* Decorative divider */}
             <div className="flex items-center justify-center gap-4">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent via-rose-200 to-transparent" />
-              <svg className="w-3 h-3 text-rose-300 dark:text-rose-700" viewBox="0 0 24 24" fill="currentColor">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
+              <svg className="w-3 h-3 text-amber-600 dark:text-amber-700" viewBox="0 0 24 24" fill="currentColor">
                 <circle cx="12" cy="12" r="3" />
               </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent via-purple-200 to-transparent" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent via-stone-200 to-transparent" />
             </div>
 
             <div className="flex items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
-              <div className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-full border border-white/50 dark:border-gray-700/50 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300">
-                <svg className="w-4 h-4 text-rose-400" fill="currentColor" viewBox="0 0 20 20">
+              <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-stone-900 rounded-full border border-stone-200 dark:border-stone-800 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300">
+                <svg className="w-4 h-4 text-amber-700" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
                     d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -95,8 +95,8 @@ export default function ChatPage() {
                 </svg>
                 <span className="font-light">Secure & Private</span>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-full border border-white/50 dark:border-gray-700/50 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300">
-                <div className="w-5 h-5 rounded-md bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
+              <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-stone-900 rounded-full border border-stone-200 dark:border-stone-800 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300">
+                <div className="w-5 h-5 rounded-md bg-gradient-to-br from-stone-600 to-amber-600 flex items-center justify-center">
                   <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>

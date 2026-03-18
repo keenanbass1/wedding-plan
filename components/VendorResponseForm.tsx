@@ -48,7 +48,7 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {error && (
-        <div className="p-4 bg-red-50/80 dark:bg-red-900/30 backdrop-blur-sm border border-red-200/50 dark:border-red-700/50 rounded-2xl animate-fadeIn">
+        <div className="p-4 bg-red-50/80 dark:bg-red-900/30 border border-red-200/50 dark:border-red-700/50 rounded-2xl animate-fadeIn">
           <p className="text-sm text-red-600 dark:text-red-400 font-light">{error}</p>
         </div>
       )}
@@ -56,7 +56,7 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
       {/* Response Email */}
       <div>
         <label htmlFor="responseEmail" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-          Vendor&apos;s Response <span className="text-rose-500 dark:text-rose-400">*</span>
+          Vendor&apos;s Response <span className="text-amber-700 dark:text-amber-400">*</span>
         </label>
         <textarea
           id="responseEmail"
@@ -65,7 +65,7 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
           required
           disabled={loading}
           rows={8}
-          className="w-full px-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-light leading-relaxed text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+          className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-700/20 focus:border-amber-700/40 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-light leading-relaxed text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
           placeholder="Paste the vendor's email response here..."
         />
       </div>
@@ -87,7 +87,7 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
             disabled={loading}
             step="0.01"
             min="0"
-            className="w-full pl-8 pr-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+            className="w-full pl-8 pr-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-700/20 focus:border-amber-700/40 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
             placeholder="0.00"
           />
         </div>
@@ -107,7 +107,7 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
           onChange={e => setNotes(e.target.value)}
           disabled={loading}
           rows={3}
-          className="w-full px-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-rose-500 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-light text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+          className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-700/20 focus:border-amber-700/40 focus:border-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-light text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
           placeholder="Add any additional notes about this vendor..."
         />
       </div>
@@ -118,8 +118,8 @@ export function VendorResponseForm({ outreachId }: VendorResponseFormProps) {
         disabled={loading || !responseEmail}
         className="group relative w-full disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 to-purple-400 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-        <div className="relative w-full px-6 py-3 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2">
+        <div className="absolute -inset-1 bg-stone-900 dark:bg-stone-100 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+        <div className="relative w-full px-6 py-3 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-xl font-medium hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2">
           {loading ? (
             <>
               <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">

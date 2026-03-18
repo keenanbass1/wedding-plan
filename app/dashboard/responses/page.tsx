@@ -44,22 +44,22 @@ export default async function ResponsesPage() {
   })
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
+    <main className="relative min-h-screen bg-stone-50 dark:bg-gray-950">
       <Header />
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
       </div>
 
       <div className="relative">
         {/* Header */}
-        <div className="border-b border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl">
+        <div className="border-b border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900">
           <div className="max-w-7xl mx-auto px-6 py-8">
             <Link
               href="/dashboard"
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-rose-500 transition-colors duration-300 group mb-6"
+              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-amber-700 transition-colors duration-300 group mb-6"
             >
               <svg
                 className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -78,15 +78,15 @@ export default async function ResponsesPage() {
             </Link>
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
-              <svg className="w-5 h-5 text-rose-400" viewBox="0 0 24 24" fill="currentColor">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-300" />
+              <svg className="w-5 h-5 text-amber-700" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-300" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-stone-300" />
             </div>
 
             <h1 className="text-5xl font-serif font-light tracking-tight mb-4">
-              <span className="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="bg-stone-900 dark:bg-stone-100 bg-clip-text text-transparent">
                 Vendor Responses
               </span>
             </h1>
@@ -107,7 +107,7 @@ export default async function ResponsesPage() {
                 <Link
                   key={response.id}
                   href={`/dashboard/vendor/${response.vendorId}`}
-                  className="block group bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl overflow-hidden shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 hover:shadow-2xl hover:border-rose-200 dark:hover:border-rose-700 transition-all duration-300 animate-fadeIn"
+                  className="block group bg-white dark:bg-stone-900 rounded-xl overflow-hidden shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 hover:shadow-2xl hover:border-amber-200 dark:hover:border-amber-900 transition-all duration-300 animate-fadeIn"
                   style={{ animationDelay: `${idx * 100}ms` }}
                 >
                   <div className="p-8">
@@ -115,10 +115,10 @@ export default async function ResponsesPage() {
                     <div className="flex items-start justify-between mb-6">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-2xl font-serif font-medium text-gray-900 dark:text-white group-hover:text-rose-600 transition-colors">
+                          <h3 className="text-2xl font-serif font-medium text-gray-900 dark:text-white group-hover:text-amber-800 transition-colors">
                             {response.vendor.name}
                           </h3>
-                          <span className="px-2.5 py-1 bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 rounded-lg text-xs font-medium">
+                          <span className="px-2.5 py-1 bg-amber-50 dark:bg-amber-950/20 text-amber-900 dark:text-amber-300 rounded-lg text-xs font-medium">
                             {response.vendor.category}
                           </span>
                         </div>
@@ -173,9 +173,9 @@ export default async function ResponsesPage() {
                       <div className="flex items-center gap-4">
                         {response.quote && (
                           <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-stone-100 to-amber-100 dark:from-stone-800/50 dark:to-stone-800/30 flex items-center justify-center">
                               <svg
-                                className="w-4 h-4 text-purple-600"
+                                className="w-4 h-4 text-stone-700"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -198,7 +198,7 @@ export default async function ResponsesPage() {
                         )}
                       </div>
 
-                      <div className="flex items-center gap-2 text-sm font-medium text-rose-600 group-hover:text-rose-700">
+                      <div className="flex items-center gap-2 text-sm font-medium text-amber-800 group-hover:text-amber-900">
                         <span>View Details</span>
                         <svg
                           className="w-5 h-5 group-hover:translate-x-1 transition-transform"
@@ -221,9 +221,9 @@ export default async function ResponsesPage() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-900/50 dark:to-indigo-900/50 rounded-full flex items-center justify-center">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-stone-100 to-stone-200 dark:from-stone-800/50 dark:to-indigo-900/50 rounded-full flex items-center justify-center">
                 <svg
-                  className="w-10 h-10 text-purple-400"
+                  className="w-10 h-10 text-stone-500"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -244,7 +244,7 @@ export default async function ResponsesPage() {
               </p>
               <Link
                 href="/dashboard/outreach"
-                className="inline-flex items-center gap-2 text-rose-600 hover:text-rose-700 font-medium hover:underline transition-colors"
+                className="inline-flex items-center gap-2 text-amber-800 hover:text-amber-900 font-medium hover:underline transition-colors"
               >
                 View All Outreach
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

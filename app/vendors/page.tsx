@@ -64,23 +64,23 @@ export default async function VendorsPage() {
   ]
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
+    <main className="relative min-h-screen bg-stone-50 dark:bg-gray-950">
       <Header />
       {/* Elegant background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
       </div>
 
       <div className="relative">
         {/* Header */}
-        <div className="border-b border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl">
+        <div className="border-b border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900">
           <div className="max-w-7xl mx-auto px-6 py-8">
             <div className="flex items-center justify-between mb-6">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-rose-500 transition-colors duration-300 group"
+                className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-amber-700 transition-colors duration-300 group"
               >
                 <svg
                   className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300"
@@ -100,7 +100,7 @@ export default async function VendorsPage() {
 
               <Link
                 href="/dashboard"
-                className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium hover:underline transition-colors"
+                className="text-sm text-stone-700 dark:text-stone-300 hover:text-purple-700 dark:hover:text-stone-400 font-medium hover:underline transition-colors"
               >
                 View Dashboard
               </Link>
@@ -108,15 +108,15 @@ export default async function VendorsPage() {
 
             {/* Decorative header */}
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
-              <svg className="w-5 h-5 text-rose-400" viewBox="0 0 24 24" fill="currentColor">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-300" />
+              <svg className="w-5 h-5 text-amber-700" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-300" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-stone-300" />
             </div>
 
             <h1 className="text-5xl font-serif font-light tracking-tight mb-4">
-              <span className="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="bg-stone-900 dark:bg-stone-100 bg-clip-text text-transparent">
                 Your Perfect Matches
               </span>
             </h1>
@@ -124,7 +124,7 @@ export default async function VendorsPage() {
             <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
               <div className="flex items-center gap-2">
                 <svg
-                  className="w-4 h-4 text-rose-400"
+                  className="w-4 h-4 text-amber-700"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -149,7 +149,7 @@ export default async function VendorsPage() {
                   <div className="h-1 w-1 rounded-full bg-gray-300 dark:bg-gray-600" />
                   <div className="flex items-center gap-2">
                     <svg
-                      className="w-4 h-4 text-purple-400"
+                      className="w-4 h-4 text-stone-500"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -170,7 +170,7 @@ export default async function VendorsPage() {
                   <div className="h-1 w-1 rounded-full bg-gray-300 dark:bg-gray-600" />
                   <div className="flex items-center gap-2">
                     <svg
-                      className="w-4 h-4 text-pink-400"
+                      className="w-4 h-4 text-amber-600"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

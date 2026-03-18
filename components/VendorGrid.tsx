@@ -245,7 +245,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
   return (
     <div className="space-y-8">
       {/* Filter Bar */}
-      <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-4 sm:p-5 border border-white/50 dark:border-gray-700/50 shadow-sm">
+      <div className="bg-white dark:bg-stone-900 rounded-2xl p-4 sm:p-5 border border-stone-200 dark:border-stone-800 shadow-sm">
         <div className="space-y-3">
           {/* Top row: filter label + sort + clear */}
           <div className="flex items-center justify-between">
@@ -255,7 +255,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
               </svg>
               <span className="text-sm font-medium">Filters</span>
               {hasActiveFilters && (
-                <span className="px-1.5 py-0.5 text-[10px] font-medium bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 rounded-full">
+                <span className="px-1.5 py-0.5 text-[10px] font-medium bg-amber-100 dark:bg-amber-950/30 text-amber-900 dark:text-amber-300 rounded-full">
                   {categoryFilter.size + styleFilter.size + priceFilter.size}
                 </span>
               )}
@@ -265,7 +265,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
               {hasActiveFilters && (
                 <button
                   onClick={clearAllFilters}
-                  className="text-xs text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-medium transition-colors"
+                  className="text-xs text-amber-800 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 font-medium transition-colors"
                 >
                   Clear all
                 </button>
@@ -273,7 +273,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
               <select
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value as SortOption)}
-                className="px-3 py-2 text-sm font-medium bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 dark:focus:ring-rose-500"
+                className="px-3 py-2 text-sm font-medium bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-amber-600 dark:focus:ring-amber-700/30"
               >
                 <option value="score">Best Match</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -295,8 +295,8 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
                     onClick={() => toggleSet(setCategoryFilter, cat)}
                     className={`px-4 py-2 text-sm font-medium rounded-lg border transition-all ${
                       categoryFilter.has(cat)
-                        ? 'bg-rose-50 dark:bg-rose-900/30 border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300'
-                        : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-rose-300 dark:hover:border-rose-600'
+                        ? 'bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-800 text-amber-900 dark:text-amber-300'
+                        : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-amber-300 dark:hover:border-amber-800'
                     }`}
                   >
                     {categoryLabels[cat]}
@@ -318,8 +318,8 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
                   onClick={() => setStyleDropdownOpen(!styleDropdownOpen)}
                   className={`px-4 py-2 text-sm font-medium rounded-lg border transition-all inline-flex items-center gap-2 ${
                     styleFilter.size > 0
-                      ? 'bg-purple-50 dark:bg-purple-900/30 border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-300'
-                      : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-purple-300 dark:hover:border-purple-600'
+                      ? 'bg-stone-100 dark:bg-stone-800/30 border-stone-300 dark:border-purple-600 text-purple-700 dark:text-stone-400'
+                      : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-stone-300 dark:hover:border-purple-600'
                   }`}
                 >
                   <span>
@@ -348,7 +348,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
                               e.stopPropagation()
                               setStyleFilter(new Set())
                             }}
-                            className="text-xs text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium"
+                            className="text-xs text-stone-700 dark:text-stone-300 hover:text-purple-700 dark:hover:text-stone-400 font-medium"
                           >
                             Clear
                           </button>
@@ -364,7 +364,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
                               type="checkbox"
                               checked={styleFilter.has(style)}
                               onChange={() => toggleSet(setStyleFilter, style)}
-                              className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-purple-600 focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 cursor-pointer"
+                              className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-stone-700 focus:ring-2 focus:ring-stone-600 dark:bg-gray-700 cursor-pointer"
                             />
                             <span className="text-sm text-gray-700 dark:text-gray-200 flex-1">
                               {style}
@@ -414,10 +414,10 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
 
       {/* Header with selection counter */}
       {selectedVendors.size > 0 && (
-        <div className="sticky top-0 z-20 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-700/50 -mx-6 px-6 py-4 animate-fadeIn">
+        <div className="sticky top-0 z-20 bg-white/95 dark:bg-gray-800/95 border-b border-stone-200 dark:border-stone-700 -mx-6 px-6 py-4 animate-fadeIn">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-rose-400 to-pink-400 rounded-full flex items-center justify-center text-white font-medium">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-600 to-amber-600 rounded-full flex items-center justify-center text-white font-medium">
                 {selectedVendors.size}
               </div>
               <div>
@@ -435,8 +435,8 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
               onClick={() => onContactSelected(Array.from(selectedVendors))}
               className="group relative"
             >
-              <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 to-purple-400 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-              <div className="relative px-6 py-3 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
+              <div className="absolute -inset-1 bg-stone-900 dark:bg-stone-100 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+              <div className="relative px-6 py-3 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
                     strokeLinecap="round"
@@ -478,7 +478,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
             {/* Category header */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-100 dark:from-rose-900/30 to-pink-100 dark:to-pink-900/30 flex items-center justify-center text-rose-500">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-100 dark:from-amber-950/20 to-amber-100 dark:to-amber-950/20 flex items-center justify-center text-amber-700">
                   {categoryIcons[categoryKey]}
                 </div>
                 <div>
@@ -498,14 +498,14 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
                 {allSelectedInCategory ? (
                   <button
                     onClick={() => deselectAllInCategory(categoryKey)}
-                    className="px-4 py-2 text-sm font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-amber-800 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/20 rounded-lg transition-colors"
                   >
                     Deselect All
                   </button>
                 ) : (
                   <button
                     onClick={() => selectAllInCategory(categoryKey)}
-                    className="px-4 py-2 text-sm font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors"
+                    className="px-4 py-2 text-sm font-medium text-amber-800 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/20 rounded-lg transition-colors"
                   >
                     Select All
                   </button>
@@ -533,9 +533,9 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
       {/* Empty state - no matches at all */}
       {matches.length === 0 && (
         <div className="text-center py-16">
-          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-rose-100 dark:from-rose-900/30 to-pink-100 dark:to-pink-900/30 rounded-full flex items-center justify-center">
+          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-amber-100 dark:from-amber-950/20 to-amber-100 dark:to-amber-950/20 rounded-full flex items-center justify-center">
             <svg
-              className="w-10 h-10 text-rose-400"
+              className="w-10 h-10 text-amber-700"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -556,9 +556,9 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
       {/* Empty state - filters too restrictive */}
       {matches.length > 0 && filteredMatches.length === 0 && (
         <div className="text-center py-16">
-          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-purple-100 dark:from-purple-900/30 to-pink-100 dark:to-pink-900/30 rounded-full flex items-center justify-center">
+          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-stone-100 dark:from-stone-800/20 to-amber-100 dark:to-amber-950/20 rounded-full flex items-center justify-center">
             <svg
-              className="w-10 h-10 text-purple-400"
+              className="w-10 h-10 text-stone-500"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -579,7 +579,7 @@ export function VendorGrid({ matches, onContactSelected }: VendorGridProps) {
           </p>
           <button
             onClick={clearAllFilters}
-            className="text-sm text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-medium hover:underline transition-colors"
+            className="text-sm text-amber-800 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 font-medium hover:underline transition-colors"
           >
             Clear all filters
           </button>

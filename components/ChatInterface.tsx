@@ -111,18 +111,18 @@ export default function ChatInterface() {
 
   return (
     <div
-      className="flex flex-col min-h-[500px] max-h-[90vh] sm:h-[700px] max-w-5xl mx-auto rounded-3xl shadow-2xl dark:shadow-gray-900/30 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-white/50 dark:border-gray-700/50 overflow-hidden animate-fadeIn"
+      className="flex flex-col min-h-[500px] max-h-[90vh] sm:h-[700px] max-w-5xl mx-auto rounded-xl shadow-2xl dark:shadow-gray-900/30 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 overflow-hidden animate-fadeIn"
       style={{ animationDelay: '500ms' }}
     >
       {/* Enhanced Elegant Header */}
-      <div className="relative p-6 bg-gradient-to-r from-rose-50/80 via-pink-50/60 to-purple-50/80 dark:from-rose-900/30 dark:via-pink-900/20 dark:to-purple-900/30 backdrop-blur-sm border-b border-white/50 dark:border-gray-700/50">
+      <div className="relative p-6 bg-gradient-to-r from-amber-50/80 via-stone-50/60 to-stone-100/80 dark:from-amber-950/20 dark:via-pink-900/20 dark:to-stone-800/20 border-b border-stone-200 dark:border-stone-800">
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.02)_1px,transparent_0)] bg-[size:24px_24px]" />
 
         <div className="relative flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Elegant icon */}
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-400 to-purple-400 flex items-center justify-center shadow-md">
+            <div className="w-12 h-12 rounded-2xl bg-stone-900 dark:bg-stone-100 flex items-center justify-center shadow-md">
               <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
@@ -136,17 +136,17 @@ export default function ChatInterface() {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-green-200/50">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-stone-900 rounded-full border border-green-200/50">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-sm shadow-green-400/50" />
             <span className="text-xs text-gray-600 dark:text-gray-300 font-medium">Online</span>
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rose-300/50 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-300/50 to-transparent" />
       </div>
 
       {/* Enhanced Messages Container */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gradient-to-b from-white via-rose-50/10 to-purple-50/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
+      <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gradient-to-b from-white via-amber-50/10 to-stone-100/20 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
         {/* Subtle background pattern */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.015)_1px,transparent_0)] bg-[size:24px_24px] pointer-events-none" />
 
@@ -158,7 +158,7 @@ export default function ChatInterface() {
             >
               {msg.role === 'assistant' && (
                 <div className="flex-shrink-0 mr-3">
-                  <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-400 via-pink-400 to-purple-400 flex items-center justify-center shadow-lg dark:shadow-gray-900/30">
+                  <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-600 via-pink-400 to-stone-700 flex items-center justify-center shadow-lg dark:shadow-gray-900/30">
                     {/* Inner glow */}
                     <div className="absolute inset-0.5 bg-white/20 rounded-2xl" />
                     <svg
@@ -176,9 +176,9 @@ export default function ChatInterface() {
                 className={`max-w-[75%] rounded-2xl px-6 py-4 ${
                   msg.role === 'user'
                     ? msg.isQuickReply
-                      ? 'bg-gradient-to-br from-purple-100/90 to-purple-50/90 dark:from-purple-900/40 dark:to-purple-800/40 text-purple-900 dark:text-purple-200 border border-purple-200/50 dark:border-purple-700/50 shadow-md dark:shadow-gray-900/30 backdrop-blur-sm'
-                      : 'bg-gradient-to-br from-rose-400 via-pink-400 to-pink-500 text-white shadow-xl shadow-rose-300/40 dark:shadow-rose-900/40'
-                    : 'bg-white/95 dark:bg-gray-800/95 border border-gray-100/50 dark:border-gray-700/50 text-gray-800 dark:text-gray-200 shadow-lg dark:shadow-gray-900/30 backdrop-blur-sm'
+                      ? 'bg-gradient-to-br from-stone-100/90 to-stone-100/90 dark:from-stone-800/30 dark:to-stone-700/30 text-stone-800 dark:text-stone-200 border border-stone-200/50 dark:border-stone-700 shadow-md dark:shadow-gray-900/30'
+                      : 'bg-gradient-to-br from-amber-600 via-amber-500 to-amber-700 text-white shadow-xl shadow-stone-300/20 dark:shadow-stone-900/20'
+                    : 'bg-white/95 dark:bg-gray-800/95 border border-stone-100 dark:border-stone-800 text-gray-800 dark:text-gray-200 shadow-lg dark:shadow-gray-900/30'
                 }`}
               >
                 <p className="whitespace-pre-wrap leading-relaxed font-light">{msg.content}</p>
@@ -186,7 +186,7 @@ export default function ChatInterface() {
 
               {msg.role === 'user' && !msg.isQuickReply && (
                 <div className="flex-shrink-0 ml-3">
-                  <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-400 to-indigo-500 flex items-center justify-center text-white shadow-lg dark:shadow-gray-900/30">
+                  <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-stone-600 to-indigo-500 flex items-center justify-center text-white shadow-lg dark:shadow-gray-900/30">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
                         strokeLinecap="round"
@@ -213,14 +213,14 @@ export default function ChatInterface() {
                     <button
                       key={optIdx}
                       onClick={() => handleOptionClick(option)}
-                      className="group relative px-5 py-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-2 border-gray-200/50 dark:border-gray-700/50 hover:border-rose-300 dark:hover:border-rose-500 rounded-2xl text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-rose-600 dark:hover:text-rose-400 shadow-md dark:shadow-gray-900/30 hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
+                      className="group relative px-5 py-3 bg-white dark:bg-stone-900 border-2 border-stone-200 dark:border-stone-700 hover:border-amber-300 dark:hover:border-amber-700 rounded-2xl text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-amber-800 dark:hover:text-amber-700 shadow-md dark:shadow-gray-900/30 hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
                     >
                       {/* Gradient effect on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-rose-50 to-purple-50 dark:from-rose-900/30 dark:to-purple-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-amber-50 to-stone-100 dark:from-amber-950/20 dark:to-stone-800/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <span className="relative z-10">{option}</span>
 
                       {/* Decorative corner accent */}
-                      <div className="absolute top-0 right-0 w-2 h-2 bg-gradient-to-br from-rose-400 to-pink-400 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute top-0 right-0 w-2 h-2 bg-gradient-to-br from-amber-600 to-amber-600 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </button>
                   ))}
                 </div>
@@ -233,8 +233,8 @@ export default function ChatInterface() {
               !isLoading && (
                 <div className="ml-14 mt-4 animate-fadeIn" style={{ animationDelay: '300ms' }}>
                   <Link href="/vendors" className="group relative inline-block">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 to-purple-400 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-                    <div className="relative px-6 py-3 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                    <div className="absolute -inset-1 bg-stone-900 dark:bg-stone-100 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                    <div className="relative px-6 py-3 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
                       <svg
                         className="w-5 h-5"
                         fill="none"
@@ -272,7 +272,7 @@ export default function ChatInterface() {
         {isLoading && (
           <div className="flex justify-start animate-fadeIn relative">
             <div className="flex-shrink-0 mr-3">
-              <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-rose-400 via-pink-400 to-purple-400 flex items-center justify-center shadow-lg dark:shadow-gray-900/30">
+              <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-600 via-pink-400 to-stone-700 flex items-center justify-center shadow-lg dark:shadow-gray-900/30">
                 <div className="absolute inset-0.5 bg-white/20 rounded-2xl" />
                 <svg
                   className="w-5 h-5 text-white relative z-10"
@@ -283,15 +283,15 @@ export default function ChatInterface() {
                 </svg>
               </div>
             </div>
-            <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border border-gray-100/50 dark:border-gray-700/50 rounded-2xl px-6 py-4 shadow-lg dark:shadow-gray-900/30">
+            <div className="bg-white/95 dark:bg-gray-800/95 border border-stone-100 dark:border-stone-800 rounded-2xl px-6 py-4 shadow-lg dark:shadow-gray-900/30">
               <div className="flex items-center space-x-2">
-                <div className="w-2.5 h-2.5 bg-gradient-to-br from-rose-400 to-pink-400 rounded-full animate-bounce shadow-sm" />
+                <div className="w-2.5 h-2.5 bg-gradient-to-br from-amber-600 to-amber-600 rounded-full animate-bounce shadow-sm" />
                 <div
-                  className="w-2.5 h-2.5 bg-gradient-to-br from-pink-400 to-purple-400 rounded-full animate-bounce shadow-sm"
+                  className="w-2.5 h-2.5 bg-gradient-to-br from-amber-500 to-stone-700 rounded-full animate-bounce shadow-sm"
                   style={{ animationDelay: '0.1s' }}
                 />
                 <div
-                  className="w-2.5 h-2.5 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full animate-bounce shadow-sm"
+                  className="w-2.5 h-2.5 bg-gradient-to-br from-stone-600 to-amber-600 rounded-full animate-bounce shadow-sm"
                   style={{ animationDelay: '0.2s' }}
                 />
                 <span className="ml-2 text-sm text-gray-500 dark:text-gray-400 font-light">Thinking...</span>
@@ -304,7 +304,7 @@ export default function ChatInterface() {
       </div>
 
       {/* Enhanced Input Area */}
-      <div className="relative p-6 bg-gradient-to-r from-rose-50/60 via-white/90 to-purple-50/60 dark:from-rose-900/20 dark:via-gray-800/90 dark:to-purple-900/20 backdrop-blur-sm border-t border-white/50 dark:border-gray-700/50">
+      <div className="relative p-6 bg-gradient-to-r from-amber-50/60 via-white/90 to-stone-100/60 dark:from-amber-950/15 dark:via-gray-800/90 dark:to-stone-800/15 border-t border-stone-200 dark:border-stone-800">
           {/* Subtle pattern overlay */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.02)_1px,transparent_0)] bg-[size:24px_24px]" />
 
@@ -316,17 +316,17 @@ export default function ChatInterface() {
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder="Share your thoughts, dreams, and preferences..."
-                className="w-full px-6 py-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-2 border-gray-200/50 dark:border-gray-700/50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-rose-300/50 dark:focus:ring-rose-500/50 focus:border-rose-300 dark:focus:border-rose-500 transition-all duration-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 text-gray-900 dark:text-white font-light shadow-md dark:shadow-gray-900/30 hover:shadow-lg focus:shadow-xl"
+                className="w-full px-6 py-4 bg-white/95 dark:bg-gray-800/95 border-2 border-stone-200 dark:border-stone-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-amber-700/20/50 dark:focus:ring-amber-700/30/50 focus:border-amber-300 dark:focus:border-amber-700 transition-all duration-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 text-gray-900 dark:text-white font-light shadow-md dark:shadow-gray-900/30 hover:shadow-lg focus:shadow-xl"
                 disabled={isLoading}
               />
               {/* Decorative accent when focused */}
-              <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300" />
+              <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-stone-900 dark:bg-stone-100 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300" />
             </div>
 
             <button
               onClick={handleSend}
               disabled={isLoading || !input.trim()}
-              className="relative px-8 py-4 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-2xl font-medium hover:shadow-2xl hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-300 shadow-xl shadow-rose-300/40 flex items-center gap-2 overflow-hidden group"
+              className="relative px-8 py-4 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-2xl font-medium hover:shadow-2xl hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-300 shadow-xl shadow-amber-300/40 flex items-center gap-2 overflow-hidden group"
             >
               {/* Button shine effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
@@ -349,12 +349,12 @@ export default function ChatInterface() {
 
           <div className="flex items-center justify-center gap-3 mt-3 text-xs text-gray-500 dark:text-gray-400 font-light relative">
             <span>Press</span>
-            <span className="inline-flex items-center gap-1 px-2 py-1 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-300 font-mono shadow-sm">
+            <span className="inline-flex items-center gap-1 px-2 py-1 bg-white dark:bg-stone-900 rounded-lg border border-stone-200 dark:border-stone-700 text-gray-600 dark:text-gray-300 font-mono shadow-sm">
               <kbd className="text-xs">Enter</kbd>
             </span>
             <span>to send</span>
             <span className="text-gray-300 dark:text-gray-600">·</span>
-            <span className="inline-flex items-center gap-1 px-2 py-1 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 text-gray-600 dark:text-gray-300 font-mono shadow-sm">
+            <span className="inline-flex items-center gap-1 px-2 py-1 bg-white dark:bg-stone-900 rounded-lg border border-stone-200 dark:border-stone-700 text-gray-600 dark:text-gray-300 font-mono shadow-sm">
               <kbd className="text-xs">Shift</kbd>
               <span>+</span>
               <kbd className="text-xs">Enter</kbd>

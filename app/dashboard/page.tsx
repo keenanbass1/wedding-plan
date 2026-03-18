@@ -73,31 +73,31 @@ export default async function DashboardPage() {
   const recentOutreach = outreach.slice(0, 5)
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-rose-50 via-white to-purple-50 dark:from-gray-900 dark:via-slate-900 dark:to-purple-950">
+    <main className="relative min-h-screen bg-stone-50 dark:bg-gray-950">
       {/* Header */}
       <Header />
 
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-rose-200/30 to-pink-200/20 dark:from-rose-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/20 dark:from-purple-900/20 dark:to-pink-900/10 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-stone-200/20 to-stone-100/10 dark:from-stone-800/20 dark:to-stone-900/10 rounded-full blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.03)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgb(255_255_255/0.03)_1px,transparent_0)] bg-[size:32px_32px]" />
       </div>
 
       <div className="relative">
         {/* Header */}
-        <div className="border-b border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl">
+        <div className="border-b border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900">
           <div className="max-w-7xl mx-auto px-6 py-8">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-400 to-purple-400 flex items-center justify-center shadow-lg dark:shadow-gray-900/30">
+                <div className="w-12 h-12 rounded-2xl bg-stone-900 dark:bg-stone-100 flex items-center justify-center shadow-lg dark:shadow-gray-900/30">
                   <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 </div>
                 <div>
                   <h1 className="text-3xl font-serif font-light tracking-tight">
-                    <span className="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+                    <span className="bg-stone-900 dark:bg-stone-100 bg-clip-text text-transparent">
                       Wedding Dashboard
                     </span>
                   </h1>
@@ -110,13 +110,13 @@ export default async function DashboardPage() {
               <div className="flex items-center gap-3">
                 <Link
                   href="/vendors"
-                  className="px-4 py-2 text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 rounded-lg transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-stone-700 dark:text-stone-300 hover:text-purple-700 dark:hover:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800/30 rounded-lg transition-colors"
                 >
                   Browse Vendors
                 </Link>
                 <Link
                   href="/chat"
-                  className="px-4 py-2 text-sm font-medium text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded-lg transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-amber-800 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/20 rounded-lg transition-colors"
                 >
                   Chat Assistant
                 </Link>
@@ -133,10 +133,10 @@ export default async function DashboardPage() {
                 {/* Icon */}
                 <div className="flex justify-center">
                   <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-rose-400 to-purple-400 rounded-full blur-2xl opacity-20" />
-                    <div className="relative w-32 h-32 rounded-full bg-gradient-to-br from-rose-100 to-purple-100 dark:from-rose-900/30 dark:to-purple-900/30 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-stone-900 dark:bg-stone-100 rounded-full blur-2xl opacity-20" />
+                    <div className="relative w-32 h-32 rounded-full bg-gradient-to-br from-amber-100 to-stone-100 dark:from-amber-950/20 dark:to-stone-800/20 flex items-center justify-center">
                       <svg
-                        className="w-16 h-16 text-rose-400"
+                        className="w-16 h-16 text-amber-700"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -156,7 +156,7 @@ export default async function DashboardPage() {
                 <div className="space-y-4">
                   <h2 className="text-4xl font-serif font-light text-gray-900 dark:text-white">
                     Welcome to Your{' '}
-                    <span className="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+                    <span className="bg-stone-900 dark:bg-stone-100 bg-clip-text text-transparent">
                       Wedding Dashboard
                     </span>
                   </h2>
@@ -169,8 +169,8 @@ export default async function DashboardPage() {
                 {/* CTA */}
                 <div className="pt-4">
                   <Link href="/questionnaire" className="group relative inline-block">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 to-purple-400 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-                    <div className="relative px-8 py-4 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-2xl font-medium hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3">
+                    <div className="absolute -inset-1 bg-stone-900 dark:bg-stone-100 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                    <div className="relative px-8 py-4 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-2xl font-medium hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3">
                       <svg
                         className="w-5 h-5"
                         fill="none"
@@ -251,13 +251,13 @@ export default async function DashboardPage() {
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white dark:bg-stone-900 rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 animate-fadeIn"
               style={{ animationDelay: '100ms' }}
             >
               <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/20 dark:to-amber-950/20 flex items-center justify-center">
                   <svg
-                    className="w-6 h-6 text-rose-600 dark:text-rose-400"
+                    className="w-6 h-6 text-amber-800 dark:text-amber-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -278,7 +278,7 @@ export default async function DashboardPage() {
             </div>
 
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white dark:bg-stone-900 rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 animate-fadeIn"
               style={{ animationDelay: '200ms' }}
             >
               <div className="flex items-center justify-between mb-4">
@@ -305,7 +305,7 @@ export default async function DashboardPage() {
             </div>
 
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white dark:bg-stone-900 rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 animate-fadeIn"
               style={{ animationDelay: '300ms' }}
             >
               <div className="flex items-center justify-between mb-4">
@@ -338,13 +338,13 @@ export default async function DashboardPage() {
             </div>
 
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white dark:bg-stone-900 rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 animate-fadeIn"
               style={{ animationDelay: '400ms' }}
             >
               <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-stone-100 to-amber-100 dark:from-stone-800/20 dark:to-amber-950/20 flex items-center justify-center">
                   <svg
-                    className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                    className="w-6 h-6 text-stone-700 dark:text-stone-300"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -369,13 +369,13 @@ export default async function DashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <Link
               href="/dashboard/outreach"
-              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 hover:shadow-2xl dark:hover:shadow-gray-900/40 hover:border-rose-200 dark:hover:border-rose-700 transition-all duration-300 animate-fadeIn"
+              className="group bg-white dark:bg-stone-900 rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 hover:shadow-2xl dark:hover:shadow-gray-900/40 hover:border-amber-200 dark:hover:border-amber-900 transition-all duration-300 animate-fadeIn"
               style={{ animationDelay: '500ms' }}
             >
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/20 dark:to-amber-950/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <svg
-                    className="w-7 h-7 text-rose-600 dark:text-rose-400"
+                    className="w-7 h-7 text-amber-800 dark:text-amber-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -397,7 +397,7 @@ export default async function DashboardPage() {
                   </p>
                 </div>
                 <svg
-                  className="w-6 h-6 text-gray-400 dark:text-gray-500 group-hover:text-rose-600 dark:group-hover:text-rose-400 group-hover:translate-x-1 transition-all"
+                  className="w-6 h-6 text-gray-400 dark:text-gray-500 group-hover:text-amber-800 dark:group-hover:text-amber-700 group-hover:translate-x-1 transition-all"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -414,13 +414,13 @@ export default async function DashboardPage() {
 
             <Link
               href="/dashboard/responses"
-              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 hover:shadow-2xl dark:hover:shadow-gray-900/40 hover:border-purple-200 dark:hover:border-purple-700 transition-all duration-300 animate-fadeIn"
+              className="group bg-white dark:bg-stone-900 rounded-2xl p-5 sm:p-6 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 hover:shadow-2xl dark:hover:shadow-gray-900/40 hover:border-stone-200 dark:hover:border-purple-700 transition-all duration-300 animate-fadeIn"
               style={{ animationDelay: '600ms' }}
             >
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-stone-100 to-stone-200 dark:from-stone-800/20 dark:to-indigo-900/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <svg
-                    className="w-7 h-7 text-purple-600 dark:text-purple-400"
+                    className="w-7 h-7 text-stone-700 dark:text-stone-300"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -440,7 +440,7 @@ export default async function DashboardPage() {
                   <p className="text-sm text-gray-600 dark:text-gray-300 font-light">Review quotes and replies</p>
                 </div>
                 <svg
-                  className="w-6 h-6 text-gray-400 dark:text-gray-500 group-hover:text-purple-600 dark:group-hover:text-purple-400 group-hover:translate-x-1 transition-all"
+                  className="w-6 h-6 text-gray-400 dark:text-gray-500 group-hover:text-stone-700 dark:group-hover:text-stone-500 group-hover:translate-x-1 transition-all"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -459,17 +459,17 @@ export default async function DashboardPage() {
           {/* Recent Activity */}
           {recentOutreach.length > 0 && (
             <div
-              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-lg dark:shadow-gray-900/30 border border-white/50 dark:border-gray-700/50 animate-fadeIn"
+              className="bg-white dark:bg-stone-900 rounded-xl p-6 sm:p-8 shadow-lg dark:shadow-gray-900/30 border border-stone-200 dark:border-stone-800 animate-fadeIn"
               style={{ animationDelay: '700ms' }}
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-300" />
+                  <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-300" />
                   <h2 className="text-2xl font-serif font-medium text-gray-900 dark:text-white">Recent Activity</h2>
                 </div>
                 <Link
                   href="/dashboard/outreach"
-                  className="text-sm text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-medium hover:underline transition-colors"
+                  className="text-sm text-amber-800 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-300 font-medium hover:underline transition-colors"
                 >
                   View All
                 </Link>
@@ -480,7 +480,7 @@ export default async function DashboardPage() {
                   <Link
                     key={outreach.id}
                     href={`/dashboard/vendor/${outreach.vendorId}`}
-                    className="flex items-center gap-4 p-4 rounded-xl hover:bg-rose-50/50 dark:hover:bg-rose-900/20 transition-colors group"
+                    className="flex items-center gap-4 p-4 rounded-xl hover:bg-amber-50/50 dark:hover:bg-amber-950/15 transition-colors group"
                   >
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gray-100 to-gray-50 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center flex-shrink-0">
                       <svg
@@ -502,7 +502,7 @@ export default async function DashboardPage() {
                         <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate">
                           {outreach.vendor.name}
                         </h4>
-                        <span className="px-2 py-0.5 bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 rounded-lg text-xs font-medium flex-shrink-0">
+                        <span className="px-2 py-0.5 bg-amber-50 dark:bg-amber-950/20 text-amber-900 dark:text-amber-300 rounded-lg text-xs font-medium flex-shrink-0">
                           {outreach.vendor.category}
                         </span>
                       </div>
@@ -525,7 +525,7 @@ export default async function DashboardPage() {
                       </p>
                     </div>
                     <svg
-                      className="w-5 h-5 text-gray-400 dark:text-gray-500 group-hover:text-rose-600 dark:group-hover:text-rose-400 group-hover:translate-x-1 transition-all flex-shrink-0"
+                      className="w-5 h-5 text-gray-400 dark:text-gray-500 group-hover:text-amber-800 dark:group-hover:text-amber-700 group-hover:translate-x-1 transition-all flex-shrink-0"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -546,9 +546,9 @@ export default async function DashboardPage() {
           {/* Empty state */}
           {stats.totalContacted === 0 && (
             <div className="text-center py-16 animate-fadeIn">
-              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 rounded-full flex items-center justify-center">
+              <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-950/20 dark:to-amber-950/20 rounded-full flex items-center justify-center">
                 <svg
-                  className="w-10 h-10 text-rose-400"
+                  className="w-10 h-10 text-amber-700"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -569,8 +569,8 @@ export default async function DashboardPage() {
                 clicks.
               </p>
               <Link href="/vendors" className="group relative inline-block">
-                <div className="absolute -inset-1 bg-gradient-to-r from-rose-400 to-purple-400 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-                <div className="relative px-8 py-4 bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 text-white rounded-xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                <div className="absolute -inset-1 bg-stone-900 dark:bg-stone-100 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                <div className="relative px-8 py-4 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2">
                   <span>Browse Vendors</span>
                   <svg
                     className="w-5 h-5 group-hover:translate-x-1 transition-transform"
