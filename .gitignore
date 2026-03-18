@@ -46,3 +46,5 @@ playwright-report/
 test-results/
 .env.vercel-backup
 .env.production
+
+screenshots/
